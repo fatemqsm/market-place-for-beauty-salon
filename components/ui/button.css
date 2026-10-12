@@ -1,0 +1,38 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.8rem;
+  padding: 0.55rem 1.05rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: 2px solid #24181c;
+  outline-offset: 2px;
+}
+
+.button-primary {
+  background: #24181c;
+  color: #fff;
+}
+
+.button-primary:hover {
+  background: #3a2a2e;
+}
+
+.button-secondary {
+  background: #fff;
+  color: #24181c;
+  box-shadow:
+    0 1px 2px rgba(36, 24, 28, 0.05),
+    0 0 0 1px rgba(36, 24, 28, 0.06);
+}
+
+.button-secondary:hover {
+  background: #fafafa;
+}
