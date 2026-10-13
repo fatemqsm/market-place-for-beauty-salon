@@ -5,7 +5,13 @@ import { useId, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { PersianCalendar } from "./persian-calendar-grid";
-import { fromDateKey, shortDateFormatter, startOfDay, addDays, toDateKey } from "./persian-calendar";
+import {
+  fromDateKey,
+  shortDateFormatter,
+  startOfDay,
+  addDays,
+  toDateKey,
+} from "./persian-calendar";
 import {
   searchChipClassName,
   searchErrorClassName,
@@ -26,12 +32,20 @@ export function describeTime(criteria: SearchCriteria) {
   if (criteria.timeSlot === "custom") {
     parts.push(`${criteria.customFrom} تا ${criteria.customTo}`);
   } else if (criteria.timeSlot !== "any") {
-    parts.push(timeSlots.find((slot) => slot.id === criteria.timeSlot)?.label ?? "");
+    parts.push(
+      timeSlots.find((slot) => slot.id === criteria.timeSlot)?.label ?? "",
+    );
   }
   return parts.join("، ");
 }
 
-export function TimeField({ open, onOpenChange, size = "default", autoFocus, className }: SearchFieldProps) {
+export function TimeField({
+  open,
+  onOpenChange,
+  size = "default",
+  autoFocus,
+  className,
+}: SearchFieldProps) {
   const { criteria } = useSearch();
   const id = useId();
   const panelId = `${id}-panel`;
@@ -44,7 +58,12 @@ export function TimeField({ open, onOpenChange, size = "default", autoFocus, cla
   }
 
   return (
-    <SearchPopover open={open} onOpenChange={onOpenChange} triggerRef={triggerRef} className={className}>
+    <SearchPopover
+      open={open}
+      onOpenChange={onOpenChange}
+      triggerRef={triggerRef}
+      className={className}
+    >
       <button
         ref={triggerRef}
         type="button"
@@ -53,11 +72,17 @@ export function TimeField({ open, onOpenChange, size = "default", autoFocus, cla
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
         onClick={() => onOpenChange(!open)}
-        className={searchFieldClassName({ size, filled: Boolean(summary), active: open })}
+        className={searchFieldClassName({
+          size,
+          filled: Boolean(summary),
+          active: open,
+        })}
       >
         <CalendarIcon className="shrink-0 text-text-secondary" />
         <span className="sr-only">زمان: </span>
-        <span className={searchFieldLabelClassName}>{summary || "انتخاب زمان"}</span>
+        <span className={searchFieldLabelClassName}>
+          {summary || "انتخاب زمان"}
+        </span>
       </button>
       {open && <TimePanel id={panelId} onDone={close} />}
     </SearchPopover>
@@ -79,7 +104,13 @@ function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
 }
 
 /** Day shortcuts, calendar, and time slots; shared by the time popover and the mobile filter sheet. */
-export function TimePanelContent({ idPrefix, onDone }: { idPrefix: string; onDone: () => void }) {
+export function TimePanelContent({
+  idPrefix,
+  onDone,
+}: {
+  idPrefix: string;
+  onDone: () => void;
+}) {
   const { criteria, update, errors } = useSearch();
   const errorId = `${idPrefix}-error`;
   const today = startOfDay(new Date());
@@ -97,22 +128,33 @@ export function TimePanelContent({ idPrefix, onDone }: { idPrefix: string; onDon
             type="button"
             aria-pressed={criteria.date === day.key}
             onClick={() => update({ date: day.key })}
-            className={searchChipClassName(criteria.date === day.key, "focus-ring-2")}
+            className={searchChipClassName(
+              criteria.date === day.key,
+              "focus-ring-2",
+            )}
           >
             {day.label}
           </button>
         ))}
       </div>
 
-      <PersianCalendar value={criteria.date} onChange={(date) => update({ date })} />
+      <PersianCalendar
+        value={criteria.date}
+        onChange={(date) => update({ date })}
+      />
 
       <fieldset>
-        <legend className="mb-2 text-sm font-semibold text-ink">بازه زمانی</legend>
+        <legend className="mb-2 text-sm font-semibold text-ink z-10000">
+          بازه زمانی
+        </legend>
         <div className="flex flex-wrap gap-2">
           {timeSlots.map((slot) => (
             <label
               key={slot.id}
-              className={searchChipClassName(criteria.timeSlot === slot.id, "focus-ring-2 gap-1 px-3")}
+              className={searchChipClassName(
+                criteria.timeSlot === slot.id,
+                "focus-ring-2 gap-1 px-3",
+              )}
             >
               <input
                 type="radio"
@@ -123,7 +165,9 @@ export function TimePanelContent({ idPrefix, onDone }: { idPrefix: string; onDon
                 className="sr-only"
               />
               {slot.label}
-              {slot.hours && <span className="text-xs font-normal">({slot.hours})</span>}
+              {slot.hours && (
+                <span className="text-xs font-normal">({slot.hours})</span>
+              )}
             </label>
           ))}
         </div>
@@ -147,7 +191,11 @@ export function TimePanelContent({ idPrefix, onDone }: { idPrefix: string; onDon
               onChange={(customTo) => update({ customTo })}
             />
           </div>
-          <p id={errorId} role="alert" className={cn(searchErrorClassName, "empty:hidden")}>
+          <p
+            id={errorId}
+            role="alert"
+            className={cn(searchErrorClassName, "empty:hidden")}
+          >
             {errors.time}
           </p>
         </div>
@@ -177,7 +225,13 @@ type HourSelectProps = {
   onChange: (value: string) => void;
 };
 
-function HourSelect({ label, value, invalid, errorId, onChange }: HourSelectProps) {
+function HourSelect({
+  label,
+  value,
+  invalid,
+  errorId,
+  onChange,
+}: HourSelectProps) {
   return (
     <label className="flex flex-1 flex-col gap-1 text-sm font-semibold text-ink">
       {label}

@@ -67,7 +67,10 @@ export function CompactSearchBar({ onInvalid }: CompactSearchBarProps) {
   function panelProps(panel: Panel) {
     return {
       open: openPanel === panel,
-      onOpenChange: (open: boolean) => setOpenPanel((current) => (open ? panel : current === panel ? null : current)),
+      onOpenChange: (open: boolean) =>
+        setOpenPanel((current) =>
+          open ? panel : current === panel ? null : current,
+        ),
       size: "compact" as const,
       autoFocus: openPanel === panel,
       className: "flex-1",
@@ -95,7 +98,11 @@ export function CompactSearchBar({ onInvalid }: CompactSearchBarProps) {
       ref={rootRef}
       className="mx-auto flex min-h-19.5 max-w-344 items-center justify-between gap-4 rounded-2xl border border-border bg-background/75 px-4 shadow-glass backdrop-blur-md"
     >
-      <Link href="/" aria-label="وریفام، صفحه اصلی" className="focus-ring-4 shrink-0 rounded-sm">
+      <Link
+        href="/"
+        aria-label="وریفام، صفحه اصلی"
+        className="focus-ring-4 shrink-0 rounded-sm"
+      >
         <Wordmark />
       </Link>
 
@@ -126,13 +133,19 @@ export function CompactSearchBar({ onInvalid }: CompactSearchBarProps) {
               className={cn(
                 "focus-ring-0 flex h-10 min-w-0 flex-1 cursor-pointer items-center justify-center px-4 text-lg font-semibold whitespace-nowrap transition-colors duration-fast ease-standard hover:bg-hover hover:text-ink",
                 segmentIsSet(segment.panel) ? "text-ink" : "text-text-muted",
-                index < segments.length - 1 ? "border-l border-border" : "rounded-e-3xl",
+                index < segments.length - 1
+                  ? "border-l border-border"
+                  : "rounded-e-3xl",
               )}
             >
               <span className="truncate">{segment.label}</span>
             </button>
           ))}
-          <Button aria-label="جستجو" onClick={search} className="h-10 w-16 shrink-0 rounded-4xl px-0">
+          <Button
+            aria-label="جستجو"
+            onClick={search}
+            className="h-10 w-16 shrink-0 rounded-4xl px-0"
+          >
             <SearchIcon width={16} height={16} />
           </Button>
         </div>
