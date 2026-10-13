@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { CarouselNavIcon, NavigateNextIcon } from "@/components/icons";
 import { useId, useRef, useState } from "react";
 import { SalonCard } from "./salon-card";
 import type { SalonCarouselItem } from "./salons";
@@ -69,7 +69,7 @@ export function SalonCarousel({ title, items, gradientTitle = false, className =
           {title}
         </h2>
         <div className="relative flex h-7.5 w-22.5 shrink-0 lg:hidden">
-          <Image src="/home/carousel-nav.svg" alt="" fill className="pointer-events-none" />
+          <CarouselNavIcon className="pointer-events-none absolute inset-0 size-full text-accent" />
           <button
             type="button"
             aria-controls={scrollerId}
@@ -108,7 +108,7 @@ export function SalonCarousel({ title, items, gradientTitle = false, className =
           onClick={atEnd ? undefined : () => scrollByCards(1)}
           className="focus-ring-2 hidden size-15.75 shrink-0 items-center justify-center rounded-full transition-opacity not-aria-disabled:cursor-pointer aria-disabled:opacity-40 lg:flex"
         >
-          <Image src="/home/navigate-next.svg" alt="" width={63} height={63} className="-scale-x-100" />
+          <NavigateNextIcon className="-scale-x-100 text-text-secondary" />
         </button>
       </div>
     </section>

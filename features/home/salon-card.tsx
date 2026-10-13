@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { HeartIcon } from "./icons";
+import { HeartIcon, PinIcon, StarIcon } from "@/components/icons";
 import { salonListing } from "./salons";
 
 type SalonCardProps = {
@@ -16,14 +15,14 @@ export function SalonCard({ saved, onToggleSave }: SalonCardProps) {
           <h3 className="text-base leading-none font-semibold text-ink">{salonListing.name}</h3>
           <p className="flex items-center gap-1.25 text-base leading-none font-semibold text-ink">
             <span className="sr-only">امتیاز</span>
-            <Image src="/home/star.svg" alt="" width={24} height={24} />
+            <StarIcon className="text-stars" />
             <span dir="ltr" className="w-7.25 text-right">
               {salonListing.rating}
             </span>
           </p>
         </div>
         <p className="flex h-4.5 items-end gap-2 text-xs leading-none text-ink">
-          <Image src="/home/card-pin.svg" alt="" width={12} height={14} />
+          <PinIcon className="text-accent" />
           {salonListing.area}
         </p>
         <p className="flex h-4.25 items-end text-xs leading-none text-text-secondary">

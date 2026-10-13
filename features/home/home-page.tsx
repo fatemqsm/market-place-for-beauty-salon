@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { HeroBackground, MidBackground, MobileHeroBackground } from "@/components/icons";
 import { BusinessCta } from "./business-cta";
 import { HeroSection } from "./hero-section";
 import { SalonCarousel } from "./salon-carousel";
@@ -16,17 +16,17 @@ export function HomePage() {
       <StickySearchHeader />
       <div className="relative isolate overflow-clip">
         <div aria-hidden="true" className="pointer-events-none absolute -top-2.75 -right-12.25 -left-15.25 -z-10 h-215.5 lg:hidden">
-          <Image src="/home/mobile-hero-bg.svg" alt="" fill preload sizes="100vw" />
+          <MobileHeroBackground preserveAspectRatio="none" className="size-full" />
         </div>
         <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-310.75 max-lg:hidden">
-          <Image src="/home/hero-bg.svg" alt="" fill preload sizes="100vw" className="object-cover object-top" />
+          <HeroBackground preserveAspectRatio="xMidYMin slice" className="size-full" />
         </div>
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-143.25 -z-10 aspect-[1442/842.7] @container max-lg:hidden"
         >
           <div className="absolute top-1/2 left-1/2 h-[100cqw] w-[58.23cqw] -translate-x-1/2 -translate-y-1/2 rotate-[-90.16deg]">
-            <Image src="/home/mid-bg.svg" alt="" fill sizes="100vw" />
+            <MidBackground preserveAspectRatio="none" className="size-full" />
           </div>
         </div>
 

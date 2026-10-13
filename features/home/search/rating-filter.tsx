@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { CheckboxIcon, StarOutlineIcon } from "@/components/icons";
 import { useId, useRef } from "react";
-import { CheckboxIcon } from "../icons";
 import { useSearch } from "./search-context";
 import { ratingOptions } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
@@ -33,7 +32,7 @@ export function RatingFilter({ open, onOpenChange, className }: SearchFieldProps
         data-active={open ? "" : undefined}
         className="search-field text-text-secondary"
       >
-        <Image src="/home/star-outline.svg" alt="" width={25} height={25} className="shrink-0" />
+        <StarOutlineIcon className="shrink-0 text-text-secondary" />
         <span className="sr-only">امتیاز: </span>
         <span className="search-field-label">{summary}</span>
       </button>

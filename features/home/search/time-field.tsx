@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { CalendarIcon } from "@/components/icons";
 import { useId, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { PersianCalendar } from "./persian-calendar-grid";
@@ -49,7 +49,7 @@ export function TimeField({ open, onOpenChange, size = "default", autoFocus, cla
         data-active={open ? "" : undefined}
         className="search-field"
       >
-        <Image src="/home/calendar.svg" alt="" width={24} height={24} className="shrink-0" />
+        <CalendarIcon className="shrink-0 text-text-secondary" />
         <span className="sr-only">زمان: </span>
         <span className="search-field-label">{summary || "انتخاب زمان"}</span>
       </button>

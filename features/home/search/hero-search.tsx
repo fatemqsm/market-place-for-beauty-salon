@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { CloseIcon, PencilIcon, SettingsIcon, TrashIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { LocationField } from "./location-field";
 import { PriceFilter } from "./price-filter";
@@ -80,7 +80,7 @@ export function HeroSearch() {
       onClick={() => setAdvancedOpen(!advanced)}
       className="h-14"
     >
-      <Image src="/home/settings.svg" alt="" width={18} height={21} />
+      <SettingsIcon width={18} height={21} />
       جستجو پیشرفته
     </Button>
   );
@@ -106,7 +106,7 @@ export function HeroSearch() {
         </Button>
         <Button variant="secondary" onClick={clearFilters} className="h-13.5 gap-2 lg:hidden">
           پاک کردن تمام فیلترها
-          <Image src="/home/trash.svg" alt="" width={22} height={22} />
+          <TrashIcon width={22} height={22} />
         </Button>
       </div>
 
@@ -119,11 +119,11 @@ export function HeroSearch() {
               onClick={() => setAdvancedOpen(false)}
               className="focus-ring-2 cursor-pointer rounded-lg"
             >
-              <Image src="/home/close.svg" alt="" width={51} height={35} />
+              <CloseIcon />
             </button>
             <div className="flex flex-wrap justify-end gap-2">
               <Button variant="secondary" onClick={clearFilters} className="h-14">
-                <Image src="/home/trash.svg" alt="" width={24} height={24} />
+                <TrashIcon />
                 پاک کردن تمام فیلترها
               </Button>
               {advancedToggle}
@@ -151,7 +151,7 @@ function SalonNameField({ className = "" }: { className?: string }) {
 
   return (
     <label className={`search-field cursor-text ${className}`} data-filled={criteria.salonName ? "" : undefined}>
-      <Image src="/home/pencil.svg" alt="" width={20} height={20} className="shrink-0" />
+      <PencilIcon width={20} height={20} className="shrink-0 text-text-secondary" />
       <span className="sr-only">نام سالن</span>
       <input
         type="search"

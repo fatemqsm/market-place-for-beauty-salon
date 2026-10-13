@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { PriceTagIcon } from "@/components/icons";
 import { useId, useRef } from "react";
 import { useSearch } from "./search-context";
 import { formatPrice, priceRange, toLatinDigits } from "./search-criteria";
@@ -44,7 +44,7 @@ export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps)
         data-invalid={invalid ? "" : undefined}
         className="search-field data-invalid:text-error"
       >
-        <Image src="/home/price-tag.svg" alt="" width={22} height={22} className="shrink-0" />
+        <PriceTagIcon width={22} height={22} className="shrink-0 text-text-secondary" />
         <span className="sr-only">قیمت: </span>
         <span dir="auto" className="search-field-label">
           {summary || "قیمت"}

@@ -1,26 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState, type CSSProperties, type FocusEvent } from "react";
+import { MenuToggleIcon } from "@/components/icons";
 import { buttonClassName } from "@/components/ui/button";
 import { useDismiss } from "./use-dismiss";
 
 type SiteMenuProps = {
   variant?: "header" | "compact";
 };
-
-type Icon = { src: string; width: number; height: number };
-
-const closedIcons: Record<NonNullable<SiteMenuProps["variant"]>, Icon> = {
-  header: { src: "/home/menu-toggle.svg", width: 78, height: 46 },
-  compact: { src: "/home/menu-toggle-compact.svg", width: 80, height: 48 },
-};
-
-const openIcon: Icon = { src: "/home/menu-toggle-open.svg", width: 78, height: 50 };
-const mobileClosedIcon: Icon = { src: "/home/menu-toggle-mobile.svg", width: 85, height: 50 };
-const mobileOpenIcon: Icon = { src: "/home/menu-toggle-mobile-open.svg", width: 85, height: 54 };
 
 const mobileQuery = "(width < 64rem)";
 // Distance from the bottom of the toggle to the top of the mobile sheet in the mobile Figma frame.
@@ -39,8 +28,6 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
   const [sheetTop, setSheetTop] = useState(0);
   const open = openOnPath === pathname;
   const responsive = variant === "header";
-  const desktopIcon = open ? openIcon : closedIcons[variant];
-  const mobileIcon = open ? mobileOpenIcon : mobileClosedIcon;
 
   useDismiss(rootRef, open, (reason) => {
     setOpenOnPath(null);
@@ -92,18 +79,10 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
         aria-expanded={open}
         aria-controls={panelId}
         onClick={toggle}
-        className={`focus-ring-2 flex cursor-pointer items-center justify-center rounded-full ${responsive ? "h-12.5 lg:h-11.5" : "h-12"}`}
+        className={`focus-ring-2 flex cursor-pointer items-center justify-center rounded-full text-ink ${responsive ? "h-12.5 lg:h-11.5" : "h-12"}`}
       >
-        {responsive && (
-          <Image src={mobileIcon.src} alt="" width={mobileIcon.width} height={mobileIcon.height} className="max-w-none lg:hidden" />
-        )}
-        <Image
-          src={desktopIcon.src}
-          alt=""
-          width={desktopIcon.width}
-          height={desktopIcon.height}
-          className={`max-w-none ${responsive ? "hidden lg:block" : ""}`}
-        />
+        {responsive && <MenuToggleIcon variant="mobile" open={open} className="max-w-none lg:hidden" />}
+        <MenuToggleIcon variant={variant} open={open} className={`max-w-none ${responsive ? "hidden lg:block" : ""}`} />
       </button>
       <nav
         id={panelId}

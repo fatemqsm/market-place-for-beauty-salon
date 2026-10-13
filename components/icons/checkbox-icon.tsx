@@ -1,34 +1,9 @@
 import type { SVGProps } from "react";
 
-// Glyphs that the design shows in more than one color. They draw with currentColor, so the parent's text color sets their color.
-type IconProps = SVGProps<SVGSVGElement>;
-
-export function SearchIcon(props: IconProps) {
-  return (
-    <svg width={18} height={18} viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true" {...props}>
-      <path d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z" />
-      <path d="M17 17L14 14" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-export function HeartIcon({ filled, ...props }: IconProps & { filled: boolean }) {
-  return (
-    <svg width={25} height={25} viewBox="0 0 25 25" aria-hidden="true" {...props}>
-      <path
-        d="M19.3334 13.913C15.0176 17.8696 12.5 19 12.5 19C12.5 19 9.98242 17.8696 5.66657 13.913C1.35073 9.95652 4.22796 6 7.8245 6C11.421 6 12.5 9.3913 12.5 9.3913C12.5 9.3913 13.579 6 17.1755 6C20.772 6 23.6493 9.95652 19.3334 13.913Z"
-        fill={filled ? "currentColor" : "none"}
-        stroke="currentColor"
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+type CheckboxIconProps = SVGProps<SVGSVGElement> & { checked?: boolean };
 
 // The tick stays white in both states, as in the design; only the box follows currentColor.
-export function CheckboxIcon({ checked, ...props }: IconProps & { checked: boolean }) {
+export function CheckboxIcon({ checked = false, ...props }: CheckboxIconProps) {
   return (
     <svg width={18} height={18} viewBox="0 0 18 18" fill="none" aria-hidden="true" {...props}>
       {checked ? (

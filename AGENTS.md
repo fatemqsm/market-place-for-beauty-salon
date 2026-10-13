@@ -20,6 +20,7 @@ Keep the root App Router. Create a directory only when real code needs it.
 
 - `app/`: routes, layouts, `loading` and `error` boundaries, and global CSS. Do not put shared components or domain logic in route files.
 - `components/ui/`: feature-independent primitives such as `Button`, `Input`, and `Loading`, once a real screen needs them.
+- `components/icons/`: every SVG as a React component that takes SVG props, one component per file. The only SVG files kept in `public/` are the gradients that CSS loads through `url()`. See "Icons and SVG assets" in `README.md`.
 - `features/<feature>/`: components, Zod schemas, types, and API calls that belong to one feature.
 - `lib/`: shared infrastructure, including `lib/api/` when a real HTTP client is implemented.
 - `hooks/`: a hook used by more than one feature.

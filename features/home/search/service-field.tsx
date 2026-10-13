@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useRef, useState, type KeyboardEvent } from "react";
-import { SearchIcon } from "../icons";
+import { SearchIcon } from "@/components/icons";
 import { useSearch } from "./search-context";
 import { serviceOptions } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";

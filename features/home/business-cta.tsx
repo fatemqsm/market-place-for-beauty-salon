@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { GlowEllipse } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 
 export function BusinessCta() {
@@ -12,7 +13,7 @@ export function BusinessCta() {
         aria-hidden="true"
         className="pointer-events-none absolute -top-208.75 -left-159.5 -z-10 h-[1869px] w-[1962.5px] -scale-y-100 lg:-top-189.75 lg:-left-61.75"
       >
-        <Image src="/home/glow-ellipse.svg" alt="" fill sizes="1963px" />
+        <GlowEllipse className="size-full" />
       </div>
       <div className="flex flex-col items-center gap-9 px-6.75 text-center lg:items-start lg:px-4 lg:text-start xl:absolute xl:top-0 xl:right-25.75 xl:z-10 xl:h-98.5 xl:w-124.25 xl:justify-center xl:px-0">
         <h2

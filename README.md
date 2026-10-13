@@ -134,19 +134,22 @@ The design defines no success, warning, info, link, or overlay colors, so there 
 
 ## Icons and SVG assets
 
-- **SVG files.** Static SVGs live in `public/home/` and render through `next/image`. An external SVG image cannot be recolored from CSS. Keep illustrations, backgrounds, gradients, and multicolor or brand assets as files.
-- **Icon components.** `features/home/icons.tsx` provides `SearchIcon`, `HeartIcon` (`filled`), and `CheckboxIcon` (`checked`). The design shows these glyphs in more than one color, so they draw with `currentColor`:
-  - Set their color with a text utility on the icon or its parent, for example `text-selected`.
-  - They accept every SVG prop, including `width`, `height`, `className`, and `strokeWidth`.
-  - They default to `aria-hidden="true"`.
-- **Before adding an asset,** search `public/home/` and `icons.tsx`.
-  - If an existing file differs only in color, convert it into an icon component rather than adding a second colored copy.
-  - Add a new file only for a new glyph or illustration.
+- **Location.** Every SVG is a React component in `components/icons/`, one component per file. Icons are named `<name>-icon.tsx` and export `<Name>Icon`, for example `trash-icon.tsx` exports `TrashIcon`. Decorative backgrounds keep a descriptive name, for example `HeroBackground` and `GlowEllipse`.
+- **Imports.** `components/icons/index.ts` re-exports every component. Import from the folder, for example `import { SearchIcon, TrashIcon } from "@/components/icons";`, and add each new component to `index.ts`.
+- **Props.** Each component accepts every SVG prop (`width`, `height`, `className`, `strokeWidth`, `preserveAspectRatio`, and so on), spread last so callers can override the defaults:
+  - The default `width` and `height` are the Figma size, and the `viewBox` never changes.
+  - Single-color glyphs draw with `currentColor`. Set the color with a text utility on the icon or its parent, for example `text-text-secondary` or `text-stars`.
+  - State variants are props: `HeartIcon` takes `filled`, `CheckboxIcon` takes `checked`, and `MenuToggleIcon` takes `variant` (`header`, `compact`, or `mobile`) and `open`.
+  - Components default to `aria-hidden="true"`.
+- **Fixed colors.** Backgrounds keep the gradient colors from Figma, and `CarouselNavIcon` fills its pill with the `surface` token. Gradient and filter IDs come from `useId`, so a component can render more than once on a page.
+- **Exception: CSS gradients.** `public/home/gradient-button.svg`, `gradient-title.svg`, and `gradient-hero-title.svg` stay files. CSS reads them through `url()` in the `--gradient-*` tokens for gradient text and the primary button background, which a React component cannot supply.
+- **Before adding an icon,** search `components/icons/`.
+  - If an existing icon differs only in color or size, use it with different props rather than adding a copy.
+  - If it differs only in state, add a prop to the existing component.
   - Do not add an icon library.
 - **Accessibility.**
-  - Decorative images use `alt=""`, and inline icons stay `aria-hidden`.
+  - Inline icons stay `aria-hidden`, and decorative images use `alt=""`.
   - An icon-only control puts its accessible name on the control, with `aria-label`, not on the icon.
-- **Scope.** `icons.tsx` stays in `features/home/` until another feature needs these icons. See AGENTS.md.
 
 ## CSS and Tailwind conventions
 

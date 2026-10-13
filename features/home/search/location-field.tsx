@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { LocationIcon } from "@/components/icons";
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import { useSearch } from "./search-context";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
@@ -81,7 +81,7 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
         data-active={open ? "" : undefined}
         className="search-field cursor-text"
       >
-        <Image src="/home/location.svg" alt="" width={25} height={25} className="shrink-0" />
+        <LocationIcon className="shrink-0 text-text-secondary" />
         <span className="sr-only">موقعیت مکانی</span>
         <input
           ref={inputRef}

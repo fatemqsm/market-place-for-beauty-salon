@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { SearchIcon } from "../icons";
+import { SearchIcon } from "@/components/icons";
 import { SiteMenu } from "../site-menu";
 import { useDismiss } from "../use-dismiss";
 import { Wordmark } from "../wordmark";

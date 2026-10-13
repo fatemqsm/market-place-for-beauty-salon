@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { LinkedinIcon, PhoneIcon, TelegramIcon } from "@/components/icons";
 import { Wordmark } from "./wordmark";
 
 const aboutItems = ["فرصت‌های شغلی", "بلاگ", "تماس با ما"];
@@ -27,16 +27,16 @@ export function SiteFooter() {
               href="tel:02176901531"
               className={`${contactClassName} focus-ring-2 rounded-sm`}
             >
-              <Image src="/home/phone.svg" alt="" width={19} height={21} className="mx-0.5" />
+              <PhoneIcon width={19} height={21} className="mx-0.5" />
               <span dir="ltr">02176901531</span>
             </a>
             <p className={contactClassName}>
-              <Image src="/home/linkedin.svg" alt="" width={22} height={22} />
+              <LinkedinIcon />
               <span className="sr-only">لینکدین:</span>
               <span dir="ltr">@VeriFam</span>
             </p>
             <p className={contactClassName}>
-              <Image src="/home/telegram.svg" alt="" width={23} height={23} />
+              <TelegramIcon />
               <span className="sr-only">تلگرام:</span>
               <span dir="ltr">@VeriFam</span>
             </p>
