@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState, type CSSProperties, type FocusEvent } from "react";
 import { MenuToggleIcon } from "@/components/icons";
 import { buttonClassName } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { useDismiss } from "./use-dismiss";
 
 type SiteMenuProps = {
@@ -79,10 +80,13 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
         aria-expanded={open}
         aria-controls={panelId}
         onClick={toggle}
-        className={`focus-ring-2 flex cursor-pointer items-center justify-center rounded-full text-ink ${responsive ? "h-12.5 lg:h-11.5" : "h-12"}`}
+        className={cn(
+          "focus-ring-2 flex cursor-pointer items-center justify-center rounded-full text-ink",
+          responsive ? "h-12.5 lg:h-11.5" : "h-12",
+        )}
       >
         {responsive && <MenuToggleIcon variant="mobile" open={open} className="max-w-none lg:hidden" />}
-        <MenuToggleIcon variant={variant} open={open} className={`max-w-none ${responsive ? "hidden lg:block" : ""}`} />
+        <MenuToggleIcon variant={variant} open={open} className={cn("max-w-none", responsive && "hidden lg:block")} />
       </button>
       <nav
         id={panelId}

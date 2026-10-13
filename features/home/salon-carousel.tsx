@@ -1,6 +1,7 @@
 "use client";
 
 import { CarouselNavIcon, NavigateNextIcon } from "@/components/icons";
+import { cn } from "@/lib/utils";
 import { useId, useRef, useState } from "react";
 import { SalonCard } from "./salon-card";
 import type { SalonCarouselItem } from "./salons";
@@ -15,7 +16,7 @@ type SalonCarouselProps = {
 const pillButtonClassName =
   "focus-ring-2 h-full flex-1 rounded-full not-aria-disabled:cursor-pointer";
 
-export function SalonCarousel({ title, items, gradientTitle = false, className = "" }: SalonCarouselProps) {
+export function SalonCarousel({ title, items, gradientTitle = false, className }: SalonCarouselProps) {
   const titleId = useId();
   const scrollerId = useId();
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -60,11 +61,14 @@ export function SalonCarousel({ title, items, gradientTitle = false, className =
   }
 
   return (
-    <section aria-labelledby={titleId} className={`me-auto w-full max-w-319.75 ${className}`}>
+    <section aria-labelledby={titleId} className={cn("me-auto w-full max-w-319.75", className)}>
       <div className="flex h-13 items-center justify-between gap-4">
         <h2
           id={titleId}
-          className={`flex h-full flex-1 items-center text-base leading-none font-semibold text-ink lg:text-2xl lg:font-medium ${gradientTitle ? "lg:text-gradient-title" : ""}`}
+          className={cn(
+            "flex h-full flex-1 items-center text-base leading-none font-semibold text-ink lg:text-2xl lg:font-medium",
+            gradientTitle && "lg:text-gradient-title",
+          )}
         >
           {title}
         </h2>

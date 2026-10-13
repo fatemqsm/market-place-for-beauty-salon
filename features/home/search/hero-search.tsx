@@ -3,9 +3,11 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { CloseIcon, PencilIcon, SettingsIcon, TrashIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { LocationField } from "./location-field";
 import { PriceFilter } from "./price-filter";
 import { RatingFilter } from "./rating-filter";
+import { searchFieldClassName, searchFieldInputClassName } from "./search-classes";
 import { useSearch } from "./search-context";
 import { heroSearchId } from "./search-criteria";
 import { ServiceField } from "./service-field";
@@ -139,18 +141,27 @@ export function HeroSearch() {
         <div className="mt-4 flex justify-end max-lg:hidden">{advancedToggle}</div>
       )}
 
-      <p role="status" className={`mt-4 text-center text-base font-semibold empty:hidden ${errors.form ? "text-error" : "text-ink"}`}>
+      <p
+        role="status"
+        className={cn("mt-4 text-center text-base font-semibold empty:hidden", errors.form ? "text-error" : "text-ink")}
+      >
         {message}
       </p>
     </form>
   );
 }
 
-function SalonNameField({ className = "" }: { className?: string }) {
+function SalonNameField({ className }: { className?: string }) {
   const { criteria, update } = useSearch();
 
   return (
-    <label className={`search-field cursor-text ${className}`} data-filled={criteria.salonName ? "" : undefined}>
+    <label
+      className={searchFieldClassName({
+        filled: Boolean(criteria.salonName),
+        active: false,
+        className: cn("cursor-text", className),
+      })}
+    >
       <PencilIcon width={20} height={20} className="shrink-0 text-text-secondary" />
       <span className="sr-only">نام سالن</span>
       <input
@@ -160,6 +171,7 @@ function SalonNameField({ className = "" }: { className?: string }) {
         placeholder="نام سالن"
         value={criteria.salonName}
         onChange={(event) => update({ salonName: event.target.value })}
+        className={searchFieldInputClassName}
       />
     </label>
   );

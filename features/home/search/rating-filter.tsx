@@ -2,6 +2,8 @@
 
 import { CheckboxIcon, StarOutlineIcon } from "@/components/icons";
 import { useId, useRef } from "react";
+import { cn } from "@/lib/utils";
+import { searchFieldClassName, searchFieldLabelClassName, searchPanelClassName } from "./search-classes";
 import { useSearch } from "./search-context";
 import { ratingOptions } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
@@ -28,19 +30,21 @@ export function RatingFilter({ open, onOpenChange, className }: SearchFieldProps
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => onOpenChange(!open)}
-        data-filled={criteria.ratings.length ? "" : undefined}
-        data-active={open ? "" : undefined}
-        className="search-field text-text-secondary"
+        className={searchFieldClassName({
+          filled: criteria.ratings.length > 0,
+          active: open,
+          className: "text-text-secondary",
+        })}
       >
         <StarOutlineIcon className="shrink-0 text-text-secondary" />
         <span className="sr-only">امتیاز: </span>
-        <span className="search-field-label">{summary}</span>
+        <span className={searchFieldLabelClassName}>{summary}</span>
       </button>
       <fieldset
         id={panelId}
         hidden={!open}
         tabIndex={-1}
-        className="search-panel w-84.5 max-w-full px-16 outline-none"
+        className={searchPanelClassName("w-84.5 max-w-full px-16 outline-none")}
       >
         <legend className="sr-only">امتیاز سالن</legend>
         <div className="flex flex-col gap-6">
@@ -68,7 +72,10 @@ type RatingOptionProps = {
 function RatingOption({ label, checked, onChange }: RatingOptionProps) {
   return (
     <label
-      className={`focus-ring-4 flex cursor-pointer items-center gap-2 rounded-sm text-base font-semibold ${checked ? "text-selected" : "text-text-secondary"}`}
+      className={cn(
+        "focus-ring-4 flex cursor-pointer items-center gap-2 rounded-sm text-base font-semibold",
+        checked ? "text-selected" : "text-text-secondary",
+      )}
     >
       <input type="checkbox" checked={checked} onChange={onChange} className="sr-only" />
       <CheckboxIcon checked={checked} />

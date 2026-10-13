@@ -2,9 +2,21 @@
 
 import { PriceTagIcon } from "@/components/icons";
 import { useId, useRef } from "react";
+import { cn } from "@/lib/utils";
+import {
+  searchErrorClassName,
+  searchFieldClassName,
+  searchFieldLabelClassName,
+  searchInputClassName,
+  searchPanelClassName,
+} from "./search-classes";
 import { useSearch } from "./search-context";
 import { formatPrice, priceRange, toLatinDigits } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
+
+// `price-range` styles the thumbs in search.css. The two sliders overlap, so the track ignores pointer events.
+const rangeClassName =
+  "price-range pointer-events-none absolute inset-x-0 top-1/2 m-0 h-3.5 w-full -translate-y-1/2 appearance-none bg-transparent";
 
 function clamp(value: number) {
   return Math.min(Math.max(value, priceRange.min), priceRange.max);
@@ -39,14 +51,15 @@ export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps)
         aria-controls={panelId}
         aria-describedby={invalid ? errorId : undefined}
         onClick={() => onOpenChange(!open)}
-        data-filled={summary ? "" : undefined}
-        data-active={open ? "" : undefined}
-        data-invalid={invalid ? "" : undefined}
-        className="search-field data-invalid:text-error"
+        className={searchFieldClassName({
+          filled: Boolean(summary),
+          active: open,
+          className: invalid ? "text-error" : undefined,
+        })}
       >
         <PriceTagIcon width={22} height={22} className="shrink-0 text-text-secondary" />
         <span className="sr-only">قیمت: </span>
-        <span dir="auto" className="search-field-label">
+        <span dir="auto" className={searchFieldLabelClassName}>
           {summary || "قیمت"}
         </span>
       </button>
@@ -54,7 +67,7 @@ export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps)
         id={panelId}
         hidden={!open}
         tabIndex={-1}
-        className="search-panel w-full min-w-75 px-16 outline-none"
+        className={searchPanelClassName("w-full min-w-75 px-16 outline-none")}
       >
         <legend className="sr-only">بازه قیمت</legend>
         <div className="flex flex-col gap-4">
@@ -87,7 +100,7 @@ export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps)
               value={sliderFrom}
               aria-valuetext={formatPrice(String(sliderFrom))}
               onChange={(event) => update({ priceFrom: String(Math.min(Number(event.target.value), sliderTo)) })}
-              className="price-range"
+              className={rangeClassName}
             />
             <input
               type="range"
@@ -98,10 +111,10 @@ export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps)
               value={sliderTo}
               aria-valuetext={formatPrice(String(sliderTo))}
               onChange={(event) => update({ priceTo: String(Math.max(Number(event.target.value), sliderFrom)) })}
-              className="price-range"
+              className={rangeClassName}
             />
           </div>
-          <p id={errorId} role="alert" className="search-error empty:hidden">
+          <p id={errorId} role="alert" className={cn(searchErrorClassName, "empty:hidden")}>
             {errors.price}
           </p>
         </div>
@@ -132,7 +145,7 @@ function PriceInput({ label, value, invalid, errorId, onChange }: PriceInputProp
         aria-invalid={invalid}
         aria-describedby={invalid ? errorId : undefined}
         onChange={(event) => onChange(toLatinDigits(event.target.value))}
-        className="search-input h-10.75 px-4 text-start text-base"
+        className={searchInputClassName(invalid, "h-10.75 px-4 text-start text-base")}
       />
     </label>
   );

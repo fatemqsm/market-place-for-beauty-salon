@@ -51,7 +51,7 @@ The path alias `@/*` maps to the repository root.
 
 - Keep Tailwind CSS v4 and the CSS-first setup in `app/globals.css`. Do not add `tailwind.config.*` or Tailwind v3 patterns unless that change is explicitly approved.
 - Use utility classes for one-off layout and simple composition.
-- When a base component repeats the same rules, put those rules in a stylesheet next to the component and load that stylesheet through the existing global CSS entry. Do not also duplicate those rules as utilities in JSX.
+- Follow "Styling conventions" in `README.md`: the styling hierarchy, `cn()` from `@/lib/utils` for conditional or merged classes, and plain CSS only for the listed exceptions.
 - Add design tokens through the current `@theme` approach when the approved design supplies the values. Leave Tailwind's default palette in place.
 - Follow the token, icon, focus, conflict, and canonical-class conventions in the "Design system" and "CSS and Tailwind conventions" sections of `README.md`.
 - Do not add CSS Modules or a second styling system unless an approved implementation needs it.

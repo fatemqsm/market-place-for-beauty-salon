@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { cn } from "@/lib/utils";
 import {
   addDays,
   fromDateKey,
@@ -121,7 +122,10 @@ export function PersianCalendar({ value, onChange }: PersianCalendarProps) {
               }}
               onKeyDown={(event) => handleKeyDown(event, key)}
               style={index === 0 ? { gridColumnStart: weekColumn(day) + 1 } : undefined}
-              className={`focus-ring-0 mx-auto flex size-9 items-center justify-center rounded-full text-sm font-semibold aria-[current=date]:border aria-[current=date]:border-accent ${dayStateClassName(past, selected)}`}
+              className={cn(
+                "focus-ring-0 mx-auto flex size-9 items-center justify-center rounded-full text-sm font-semibold aria-[current=date]:border aria-[current=date]:border-accent",
+                dayStateClassName(past, selected),
+              )}
             >
               {index + 1}
             </button>

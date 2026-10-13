@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HomeIcon, LoginIcon, PlusIcon, SearchIcon } from "@/components/icons";
+import { cn } from "@/lib/utils";
 import { heroSearchId } from "./search/search-criteria";
 
 const itemClassName = "focus-ring-2 flex h-15 flex-col items-center justify-end";
@@ -11,17 +12,17 @@ export function MobileBottomNav() {
       aria-label="ناوبری پایین صفحه"
       className="fixed inset-x-0 bottom-0 z-50 flex items-end justify-between rounded-t-lg bg-white px-6 text-text-secondary pb-2 drop-shadow-nav lg:hidden"
     >
-      <Link href="/" aria-current="page" className={`${itemClassName} w-16 gap-2 border-t-2 border-accent text-accent`}>
+      <Link href="/" aria-current="page" className={cn(itemClassName, "w-16 gap-2 border-t-2 border-accent text-accent")}>
         <HomeIcon />
         <span className={labelClassName}>خانه</span>
       </Link>
-      <Link href={`/#${heroSearchId}`} className={`${itemClassName} w-16 gap-2`}>
+      <Link href={`/#${heroSearchId}`} className={cn(itemClassName, "w-16 gap-2")}>
         <span className="flex size-6 items-center justify-center">
           <SearchIcon />
         </span>
         <span className={labelClassName}>جستجو</span>
       </Link>
-      <Link href="/#for-business" className={`${itemClassName} w-19 gap-2`}>
+      <Link href="/#for-business" className={cn(itemClassName, "w-19 gap-2")}>
         <PlusIcon />
         <span className={labelClassName}>افزودن کسب‌وکار</span>
       </Link>
@@ -29,7 +30,7 @@ export function MobileBottomNav() {
         type="button"
         aria-disabled="true"
         title="ورود به‌زودی فعال می‌شود"
-        className={`${itemClassName} w-14.25 cursor-not-allowed gap-1`}
+        className={cn(itemClassName, "w-14.25 cursor-not-allowed gap-1")}
       >
         <span className="flex size-5.25 items-center justify-center">
           <LoginIcon width={16} height={18} />

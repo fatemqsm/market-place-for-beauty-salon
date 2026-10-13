@@ -2,6 +2,12 @@
 
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import { SearchIcon } from "@/components/icons";
+import {
+  searchFieldClassName,
+  searchFieldLabelClassName,
+  searchOptionClassName,
+  searchPanelClassName,
+} from "./search-classes";
 import { useSearch } from "./search-context";
 import { serviceOptions } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
@@ -70,20 +76,17 @@ export function ServiceField({ open, onOpenChange, size = "default", autoFocus, 
         aria-activedescendant={open ? `${id}-option-${highlighted}` : undefined}
         onClick={() => (open ? onOpenChange(false) : openList())}
         onKeyDown={handleKeyDown}
-        data-size={size}
-        data-filled={criteria.service ? "" : undefined}
-        data-active={open ? "" : undefined}
-        className="search-field"
+        className={searchFieldClassName({ size, filled: Boolean(criteria.service), active: open })}
       >
         <SearchIcon className="shrink-0 text-text-secondary" />
-        <span className="search-field-label">{criteria.service || "انتخاب خدمات"}</span>
+        <span className={searchFieldLabelClassName}>{criteria.service || "انتخاب خدمات"}</span>
       </button>
       <ul
         id={listId}
         role="listbox"
         aria-labelledby={labelId}
         hidden={!open}
-        className="search-panel flex w-full min-w-60 flex-col gap-1 p-2"
+        className={searchPanelClassName("flex w-full min-w-60 flex-col gap-1 p-2")}
       >
         {serviceOptions.map((option, index) => (
           <li
@@ -91,11 +94,10 @@ export function ServiceField({ open, onOpenChange, size = "default", autoFocus, 
             id={`${id}-option-${index}`}
             role="option"
             aria-selected={option === criteria.service}
-            data-highlighted={index === highlighted ? "" : undefined}
             onMouseDown={(event) => event.preventDefault()}
             onMouseEnter={() => setHighlighted(index)}
             onClick={() => choose(index)}
-            className="search-option"
+            className={searchOptionClassName({ highlighted: index === highlighted, selected: option === criteria.service })}
           >
             {option}
           </li>

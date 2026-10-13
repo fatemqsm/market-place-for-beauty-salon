@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LinkedinIcon, PhoneIcon, TelegramIcon } from "@/components/icons";
+import { cn } from "@/lib/utils";
 import { Wordmark } from "./wordmark";
 
 const aboutItems = ["فرصت‌های شغلی", "بلاگ", "تماس با ما"];
@@ -25,7 +26,7 @@ export function SiteFooter() {
           <address className="flex w-35 flex-col items-start gap-2 not-italic max-lg:order-last max-lg:h-25.75">
             <a
               href="tel:02176901531"
-              className={`${contactClassName} focus-ring-2 rounded-sm`}
+              className={cn(contactClassName, "focus-ring-2 rounded-sm")}
             >
               <PhoneIcon width={19} height={21} className="mx-0.5" />
               <span dir="ltr">02176901531</span>
@@ -59,7 +60,7 @@ type FooterListProps = {
 
 function FooterList({ title, items, className }: FooterListProps) {
   return (
-    <section className={`text-text-secondary ${className}`}>
+    <section className={cn("text-text-secondary", className)}>
       <h2 className="text-lg font-semibold">{title}</h2>
       <ul className="mt-6.25 list-disc ps-6 text-base font-semibold">
         {items.map((item) => (

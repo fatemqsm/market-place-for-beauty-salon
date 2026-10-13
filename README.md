@@ -12,6 +12,7 @@ These versions are installed and recorded in `package.json` and `package-lock.js
 - React 19.3.0
 - TypeScript 5.9.3 (`typescript` is declared as `^5`)
 - Tailwind CSS 4.3.3 (`tailwindcss` is declared as `^4`)
+- `clsx` 2.1.1 and `tailwind-merge` 3.7.0, combined in the `cn()` helper in `lib/utils.ts`
 
 The App Router lives at the repository root in `app/`. There is no `src/` directory. `next.config.ts` enables `cacheComponents` and `partialPrefetching`.
 
@@ -52,6 +53,7 @@ No `typecheck`, test, format, or stylelint script is defined. Do not assume `lin
 1. `npm run lint` runs ESLint with the Next.js core-web-vitals and TypeScript configs.
 2. `npm run build` compiles the app and runs the TypeScript check. It is the only type check in the repository.
 3. Canonical-class and class-conflict warnings come from the Tailwind CSS IntelliSense editor extension (`suggestCanonicalClasses`, `cssConflict`), not from `npm run lint`. Check the Problems panel for the files you changed.
+4. For a styling change, check the result in the browser as described in [Validating a styling change](#validating-a-styling-change).
 
 ## Language, direction, and type
 
@@ -125,7 +127,8 @@ The design defines no success, warning, info, link, or overlay colors, so there 
 - **Spacing.** Use Tailwind's 0.25rem scale. Divide a Figma pixel value by 4: 343px is `max-w-85.75`, and 27px is `px-6.75`. Avoid arbitrary `[…px]` values when a step exists.
 - **No named spacing tokens.** The canonical-class check rewrites any equal value to the token's name, so a `gutter` token would also rename unrelated 27px heights. Use these steps instead:
   - Page gutter: `px-6.75 lg:px-18` (27px on phones, 72px from the `lg` breakpoint).
-  - Control heights: `h-11.5` (46px) for header and CTA buttons. Search controls are `h-13.5` (54px) on phones and `lg:h-14.5` (58px) on desktop; `.search-field` uses the same heights.
+  - Control heights: `h-11.5` (46px) for header and CTA buttons.
+  - Search controls are `h-13.5` (54px) on phones and `lg:h-14.5` (58px) on desktop, set in `searchFieldClassName`.
 - **Containers.** `max-w-page` (1440px) for full-width sections and `max-w-search` (1046px) for the search bar.
 - **Breakpoints.** The design has two layouts: phones below `lg` (64rem) and desktop from `lg`. `sm` and `xl` only adjust card width and the large CTA artwork.
 - **Type scale.** Use Tailwind's sizes. Figma's 30px is `text-3xl`, and 48px is `text-5xl`.
@@ -164,16 +167,85 @@ The design defines no success, warning, info, link, or overlay colors, so there 
   - Native `disabled`: `enabled:cursor-pointer enabled:hover:bg-hover disabled:opacity-30`.
   - `aria-disabled`: `not-aria-disabled:cursor-pointer aria-disabled:opacity-40`.
   - State that React already knows (selected day, checked option, saved heart): choose the class in TypeScript, as `dayStateClassName` in `persian-calendar-grid.tsx` does.
-  - A repeated control with several states: give it a class in the feature stylesheet, such as `.search-chip` or `.search-input` in `features/home/search/search.css`.
+  - A selector variant that must sit beside its base utility (`placeholder:`, `focus-visible:`): pass it to `cn()` as a separate argument, as `searchFieldInputClassName` does.
+  - A repeated control with several states: write a class-name helper that takes the state, such as `searchChipClassName` or `searchInputClassName` in `features/home/search/search-classes.ts`.
 - **Focus.** Use `focus-ring-<offset>` (`focus-ring-0`, `focus-ring-2`, `focus-ring-4`) from `app/globals.css`. It draws a 2px `--color-focus` outline on `:focus-visible`, and also on a label whose visually hidden input has focus. It skips `aria-invalid="true"` controls so they keep their error outline.
 - **Outline pitfall.** Do not combine `outline-none` with `outline-2` utilities. `outline-none` sets `--tw-outline-style: none`, which also hides the later outline.
-- **Component stylesheets.** `components/ui/button.css` and `features/home/search/search.css` are imported once in `app/globals.css` with `layer(components)`. Utilities in JSX can still override them. Read tokens there with `var(--…)`. Do not add `!important`.
+- **Component stylesheets.** Only `features/home/search/search.css` remains, for the reason given in [CSS exceptions](#css-exceptions). It is imported once in `app/globals.css` with `layer(components)`, so utilities in JSX can still override it. Read tokens there with `var(--…)`. Do not add `!important`.
+
+## Styling conventions
+
+### Styling hierarchy
+
+Use the first option that can express the style:
+
+1. **Utilities in JSX** for layout, spacing, and one-off composition.
+2. **Design tokens** from `@theme` (`bg-surface`, `shadow-box`, `max-w-search`) rather than raw values. See [Design system](#design-system).
+3. **Project utilities and variants** from `app/globals.css`: `focus-ring-*`, `text-gradient-*`, and `unavailable:`.
+4. **A class-name helper in TypeScript**, when a component repeats the same class list or chooses classes from its state. Examples are `buttonClassName` in `components/ui/button.tsx` and the helpers in `features/home/search/search-classes.ts`. Keep the helper beside the component that owns it, and move it to `components/ui/` only when a second feature needs it.
+5. **A CSS rule**, only when Tailwind cannot express the style. See [CSS exceptions](#css-exceptions).
+
+A component owns its base look and its variants. A caller passes only placement through `className`, such as height, margin, width, or visibility, and does not restyle the component.
+
+### Composing classes with `cn()`
+
+`cn()` in `lib/utils.ts` passes its arguments through `clsx` and then `tailwind-merge`. Import it from `@/lib/utils`.
+
+- **When to use it.** Use it when a class list has a condition or merges a `className` prop. A fixed string needs no `cn()`.
+- **Conditions.** Write `condition && "classes"` or a ternary, such as `selected ? "text-selected" : "text-text-secondary"`.
+- **The `className` prop goes last**, so a caller's utility replaces the default from the same group. For example, `className="px-0"` replaces `Button`'s `px-8`.
+- **State selector variants.** Pass `placeholder:`, `focus-visible:`, and similar variants as a separate argument from the utility they override. See [Conflicts](#css-and-tailwind-conventions).
+- **Line heights.** `tailwind-merge` removes an earlier `leading-*` when a later font size follows it in the same variant. Write the line height with the size instead: `text-lg/none` or `text-sm/normal`.
+- **Project classes.** `lib/utils.ts` registers the project's shadows, drop shadows, containers, `text-gradient-*`, and `focus-ring-*` with `tailwind-merge`. When `@theme` gains a shadow, drop shadow, or container, or `globals.css` gains a utility, register it there too. Otherwise conflicts that involve it may not resolve.
+- **Complete class names.** Tailwind generates CSS only for class names that appear in full in the source. Never build one from a template such as `` `bg-${color}` ``. Map each state to a full string, for example with `Record<Variant, string>`.
+
+### Responsive design
+
+- Write mobile-first: an unprefixed utility is the phone layout, and `lg:` is the desktop layout. The breakpoints are listed under [Spacing, sizing, and typography](#spacing-sizing-and-typography). Do not add an intermediate layout that the design does not have.
+- Switch elements with `hidden lg:block`, `lg:hidden`, and similar utilities, and keep logical properties for RTL.
+- Check a change at a phone width (402px, the Figma frame), a tablet width (1024px), and a desktop width (1440px).
+
+### Interaction and accessibility
+
+- **Hover.** Tailwind v4 applies `hover:` only on devices that support hover (`@media (hover: hover)`). Never let hover be the only way to see information.
+- **Unavailable controls.** Use `unavailable:` (native `disabled` or `aria-disabled="true"`) for the unavailable look, and `hover:not-unavailable:` so hover feedback skips those controls.
+- **Focus.** Every focusable control gets `focus-ring-<offset>`. An invalid control sets `aria-invalid="true"` and shows `outline-2 outline-error` instead.
+- **Selected and invalid states** come from React state, through a class-name helper. Set the matching ARIA state (`aria-pressed`, `aria-selected`, `aria-invalid`, a checked input) together with the classes.
+- **Reduced motion and transitions.** See [Motion and interaction](#motion-and-interaction).
+- **Icons** take their color from `currentColor`. See [Icons and SVG assets](#icons-and-svg-assets).
+
+### CSS exceptions
+
+Only these styles remain plain CSS:
+
+- **`app/globals.css`:** the `@theme` tokens, the `unavailable` custom variant, and the `text-gradient-*` and `focus-ring-*` utilities. These extend Tailwind itself.
+- **`features/home/search/search.css`:** the thumbs of the price range sliders. Each browser engine needs its own pseudo-element (`::-webkit-slider-thumb`, `::-moz-range-thumb`), and the thumb's focus outline depends on the input's `:focus-visible`. Arbitrary variants could express this, but the rules are clearer as CSS. The slider input itself uses utilities in `price-filter.tsx`.
+
+Before adding a CSS rule, confirm that no utility, variant, or arbitrary value can express it. Explain the reason in a comment, read tokens with `var(--…)`, and import the file once in `app/globals.css` with `layer(components)`.
+
+### Validating a styling change
+
+1. Run `npm run lint` and `npm run build`.
+2. Check the Problems panel for canonical-class and conflict warnings in the files you changed.
+3. Search the repository for every class name, selector, or data attribute you removed, so no reference remains.
+4. Run `npm run dev`. Check the changed screens at 402px, 1024px, and 1440px, and check each state you touched: hover, keyboard focus, disabled or `aria-disabled`, selected, and invalid.
+
+The repository has no automated visual or accessibility tests. State which of these checks you actually ran.
+
+### Rules for AI agents
+
+- Follow the [styling hierarchy](#styling-hierarchy). Do not add a stylesheet, CSS Modules, `tailwind.config.*`, `!important`, or `@apply` component classes.
+- Compose conditional classes with `cn()` from `@/lib/utils`. Do not add another class-name or variant library without approval.
+- Never build a class name dynamically.
+- Keep token values and visual results unchanged, unless the design changes them.
+- Remove a class, selector, or CSS rule only after searching for every reference to it.
+- Report only the checks you ran, as listed in [Validating a styling change](#validating-a-styling-change).
 
 ## Motion and interaction
 
 - **Transitions.**
   - Keep them short and limited to color, background, opacity, filter, or shadow.
-  - Component CSS uses `var(--default-transition-duration)` (150ms) and `var(--default-transition-timing-function)`. Utilities use `transition-colors` or `transition-opacity`.
+  - Use `transition-colors` or `transition-opacity`, or name the properties, as `transition-[filter,background-color]` on `Button` does. All of them use Tailwind's default 150ms duration and easing.
   - Do not add an animation library, and do not use motion that delays input.
 - **Reduced motion.**
   - The carousel scroller uses `motion-safe:scroll-smooth`, and `scrollBy` is called without `behavior`, so users who prefer reduced motion get an instant jump.

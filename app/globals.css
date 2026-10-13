@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "../components/ui/button.css" layer(components);
 @import "../features/home/search/search.css" layer(components);
 
 /*
@@ -50,6 +49,12 @@
   --container-page: 90rem;
   --container-search: 65.375rem;
 }
+
+/*
+ * A control that cannot be used right now, whether natively `disabled` or `aria-disabled="true"`.
+ * Pair `unavailable:` with `hover:not-unavailable:` so hover feedback skips both states.
+ */
+@custom-variant unavailable (&:is(:disabled, [aria-disabled="true"]));
 
 /* Gradient text. A utility, not a plain class, so it can switch per breakpoint (`lg:text-gradient-hero`). */
 @utility text-gradient-* {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, type FocusEvent, type ReactNode, type RefObject } from "react";
+import { cn } from "@/lib/utils";
 import { useDismiss } from "../use-dismiss";
 
 export type FieldSize = "default" | "compact";
@@ -21,7 +22,7 @@ type SearchPopoverProps = {
   children: ReactNode;
 };
 
-export function SearchPopover({ open, onOpenChange, triggerRef, className = "", children }: SearchPopoverProps) {
+export function SearchPopover({ open, onOpenChange, triggerRef, className, children }: SearchPopoverProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useDismiss(rootRef, open, (reason) => {
@@ -38,7 +39,7 @@ export function SearchPopover({ open, onOpenChange, triggerRef, className = "", 
   }
 
   return (
-    <div ref={rootRef} onBlur={handleBlur} className={`relative min-w-0 ${className}`}>
+    <div ref={rootRef} onBlur={handleBlur} className={cn("relative min-w-0", className)}>
       {children}
     </div>
   );

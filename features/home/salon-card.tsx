@@ -1,4 +1,5 @@
 import { HeartIcon, PinIcon, StarIcon } from "@/components/icons";
+import { cn } from "@/lib/utils";
 import { salonListing } from "./salons";
 
 type SalonCardProps = {
@@ -34,7 +35,10 @@ export function SalonCard({ saved, onToggleSave }: SalonCardProps) {
         aria-pressed={saved}
         aria-label={saved ? `حذف ${salonListing.name} از علاقه‌مندی‌ها` : `افزودن ${salonListing.name} به علاقه‌مندی‌ها`}
         onClick={onToggleSave}
-        className={`focus-ring-2 absolute inset-e-2 top-2 flex h-9.25 w-9.5 cursor-pointer items-center justify-center rounded-full bg-white/50 lg:inset-e-2.25 lg:size-6.25 ${saved ? "text-selected" : "text-text-secondary"}`}
+        className={cn(
+          "focus-ring-2 absolute inset-e-2 top-2 flex h-9.25 w-9.5 cursor-pointer items-center justify-center rounded-full bg-white/50 lg:inset-e-2.25 lg:size-6.25",
+          saved ? "text-selected" : "text-text-secondary",
+        )}
       >
         <HeartIcon filled={saved} className="-scale-x-100" />
       </button>

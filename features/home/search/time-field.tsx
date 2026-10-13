@@ -3,8 +3,17 @@
 import { CalendarIcon } from "@/components/icons";
 import { useId, useRef } from "react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { PersianCalendar } from "./persian-calendar-grid";
 import { fromDateKey, shortDateFormatter, startOfDay, addDays, toDateKey } from "./persian-calendar";
+import {
+  searchChipClassName,
+  searchErrorClassName,
+  searchFieldClassName,
+  searchFieldLabelClassName,
+  searchInputClassName,
+  searchPanelClassName,
+} from "./search-classes";
 import { useSearch } from "./search-context";
 import { customHours, timeSlots, type SearchCriteria } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
@@ -44,14 +53,11 @@ export function TimeField({ open, onOpenChange, size = "default", autoFocus, cla
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
         onClick={() => onOpenChange(!open)}
-        data-size={size}
-        data-filled={summary ? "" : undefined}
-        data-active={open ? "" : undefined}
-        className="search-field"
+        className={searchFieldClassName({ size, filled: Boolean(summary), active: open })}
       >
         <CalendarIcon className="shrink-0 text-text-secondary" />
         <span className="sr-only">زمان: </span>
-        <span className="search-field-label">{summary || "انتخاب زمان"}</span>
+        <span className={searchFieldLabelClassName}>{summary || "انتخاب زمان"}</span>
       </button>
       {open && <TimePanel id={panelId} onDone={close} />}
     </SearchPopover>
@@ -73,7 +79,7 @@ function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
       role="dialog"
       aria-label="انتخاب زمان"
       tabIndex={-1}
-      className="search-panel flex w-full flex-col gap-5 p-6 outline-none lg:w-98"
+      className={searchPanelClassName("flex w-full flex-col gap-5 p-6 outline-none lg:w-98")}
     >
       <div className="flex gap-2">
         {quickDays.map((day) => (
@@ -82,7 +88,7 @@ function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
             type="button"
             aria-pressed={criteria.date === day.key}
             onClick={() => update({ date: day.key })}
-            className="search-chip focus-ring-2"
+            className={searchChipClassName(criteria.date === day.key, "focus-ring-2")}
           >
             {day.label}
           </button>
@@ -97,7 +103,7 @@ function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
           {timeSlots.map((slot) => (
             <label
               key={slot.id}
-              className="search-chip focus-ring-2 gap-1 px-3"
+              className={searchChipClassName(criteria.timeSlot === slot.id, "focus-ring-2 gap-1 px-3")}
             >
               <input
                 type="radio"
@@ -132,7 +138,7 @@ function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
               onChange={(customTo) => update({ customTo })}
             />
           </div>
-          <p id={errorId} role="alert" className="search-error empty:hidden">
+          <p id={errorId} role="alert" className={cn(searchErrorClassName, "empty:hidden")}>
             {errors.time}
           </p>
         </div>
@@ -172,7 +178,7 @@ function HourSelect({ label, value, invalid, errorId, onChange }: HourSelectProp
         aria-describedby={invalid ? errorId : undefined}
         onChange={(event) => onChange(event.target.value)}
         dir="ltr"
-        className="search-input h-10 px-3 text-base"
+        className={searchInputClassName(invalid, "h-10 px-3 text-base")}
       >
         {customHours.map((hour) => (
           <option key={hour} value={hour}>

@@ -2,6 +2,14 @@
 
 import { LocationIcon } from "@/components/icons";
 import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { cn } from "@/lib/utils";
+import {
+  searchErrorClassName,
+  searchFieldClassName,
+  searchFieldInputClassName,
+  searchOptionClassName,
+  searchPanelClassName,
+} from "./search-classes";
 import { useSearch } from "./search-context";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
 
@@ -76,10 +84,12 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
   return (
     <SearchPopover open={open} onOpenChange={onOpenChange} triggerRef={inputRef} className={className}>
       <label
-        data-size={size}
-        data-filled={criteria.location ? "" : undefined}
-        data-active={open ? "" : undefined}
-        className="search-field cursor-text"
+        className={searchFieldClassName({
+          size,
+          filled: Boolean(criteria.location),
+          active: open,
+          className: "cursor-text",
+        })}
       >
         <LocationIcon className="shrink-0 text-text-secondary" />
         <span className="sr-only">موقعیت مکانی</span>
@@ -100,25 +110,29 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
           onChange={(event) => update({ location: event.target.value, coordinates: null })}
           onClick={() => !open && openList()}
           onKeyDown={handleKeyDown}
+          className={searchFieldInputClassName}
         />
       </label>
-      <div hidden={!open} className="search-panel w-full min-w-60 p-2">
+      <div hidden={!open} className={searchPanelClassName("w-full min-w-60 p-2")}>
         <ul id={listId} role="listbox" aria-label="پیشنهاد موقعیت">
           <li
             id={optionId}
             role="option"
             aria-selected={criteria.coordinates !== null}
             aria-busy={locating}
-            data-highlighted={highlighted ? "" : undefined}
             onMouseDown={(event) => event.preventDefault()}
             onMouseEnter={() => setHighlighted(true)}
             onClick={locateMe}
-            className="search-option min-h-15 justify-center"
+            className={searchOptionClassName({
+              highlighted,
+              selected: criteria.coordinates !== null,
+              className: "min-h-15 justify-center",
+            })}
           >
             {locating ? "در حال دریافت موقعیت…" : myLocationLabel}
           </li>
         </ul>
-        <p id={messageId} role="alert" className="search-error px-3 empty:hidden">
+        <p id={messageId} role="alert" className={cn(searchErrorClassName, "px-3 empty:hidden")}>
           {locateError}
         </p>
       </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { SearchIcon } from "@/components/icons";
+import { cn } from "@/lib/utils";
 import { SiteMenu } from "../site-menu";
 import { useDismiss } from "../use-dismiss";
 import { Wordmark } from "../wordmark";
@@ -116,7 +117,10 @@ function StickyBar() {
                 type="button"
                 aria-label={`جستجو: ${segment.label}`}
                 onClick={() => expand(segment.panel)}
-                className={`focus-ring-0 flex h-10 min-w-0 flex-1 cursor-pointer items-center justify-center px-4 text-lg font-semibold whitespace-nowrap text-text-muted hover:bg-hover ${index < segments.length - 1 ? "border-l border-text-muted" : "rounded-e-3xl"}`}
+                className={cn(
+                  "focus-ring-0 flex h-10 min-w-0 flex-1 cursor-pointer items-center justify-center px-4 text-lg font-semibold whitespace-nowrap text-text-muted hover:bg-hover",
+                  index < segments.length - 1 ? "border-l border-text-muted" : "rounded-e-3xl",
+                )}
               >
                 <span className="truncate">{segment.label}</span>
               </button>

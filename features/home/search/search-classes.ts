@@ -1,0 +1,85 @@
+import { cn } from "@/lib/utils";
+import type { FieldSize } from "./search-popover";
+
+type SearchFieldState = {
+  size?: FieldSize;
+  filled: boolean;
+  active: boolean;
+  className?: string;
+};
+
+const fieldSizeClassNames: Record<FieldSize, string> = {
+  default: "h-13.5 rounded-lg text-base/none lg:h-14.5 lg:text-xl/none",
+  compact: "h-11.25 rounded-4xl text-lg/none",
+};
+
+function fieldBackground(size: FieldSize, filled: boolean, active: boolean) {
+  if (active) {
+    return "bg-background";
+  }
+  // The compact sticky bar has no resting fill, even once a value is chosen.
+  if (size === "compact") {
+    return "bg-transparent";
+  }
+  return filled ? "bg-surface" : "bg-white/50";
+}
+
+/** Trigger of a search popover: a button, or a label that wraps a text input. */
+export function searchFieldClassName({ size = "default", filled, active, className }: SearchFieldState) {
+  return cn(
+    "focus-ring-2 flex w-full min-w-0 cursor-pointer items-center gap-2 px-4 text-start font-semibold whitespace-nowrap transition-[background-color,box-shadow]",
+    fieldSizeClassNames[size],
+    fieldBackground(size, filled, active),
+    filled ? "text-text-secondary" : "text-text-muted",
+    (filled || active) && "shadow-box",
+    "focus-within:bg-background focus-within:shadow-box",
+    className,
+  );
+}
+
+export const searchFieldInputClassName = cn(
+  "min-w-0 flex-1 bg-transparent text-text-secondary outline-none",
+  "placeholder:text-text-muted",
+);
+
+export const searchFieldLabelClassName = "min-w-0 truncate";
+
+export function searchPanelClassName(className?: string) {
+  return cn("absolute inset-s-0 top-full z-40 mt-2 rounded-lg bg-background p-8 shadow-box", className);
+}
+
+type SearchOptionState = {
+  highlighted: boolean;
+  selected: boolean;
+  className?: string;
+};
+
+export function searchOptionClassName({ highlighted, selected, className }: SearchOptionState) {
+  return cn(
+    "flex min-h-10 w-full cursor-pointer items-center gap-2 rounded-lg px-3 text-start text-base font-semibold hover:bg-hover",
+    highlighted && "bg-hover",
+    selected ? "text-selected" : "text-text-secondary",
+    className,
+  );
+}
+
+/** Pill choice: the date shortcuts (buttons with `aria-pressed`) and the time slots (labels around a radio). */
+export function searchChipClassName(selected: boolean, className?: string) {
+  return cn(
+    "inline-flex h-9 cursor-pointer items-center justify-center rounded-full border px-4 text-sm/normal font-semibold",
+    selected ? "border-selected bg-selected text-white" : "border-border text-text-secondary",
+    className,
+  );
+}
+
+/** Text inputs and selects inside the search panels. Size and type stay at the call site. */
+export function searchInputClassName(invalid: boolean, className?: string) {
+  return cn(
+    "focus-ring-0 rounded-lg bg-surface text-text-secondary shadow-box",
+    "focus-visible:bg-background",
+    invalid && "outline-2 outline-error",
+    className,
+  );
+}
+
+export const searchErrorClassName = "text-sm/normal font-semibold text-error";
