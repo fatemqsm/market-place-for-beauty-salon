@@ -1,6 +1,8 @@
+export { ArrowIcon } from "./arrow-icon";
 export { CalendarIcon } from "./calendar-icon";
 export { CarouselNavIcon } from "./carousel-nav-icon";
-export { CheckboxIcon } from "./checkbox-icon";
+export { ChevronDownIcon } from "./chevron-down-icon";
+export { ChevronRightIcon } from "./chevron-right-icon";
 export { CloseIcon } from "./close-icon";
 export { GlowEllipse } from "./glow-ellipse";
 export { HeartIcon } from "./heart-icon";
@@ -9,6 +11,8 @@ export { HomeIcon } from "./home-icon";
 export { LinkedinIcon } from "./linkedin-icon";
 export { LocationIcon } from "./location-icon";
 export { LoginIcon } from "./login-icon";
+export { MapPinMinusIcon } from "./map-pin-minus-icon";
+export { MapPinPlusIcon } from "./map-pin-plus-icon";
 export { MenuToggleIcon } from "./menu-toggle-icon";
 export { MidBackground } from "./mid-background";
 export { MobileHeroBackground } from "./mobile-hero-background";

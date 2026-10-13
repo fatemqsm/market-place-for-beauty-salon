@@ -13,7 +13,7 @@ import {
 import { useSearch } from "./search-context";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
 
-const myLocationLabel = "موقعیت من";
+export const myLocationLabel = "موقعیت من";
 
 const geolocationErrors: Record<number, string> = {
   1: "اجازه دسترسی به موقعیت مکانی داده نشد.",
@@ -21,21 +21,11 @@ const geolocationErrors: Record<number, string> = {
   3: "دریافت موقعیت مکانی بیش از حد طول کشید.",
 };
 
-export function LocationField({ open, onOpenChange, size = "default", autoFocus, className }: SearchFieldProps) {
-  const { criteria, update } = useSearch();
-  const id = useId();
-  const listId = `${id}-list`;
-  const optionId = `${id}-option`;
-  const messageId = `${id}-message`;
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [highlighted, setHighlighted] = useState(false);
+/** Fills the location with the browser's position; `onLocated` runs after a successful lookup. */
+export function useLocateMe(onLocated: () => void) {
+  const { update } = useSearch();
   const [locating, setLocating] = useState(false);
   const [locateError, setLocateError] = useState<string | null>(null);
-
-  function openList() {
-    setHighlighted(false);
-    onOpenChange(true);
-  }
 
   function locateMe() {
     if (locating) {
@@ -54,8 +44,7 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
           location: myLocationLabel,
           coordinates: { latitude: position.coords.latitude, longitude: position.coords.longitude },
         });
-        onOpenChange(false);
-        inputRef.current?.focus();
+        onLocated();
       },
       (error) => {
         setLocating(false);
@@ -63,6 +52,27 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
       },
       { timeout: 10_000, maximumAge: 60_000 },
     );
+  }
+
+  return { locating, locateError, locateMe };
+}
+
+export function LocationField({ open, onOpenChange, size = "default", autoFocus, className }: SearchFieldProps) {
+  const { criteria, update } = useSearch();
+  const id = useId();
+  const listId = `${id}-list`;
+  const optionId = `${id}-option`;
+  const messageId = `${id}-message`;
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [highlighted, setHighlighted] = useState(false);
+  const { locating, locateError, locateMe } = useLocateMe(() => {
+    onOpenChange(false);
+    inputRef.current?.focus();
+  });
+
+  function openList() {
+    setHighlighted(false);
+    onOpenChange(true);
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {

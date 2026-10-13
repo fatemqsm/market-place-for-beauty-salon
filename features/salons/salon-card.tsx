@@ -1,16 +1,19 @@
 import { HeartIcon, PinIcon, StarIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import { SalonCardImages } from "./salon-card-images";
 import { salonListing } from "./salons";
 
 type SalonCardProps = {
+  imageCount: number;
   saved: boolean;
   onToggleSave: () => void;
+  className?: string;
 };
 
-export function SalonCard({ saved, onToggleSave }: SalonCardProps) {
+export function SalonCard({ imageCount, saved, onToggleSave, className }: SalonCardProps) {
   return (
-    <article className="relative w-full shrink-0 snap-start rounded-lg bg-white/50 shadow-card sm:w-72">
-      <div className="h-39.25 rounded-t-lg bg-primary" />
+    <article className={cn("relative w-full rounded-lg bg-white/50 shadow-card", className)}>
+      <SalonCardImages count={imageCount} salonName={salonListing.name} />
       <div className="flex flex-col px-2 pt-2 pb-4">
         <div className="flex h-6.75 items-end justify-between">
           <h3 className="text-base leading-none font-semibold text-ink">{salonListing.name}</h3>

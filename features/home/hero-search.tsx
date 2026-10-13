@@ -3,27 +3,27 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { CloseIcon, PencilIcon, SettingsIcon, TrashIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { LocationField } from "@/features/search/location-field";
+import { PriceFilter } from "@/features/search/price-filter";
+import { RatingFilter } from "@/features/search/rating-filter";
+import { searchFieldClassName, searchFieldInputClassName } from "@/features/search/search-classes";
+import { useSearch } from "@/features/search/search-context";
+import { ServiceField } from "@/features/search/service-field";
+import { TimeField } from "@/features/search/time-field";
 import { cn } from "@/lib/utils";
-import { LocationField } from "./location-field";
-import { PriceFilter } from "./price-filter";
-import { RatingFilter } from "./rating-filter";
-import { searchFieldClassName, searchFieldInputClassName } from "./search-classes";
-import { useSearch } from "./search-context";
-import { heroSearchId } from "./search-criteria";
-import { ServiceField } from "./service-field";
-import { TimeField } from "./time-field";
+
+export const heroSearchId = "hero-search";
 
 type Panel = "service" | "time" | "location" | "price" | "rating";
 
 export function HeroSearch() {
-  const { errors, status, submit, clearFilters, setHeroInView } = useSearch();
+  const { errors, submit, clearFilters, setHeroInView } = useSearch();
   const formRef = useRef<HTMLFormElement>(null);
   const advancedId = useId();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const focusToggle = useRef(false);
   const [openPanel, setOpenPanel] = useState<Panel | null>(null);
   const [advanced, setAdvanced] = useState(false);
-  const message = errors.form ?? status;
 
   // The toggle moves between rows when advanced search opens or closes, so focus follows it.
   useEffect(() => {
@@ -141,11 +141,8 @@ export function HeroSearch() {
         <div className="mt-4 flex justify-end max-lg:hidden">{advancedToggle}</div>
       )}
 
-      <p
-        role="status"
-        className={cn("mt-4 text-center text-base font-semibold empty:hidden", errors.form ? "text-error" : "text-ink")}
-      >
-        {message}
+      <p role="status" className="mt-4 text-center text-base font-semibold text-error empty:hidden">
+        {errors.form}
       </p>
     </form>
   );

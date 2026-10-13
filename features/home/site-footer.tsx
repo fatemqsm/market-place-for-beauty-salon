@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { LinkedinIcon, PhoneIcon, TelegramIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
-import { Wordmark } from "./wordmark";
+import { Wordmark } from "@/features/layout/wordmark";
 
 const aboutItems = ["فرصت‌های شغلی", "بلاگ", "تماس با ما"];
 const businessItems = ["تعرفه‌ها", "پشتیبانی", "شروع همکاری"];

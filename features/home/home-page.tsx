@@ -1,14 +1,14 @@
 import { HeroBackground, MidBackground, MobileHeroBackground } from "@/components/icons";
+import { MobileBottomNav } from "@/features/layout/mobile-bottom-nav";
+import { createSalonItems } from "@/features/salons/salons";
+import { SearchProvider } from "@/features/search/search-context";
 import { BusinessCta } from "./business-cta";
+import { HeroSearch } from "./hero-search";
 import { HeroSection } from "./hero-section";
 import { SalonCarousel } from "./salon-carousel";
-import { MobileBottomNav } from "./mobile-bottom-nav";
-import { createSalonItems } from "./salons";
-import { HeroSearch } from "./search/hero-search";
-import { SearchProvider } from "./search/search-context";
-import { StickySearchHeader } from "./search/sticky-search-header";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
+import { StickySearchHeader } from "./sticky-search-header";
 
 export function HomePage() {
   return (
@@ -48,7 +48,7 @@ export function HomePage() {
         </main>
       </div>
       <SiteFooter />
-      <MobileBottomNav />
+      <MobileBottomNav active="home" />
     </SearchProvider>
   );
 }

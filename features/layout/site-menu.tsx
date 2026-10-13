@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type FocusEvent
 import { MenuToggleIcon } from "@/components/icons";
 import { buttonClassName } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useDismiss } from "./use-dismiss";
+import { useDismiss } from "@/hooks/use-dismiss";
 
 type SiteMenuProps = {
   variant?: "header" | "compact";

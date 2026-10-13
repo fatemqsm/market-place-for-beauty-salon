@@ -1,8 +1,15 @@
-export const heroSearchId = "hero-search";
-
 export const serviceOptions = ["تمام خدمات", "ناخن", "رنگ مو", "کوتاهی مو", "استایل‌دهی مو"];
 
-export const ratingOptions = [1, 2, 3, 4, 5];
+/** Minimum ratings, in the order the design lays the tags out. */
+export const ratingOptions = [4, 3, 2];
+
+export type SearchSort = "default" | "nearest" | "top-rated";
+
+export const sortOptions: { id: SearchSort; label: string }[] = [
+  { id: "nearest", label: "نزدیک‌ترین" },
+  { id: "default", label: "پیش‌فرض" },
+  { id: "top-rated", label: "بالاترین امتیاز" },
+];
 
 export const priceRange = { min: 1_000_000, max: 5_000_000, step: 50_000 };
 
@@ -29,9 +36,10 @@ export type SearchCriteria = {
   customFrom: string;
   customTo: string;
   salonName: string;
-  ratings: number[];
+  minRating: number | null;
   priceFrom: string;
   priceTo: string;
+  sort: SearchSort;
 };
 
 export const initialCriteria: SearchCriteria = {
@@ -43,9 +51,10 @@ export const initialCriteria: SearchCriteria = {
   customFrom: "09:00",
   customTo: "18:00",
   salonName: "",
-  ratings: [],
+  minRating: null,
   priceFrom: "",
   priceTo: "",
+  sort: "default",
 };
 
 export type SearchErrors = Partial<Record<"form" | "price" | "time", string>>;
@@ -87,4 +96,8 @@ export function validateCriteria(criteria: SearchCriteria): SearchErrors {
 
 export function formatPrice(value: string) {
   return value ? Number(value).toLocaleString("en-US") : "";
+}
+
+export function describeRating(minRating: number) {
+  return `بالاتر از ${minRating}`;
 }

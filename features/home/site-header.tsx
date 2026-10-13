@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { buttonClassName } from "@/components/ui/button";
-import { SiteMenu } from "./site-menu";
-import { Wordmark } from "./wordmark";
+import { SiteMenu } from "@/features/layout/site-menu";
+import { Wordmark } from "@/features/layout/wordmark";
 
 export function SiteHeader() {
   return (

@@ -11,7 +11,7 @@ import {
   searchPanelClassName,
 } from "./search-classes";
 import { useSearch } from "./search-context";
-import { formatPrice, priceRange, toLatinDigits } from "./search-criteria";
+import { formatPrice, priceRange, toLatinDigits, type SearchCriteria } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
 
 // `price-range` styles the thumbs in search.css. The two sliders overlap, so the track ignores pointer events.
@@ -26,6 +26,51 @@ function percent(value: number) {
   return ((value - priceRange.min) / (priceRange.max - priceRange.min)) * 100;
 }
 
+/** Slider positions: an empty bound sits at the end of the range. */
+export function sliderValues(criteria: SearchCriteria) {
+  return {
+    from: clamp(criteria.priceFrom ? Number(criteria.priceFrom) : priceRange.min),
+    to: clamp(criteria.priceTo ? Number(criteria.priceTo) : priceRange.max),
+  };
+}
+
+export function PriceRangeSlider({ className }: { className?: string }) {
+  const { criteria, update } = useSearch();
+  const { from, to } = sliderValues(criteria);
+
+  return (
+    <div dir="ltr" className={cn("relative h-3.5 py-4", className)}>
+      <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-surface" />
+      <div
+        className="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-accent"
+        style={{ left: `${percent(from)}%`, right: `${100 - percent(to)}%` }}
+      />
+      <input
+        type="range"
+        aria-label="حداقل قیمت"
+        min={priceRange.min}
+        max={priceRange.max}
+        step={priceRange.step}
+        value={from}
+        aria-valuetext={formatPrice(String(from))}
+        onChange={(event) => update({ priceFrom: String(Math.min(Number(event.target.value), to)) })}
+        className={rangeClassName}
+      />
+      <input
+        type="range"
+        aria-label="حداکثر قیمت"
+        min={priceRange.min}
+        max={priceRange.max}
+        step={priceRange.step}
+        value={to}
+        aria-valuetext={formatPrice(String(to))}
+        onChange={(event) => update({ priceTo: String(Math.max(Number(event.target.value), from)) })}
+        className={rangeClassName}
+      />
+    </div>
+  );
+}
+
 export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps) {
   const { criteria, update, errors } = useSearch();
   const id = useId();
@@ -37,9 +82,6 @@ export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps)
   const from = criteria.priceFrom ? formatPrice(criteria.priceFrom) : "";
   const to = criteria.priceTo ? formatPrice(criteria.priceTo) : "";
   const summary = [from && `از ${from}`, to && `تا ${to}`].filter(Boolean).join(" ");
-
-  const sliderFrom = clamp(criteria.priceFrom ? Number(criteria.priceFrom) : priceRange.min);
-  const sliderTo = clamp(criteria.priceTo ? Number(criteria.priceTo) : priceRange.max);
 
   return (
     <SearchPopover open={open} onOpenChange={onOpenChange} triggerRef={triggerRef} className={className}>
@@ -85,35 +127,7 @@ export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps)
             errorId={errorId}
             onChange={(priceTo) => update({ priceTo })}
           />
-          <div dir="ltr" className="relative h-3.5 py-4">
-            <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-surface" />
-            <div
-              className="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-accent"
-              style={{ left: `${percent(sliderFrom)}%`, right: `${100 - percent(sliderTo)}%` }}
-            />
-            <input
-              type="range"
-              aria-label="حداقل قیمت"
-              min={priceRange.min}
-              max={priceRange.max}
-              step={priceRange.step}
-              value={sliderFrom}
-              aria-valuetext={formatPrice(String(sliderFrom))}
-              onChange={(event) => update({ priceFrom: String(Math.min(Number(event.target.value), sliderTo)) })}
-              className={rangeClassName}
-            />
-            <input
-              type="range"
-              aria-label="حداکثر قیمت"
-              min={priceRange.min}
-              max={priceRange.max}
-              step={priceRange.step}
-              value={sliderTo}
-              aria-valuetext={formatPrice(String(sliderTo))}
-              onChange={(event) => update({ priceTo: String(Math.max(Number(event.target.value), sliderFrom)) })}
-              className={rangeClassName}
-            />
-          </div>
+          <PriceRangeSlider />
           <p id={errorId} role="alert" className={cn(searchErrorClassName, "empty:hidden")}>
             {errors.price}
           </p>

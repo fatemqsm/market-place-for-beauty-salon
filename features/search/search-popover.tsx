@@ -2,7 +2,7 @@
 
 import { useRef, type FocusEvent, type ReactNode, type RefObject } from "react";
 import { cn } from "@/lib/utils";
-import { useDismiss } from "../use-dismiss";
+import { useDismiss } from "@/hooks/use-dismiss";
 
 export type FieldSize = "default" | "compact";
 

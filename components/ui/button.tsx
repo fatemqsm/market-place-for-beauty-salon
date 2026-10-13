@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
-export type ButtonVariant = "primary" | "secondary" | "glass";
+export type ButtonVariant = "primary" | "secondary" | "glass" | "pill";
 
 type ButtonProps = ComponentProps<"button"> & {
   variant?: ButtonVariant;
@@ -14,6 +14,7 @@ const variantClassNames: Record<ButtonVariant, string> = {
   secondary: "rounded-lg bg-background text-ink hover:not-unavailable:bg-hover",
   // Figma rounds only the top-right corner of this button, regardless of direction.
   glass: "rounded-tr-3xl bg-white/50 text-ink shadow-glass hover:not-unavailable:bg-white/80",
+  pill: "rounded-4xl bg-background text-ink shadow-box hover:not-unavailable:bg-hover",
 };
 
 export function buttonClassName(variant: ButtonVariant = "primary", className?: string) {

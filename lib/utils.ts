@@ -6,7 +6,7 @@ import { extendTailwindMerge } from "tailwind-merge";
 const twMerge = extendTailwindMerge<"text-gradient" | "focus-ring">({
   extend: {
     theme: {
-      shadow: ["box", "card", "popover", "glass"],
+      shadow: ["box", "card", "popover", "glass", "glow"],
       "drop-shadow": ["box", "nav"],
       container: ["page", "search"],
     },

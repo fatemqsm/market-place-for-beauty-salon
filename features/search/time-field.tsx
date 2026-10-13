@@ -65,8 +65,23 @@ export function TimeField({ open, onOpenChange, size = "default", autoFocus, cla
 }
 
 function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
+  return (
+    <div
+      id={id}
+      role="dialog"
+      aria-label="انتخاب زمان"
+      tabIndex={-1}
+      className={searchPanelClassName("w-full p-6 outline-none lg:w-98")}
+    >
+      <TimePanelContent idPrefix={id} onDone={onDone} />
+    </div>
+  );
+}
+
+/** Day shortcuts, calendar, and time slots; shared by the time popover and the mobile filter sheet. */
+export function TimePanelContent({ idPrefix, onDone }: { idPrefix: string; onDone: () => void }) {
   const { criteria, update, errors } = useSearch();
-  const errorId = `${id}-error`;
+  const errorId = `${idPrefix}-error`;
   const today = startOfDay(new Date());
   const quickDays = [
     { label: "امروز", key: toDateKey(today) },
@@ -74,13 +89,7 @@ function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
   ];
 
   return (
-    <div
-      id={id}
-      role="dialog"
-      aria-label="انتخاب زمان"
-      tabIndex={-1}
-      className={searchPanelClassName("flex w-full flex-col gap-5 p-6 outline-none lg:w-98")}
-    >
+    <div className="flex flex-col gap-5">
       <div className="flex gap-2">
         {quickDays.map((day) => (
           <button
@@ -107,7 +116,7 @@ function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
             >
               <input
                 type="radio"
-                name={`${id}-slot`}
+                name={`${idPrefix}-slot`}
                 value={slot.id}
                 checked={criteria.timeSlot === slot.id}
                 onChange={() => update({ timeSlot: slot.id })}

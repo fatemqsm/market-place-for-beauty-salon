@@ -3,12 +3,13 @@
 import { CarouselNavIcon, NavigateNextIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { useId, useRef, useState } from "react";
-import { SalonCard } from "./salon-card";
-import type { SalonCarouselItem } from "./salons";
+import { SalonCard } from "@/features/salons/salon-card";
+import type { SalonItem } from "@/features/salons/salons";
+import { useSavedSalons } from "@/features/salons/use-saved-salons";
 
 type SalonCarouselProps = {
   title: string;
-  items: SalonCarouselItem[];
+  items: SalonItem[];
   gradientTitle?: boolean;
   className?: string;
 };
@@ -22,9 +23,7 @@ export function SalonCarousel({ title, items, gradientTitle = false, className }
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
-  const [savedIds, setSavedIds] = useState(
-    () => new Set(items.filter((item) => item.saved).map((item) => item.id)),
-  );
+  const { savedIds, toggleSaved } = useSavedSalons(items);
 
   function updateEdges() {
     const scroller = scrollerRef.current;
@@ -46,18 +45,6 @@ export function SalonCarousel({ title, items, gradientTitle = false, className }
     const step = card.getBoundingClientRect().width + parseFloat(getComputedStyle(scroller).columnGap);
     // No `behavior`: the scroller's motion-safe:scroll-smooth decides, so reduced motion jumps instantly.
     scroller.scrollBy({ left: -direction * step });
-  }
-
-  function toggleSaved(id: string) {
-    setSavedIds((current) => {
-      const next = new Set(current);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-      return next;
-    });
   }
 
   return (
@@ -101,7 +88,13 @@ export function SalonCarousel({ title, items, gradientTitle = false, className }
           className="scrollbar-none -m-6 flex min-w-0 flex-1 snap-x snap-mandatory scroll-px-6 gap-14 overflow-x-auto p-6 sm:gap-4 lg:snap-proximity motion-safe:scroll-smooth"
         >
           {items.map((item) => (
-            <SalonCard key={item.id} saved={savedIds.has(item.id)} onToggleSave={() => toggleSaved(item.id)} />
+            <SalonCard
+              key={item.id}
+              imageCount={item.imageCount}
+              saved={savedIds.has(item.id)}
+              onToggleSave={() => toggleSaved(item.id)}
+              className="shrink-0 snap-start sm:w-72"
+            />
           ))}
         </div>
         <button

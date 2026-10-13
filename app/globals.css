@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "../features/home/search/search.css" layer(components);
+@import "../features/search/search.css" layer(components);
 
 /*
  * Design tokens. Values come from the approved Figma file; see README.md "Design system".
@@ -36,6 +36,7 @@
   --shadow-card: 6px 6px 20px rgb(0 0 0 / 0.06);
   --shadow-popover: 0 9px 13px rgb(0 0 0 / 0.16);
   --shadow-glass: 4px 4px 21px rgb(217 217 217 / 0.92);
+  --shadow-glow: 0 0 8px var(--color-accent);
 
   /* Filter shadows follow the painted shape instead of the box. */
   --drop-shadow-box: 0 0 8px rgb(0 0 0 / 0.16);

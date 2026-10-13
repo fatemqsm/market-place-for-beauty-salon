@@ -1,4 +1,4 @@
-# salon-market-place
+﻿# salon-market-place
 
 Next.js frontend for a salon marketplace. Backend integration is not implemented. Do not invent API endpoints, DTOs, authentication, or other backend behavior.
 
@@ -108,6 +108,7 @@ The design defines no success, warning, info, link, or overlay colors, so there 
   - `shadow-card`: salon cards.
   - `shadow-popover`: the menu.
   - `shadow-glass`: the glass button.
+  - `shadow-glow`: the accent glow (Figma "Gradient/ColurfulInput") on a focused filter input and an open filter chip.
 - **Filter shadows** follow the painted shape:
   - `drop-shadow-box`: the sticky search pill.
   - `drop-shadow-nav`: the mobile bottom navigation.
@@ -121,6 +122,7 @@ The design defines no success, warning, info, link, or overlay colors, so there 
   - `-z-10`: decorative backgrounds.
   - `z-40`: search popovers and the mobile menu sheet.
   - `z-50`: the sticky search header, the bottom navigation, and the desktop menu panel.
+  - `z-60`: the mobile filter sheet on the search page, which covers the bottom navigation.
 
 ### Spacing, sizing, and typography
 
@@ -130,7 +132,7 @@ The design defines no success, warning, info, link, or overlay colors, so there 
   - Control heights: `h-11.5` (46px) for header and CTA buttons.
   - Search controls are `h-13.5` (54px) on phones and `lg:h-14.5` (58px) on desktop, set in `searchFieldClassName`.
 - **Containers.** `max-w-page` (1440px) for full-width sections and `max-w-search` (1046px) for the search bar.
-- **Breakpoints.** The design has two layouts: phones below `lg` (64rem) and desktop from `lg`. `sm` and `xl` only adjust card width and the large CTA artwork.
+- **Breakpoints.** The design has two layouts: phones below `lg` (64rem) and desktop from `lg`. `sm` and `xl` only adjust card width, the large CTA artwork, and whether the search page fits the filter sidebar beside the map.
 - **Type scale.** Use Tailwind's sizes. Figma's 30px is `text-3xl`, and 48px is `text-5xl`.
 - **Weights.** `font-semibold` for UI text and labels. `font-medium` or `font-bold` for headings, as the design specifies.
 - **Line heights** given by the design use spacing steps, for example `leading-14.5`.
@@ -142,7 +144,7 @@ The design defines no success, warning, info, link, or overlay colors, so there 
 - **Props.** Each component accepts every SVG prop (`width`, `height`, `className`, `strokeWidth`, `preserveAspectRatio`, and so on), spread last so callers can override the defaults:
   - The default `width` and `height` are the Figma size, and the `viewBox` never changes.
   - Single-color glyphs draw with `currentColor`. Set the color with a text utility on the icon or its parent, for example `text-text-secondary` or `text-stars`.
-  - State variants are props: `HeartIcon` takes `filled`, `CheckboxIcon` takes `checked`, and `MenuToggleIcon` takes `variant` (`header`, `compact`, or `mobile`) and `open`.
+  - State variants are props: `HeartIcon` takes `filled`, and `MenuToggleIcon` takes `variant` (`header`, `compact`, or `mobile`) and `open`.
   - Components default to `aria-hidden="true"`.
 - **Fixed colors.** Backgrounds keep the gradient colors from Figma, and `CarouselNavIcon` fills its pill with the `surface` token. Gradient and filter IDs come from `useId`, so a component can render more than once on a page.
 - **Exception: CSS gradients.** `public/home/gradient-button.svg`, `gradient-title.svg`, and `gradient-hero-title.svg` stay files. CSS reads them through `url()` in the `--gradient-*` tokens for gradient text and the primary button background, which a React component cannot supply.
@@ -168,10 +170,10 @@ The design defines no success, warning, info, link, or overlay colors, so there 
   - `aria-disabled`: `not-aria-disabled:cursor-pointer aria-disabled:opacity-40`.
   - State that React already knows (selected day, checked option, saved heart): choose the class in TypeScript, as `dayStateClassName` in `persian-calendar-grid.tsx` does.
   - A selector variant that must sit beside its base utility (`placeholder:`, `focus-visible:`): pass it to `cn()` as a separate argument, as `searchFieldInputClassName` does.
-  - A repeated control with several states: write a class-name helper that takes the state, such as `searchChipClassName` or `searchInputClassName` in `features/home/search/search-classes.ts`.
+  - A repeated control with several states: write a class-name helper that takes the state, such as `searchChipClassName` or `searchInputClassName` in `features/search/search-classes.ts`.
 - **Focus.** Use `focus-ring-<offset>` (`focus-ring-0`, `focus-ring-2`, `focus-ring-4`) from `app/globals.css`. It draws a 2px `--color-focus` outline on `:focus-visible`, and also on a label whose visually hidden input has focus. It skips `aria-invalid="true"` controls so they keep their error outline.
 - **Outline pitfall.** Do not combine `outline-none` with `outline-2` utilities. `outline-none` sets `--tw-outline-style: none`, which also hides the later outline.
-- **Component stylesheets.** Only `features/home/search/search.css` remains, for the reason given in [CSS exceptions](#css-exceptions). It is imported once in `app/globals.css` with `layer(components)`, so utilities in JSX can still override it. Read tokens there with `var(--…)`. Do not add `!important`.
+- **Component stylesheets.** Only `features/search/search.css` remains, for the reason given in [CSS exceptions](#css-exceptions). It is imported once in `app/globals.css` with `layer(components)`, so utilities in JSX can still override it. Read tokens there with `var(--…)`. Do not add `!important`.
 
 ## Styling conventions
 
@@ -182,7 +184,7 @@ Use the first option that can express the style:
 1. **Utilities in JSX** for layout, spacing, and one-off composition.
 2. **Design tokens** from `@theme` (`bg-surface`, `shadow-box`, `max-w-search`) rather than raw values. See [Design system](#design-system).
 3. **Project utilities and variants** from `app/globals.css`: `focus-ring-*`, `text-gradient-*`, and `unavailable:`.
-4. **A class-name helper in TypeScript**, when a component repeats the same class list or chooses classes from its state. Examples are `buttonClassName` in `components/ui/button.tsx` and the helpers in `features/home/search/search-classes.ts`. Keep the helper beside the component that owns it, and move it to `components/ui/` only when a second feature needs it.
+4. **A class-name helper in TypeScript**, when a component repeats the same class list or chooses classes from its state. Examples are `buttonClassName` in `components/ui/button.tsx` and the helpers in `features/search/search-classes.ts`. Keep the helper beside the component that owns it, and move it to `components/ui/` only when a second feature needs it.
 5. **A CSS rule**, only when Tailwind cannot express the style. See [CSS exceptions](#css-exceptions).
 
 A component owns its base look and its variants. A caller passes only placement through `className`, such as height, margin, width, or visibility, and does not restyle the component.
@@ -219,7 +221,7 @@ A component owns its base look and its variants. A caller passes only placement 
 Only these styles remain plain CSS:
 
 - **`app/globals.css`:** the `@theme` tokens, the `unavailable` custom variant, and the `text-gradient-*` and `focus-ring-*` utilities. These extend Tailwind itself.
-- **`features/home/search/search.css`:** the thumbs of the price range sliders. Each browser engine needs its own pseudo-element (`::-webkit-slider-thumb`, `::-moz-range-thumb`), and the thumb's focus outline depends on the input's `:focus-visible`. Arbitrary variants could express this, but the rules are clearer as CSS. The slider input itself uses utilities in `price-filter.tsx`.
+- **`features/search/search.css`:** the thumbs of the price range sliders. Each browser engine needs its own pseudo-element (`::-webkit-slider-thumb`, `::-moz-range-thumb`), and the thumb's focus outline depends on the input's `:focus-visible`. Arbitrary variants could express this, but the rules are clearer as CSS. The slider input itself uses utilities in `price-filter.tsx`.
 
 Before adding a CSS rule, confirm that no utility, variant, or arbitrary value can express it. Explain the reason in a comment, read tokens with `var(--…)`, and import the file once in `app/globals.css` with `layer(components)`.
 

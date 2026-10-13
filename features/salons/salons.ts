@@ -5,18 +5,17 @@ export const salonListing = {
   reviews: "312",
 };
 
-export type SalonCarouselItem = {
+export type SalonItem = {
   id: string;
   saved: boolean;
+  /** Number of placeholder photos; the card shows image controls only when there is more than one. */
+  imageCount: number;
 };
 
-export function createSalonItems(
-  prefix: string,
-  count: number,
-  savedIndex?: number,
-): SalonCarouselItem[] {
+export function createSalonItems(prefix: string, count: number, savedIndex?: number): SalonItem[] {
   return Array.from({ length: count }, (_, index) => ({
     id: `${prefix}-${index}`,
     saved: index === savedIndex,
+    imageCount: 1,
   }));
 }
