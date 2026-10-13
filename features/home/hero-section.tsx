@@ -1,10 +1,19 @@
 export function HeroSection() {
   return (
-    <section className="mx-auto w-[min(1120px,calc(100%-2rem))] px-4 pt-16 pb-10 text-center sm:pt-24 sm:pb-14">
-      <h1 className="text-[1.65rem] leading-[1.7] font-bold text-[#3a3032] sm:text-4xl">
-        تجربه‌ای متفاوت از خدمات زیبایی در نزدیکی شما
+    <section
+      aria-labelledby="hero-title"
+      className="mx-auto mt-[34px] flex w-full max-w-[916px] flex-col items-center gap-[18px] text-center lg:mt-[163px] lg:gap-2"
+    >
+      <h1
+        id="hero-title"
+        className="text-gradient-title lg:text-gradient-hero flex h-[183px] w-full flex-col justify-center text-[30px] leading-normal font-medium lg:block lg:h-auto lg:text-[48px] lg:leading-[91px] lg:font-bold"
+      >
+        <span>
+          تجربه‌ای متفاوت از <br className="lg:hidden" />
+          خدمات زیبایی در نزدیکی شما
+        </span>
       </h1>
-      <p className="mt-5 text-sm text-[#3f3938] sm:text-base">
+      <p className="flex h-[90px] max-w-[298px] items-center text-base leading-normal font-semibold text-ink lg:max-w-none lg:text-xl lg:leading-[49.3px]">
         بهترین سالن‌های زیبایی نزدیک خود را پیدا کنید و آنلاین وقت رزرو کنید.
       </p>
     </section>

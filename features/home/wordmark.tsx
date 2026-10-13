@@ -4,7 +4,7 @@ type WordmarkProps = {
 
 export function Wordmark({ className = "" }: WordmarkProps) {
   return (
-    <span className={`font-sans text-[1.65rem] leading-none font-bold tracking-tight text-[#2c221f] ${className}`}>
+    <span dir="ltr" className={`text-gradient-button inline-block font-logo text-[30px] leading-none ${className}`}>
       VeriFAM
     </span>
   );

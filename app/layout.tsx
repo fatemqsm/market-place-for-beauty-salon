@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { Vazirmatn } from "next/font/google";
+import { Agbalumo, Vazirmatn } from "next/font/google";
 import "./globals.css";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic", "latin"],
   variable: "--font-vazirmatn",
+  display: "swap",
+});
+
+const agbalumo = Agbalumo({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-agbalumo",
   display: "swap",
 });
 
@@ -18,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="fa"
       dir="rtl"
-      className={`${vazirmatn.variable} h-full antialiased`}
+      className={`${vazirmatn.variable} ${agbalumo.variable} h-full antialiased`}
     >
       <body className={`${vazirmatn.className} flex min-h-full flex-col bg-white text-foreground`}>{children}</body>
     </html>

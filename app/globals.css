@@ -1,15 +1,26 @@
 @import "tailwindcss";
-@import "../components/ui/button.css";
+@import "../components/ui/button.css" layer(components);
+@import "../features/home/search/search.css" layer(components);
 
 :root {
   --background: #ffffff;
-  --foreground: #2a2426;
+  --foreground: #2c2c2c;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: #b8b8c8;
+  --color-accent: #d4a8b0;
+  --color-error: #c47a7a;
+  --color-ink: #2c2c2c;
+  --color-text-muted: #9a9a9a;
+  --color-text-secondary: #6b6b6b;
+  --color-stars: #ffefae;
+  --color-surface: #faf8f9;
+  --shadow-box: 0 0 8px rgba(0, 0, 0, 0.16);
   --font-sans: var(--font-vazirmatn), Tahoma, "Segoe UI", sans-serif;
+  --font-logo: var(--font-agbalumo), cursive;
 }
 
 body {
@@ -18,8 +29,30 @@ body {
   font-family: var(--font-vazirmatn), Tahoma, "Segoe UI", sans-serif;
 }
 
-.home-surface {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0) 58%, #ffffff 100%),
-    linear-gradient(102deg, #e4c5cb 0%, #f7e4e3 22%, #fdf6f4 48%, #f1eef2 74%, #e6e4e9 100%);
+/* Utilities rather than plain classes, so they can be switched per breakpoint (`lg:text-gradient-hero`). */
+@utility text-gradient-button {
+  background-image: url("/home/gradient-button.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-gradient-title {
+  background-image: url("/home/gradient-title.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-gradient-hero {
+  background-image: url("/home/gradient-hero-title.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

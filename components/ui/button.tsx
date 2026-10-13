@@ -1,8 +1,14 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ComponentProps } from "react";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary";
+export type ButtonVariant = "primary" | "secondary" | "glass";
+
+type ButtonProps = ComponentProps<"button"> & {
+  variant?: ButtonVariant;
 };
+
+export function buttonClassName(variant: ButtonVariant = "primary", className = "") {
+  return `button button-${variant} ${className}`;
+}
 
 export function Button({
   variant = "primary",
@@ -10,9 +16,5 @@ export function Button({
   type = "button",
   ...props
 }: ButtonProps) {
-  const variantClass = variant === "primary" ? "button-primary" : "button-secondary";
-
-  return (
-    <button type={type} className={`button ${variantClass} ${className}`} {...props} />
-  );
+  return <button type={type} className={buttonClassName(variant, className)} {...props} />;
 }

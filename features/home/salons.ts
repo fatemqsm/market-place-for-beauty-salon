@@ -2,7 +2,7 @@ export const salonListing = {
   name: "سالن زیبایی رویا",
   rating: "4.8",
   area: "تهران، ولنجک",
-  views: "312",
+  reviews: "312",
 };
 
 export type SalonCarouselItem = {
