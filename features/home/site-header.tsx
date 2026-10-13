@@ -5,11 +5,11 @@ import { Wordmark } from "./wordmark";
 
 export function SiteHeader() {
   return (
-    <header className="flex h-[50px] w-full items-center justify-between gap-4 max-lg:ps-[9px] lg:h-[76px] lg:rounded-2xl lg:bg-white/50 lg:px-20">
+    <header className="flex h-12.5 w-full items-center justify-between gap-4 max-lg:ps-2.25 lg:h-19 lg:rounded-2xl lg:bg-white/50 lg:px-20">
       <Link
         href="/"
         aria-label="وریفام، صفحه اصلی"
-        className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+        className="focus-ring-4 shrink-0 rounded-sm"
       >
         <Wordmark />
       </Link>
@@ -18,11 +18,11 @@ export function SiteHeader() {
           type="button"
           aria-disabled="true"
           title="ورود به‌زودی فعال می‌شود"
-          className={buttonClassName("glass", "hidden h-[46px] lg:inline-flex")}
+          className={buttonClassName("glass", "hidden h-11.5 lg:inline-flex")}
         >
           ورود
         </button>
-        <Link href="/#for-business" className={buttonClassName("primary", "hidden h-[46px] lg:inline-flex")}>
+        <Link href="/#for-business" className={buttonClassName("primary", "hidden h-11.5 lg:inline-flex")}>
           افزودن کسب‌وکار
         </Link>
         <SiteMenu />

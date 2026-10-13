@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       dir="rtl"
       className={`${vazirmatn.variable} ${agbalumo.variable} h-full antialiased`}
     >
-      <body className={`${vazirmatn.className} flex min-h-full flex-col bg-white text-foreground`}>{children}</body>
+      <body className="flex min-h-full flex-col bg-background font-sans text-ink">{children}</body>
     </html>
   );
 }

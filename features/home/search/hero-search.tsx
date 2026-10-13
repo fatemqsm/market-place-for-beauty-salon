@@ -93,18 +93,18 @@ export function HeroSearch() {
       aria-label="جستجوی سالن"
       noValidate
       onSubmit={handleSubmit}
-      className="mx-auto mt-[18px] w-full max-w-[343px] scroll-mt-40 lg:mt-[230px] lg:max-w-[1046px]"
+      className="mx-auto mt-4.5 w-full max-w-85.75 scroll-mt-40 lg:mt-57.5 lg:max-w-search"
     >
       <div className="flex flex-col gap-2 rounded-lg bg-white/50 p-2 lg:flex-row lg:items-center lg:justify-between">
-        <ServiceField {...panelProps("service")} className="lg:w-[297px]" />
-        <TimeField {...panelProps("time")} className="lg:w-[297px]" />
-        <LocationField {...panelProps("location")} className="lg:w-[297px]" />
+        <ServiceField {...panelProps("service")} className="lg:w-74.25" />
+        <TimeField {...panelProps("time")} className="lg:w-74.25" />
+        <LocationField {...panelProps("location")} className="lg:w-74.25" />
         {/* Mobile has no advanced search; the design keeps only the salon name filter there. */}
         <SalonNameField className="lg:hidden" />
-        <Button type="submit" className="h-[54px] lg:h-[58px]">
+        <Button type="submit" className="h-13.5 lg:h-14.5">
           جستجو
         </Button>
-        <Button variant="secondary" onClick={clearFilters} className="h-[54px] gap-2 lg:hidden">
+        <Button variant="secondary" onClick={clearFilters} className="h-13.5 gap-2 lg:hidden">
           پاک کردن تمام فیلترها
           <Image src="/home/trash.svg" alt="" width={22} height={22} />
         </Button>
@@ -117,7 +117,7 @@ export function HeroSearch() {
               type="button"
               aria-label="بستن جستجوی پیشرفته"
               onClick={() => setAdvancedOpen(false)}
-              className="cursor-pointer rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+              className="focus-ring-2 cursor-pointer rounded-lg"
             >
               <Image src="/home/close.svg" alt="" width={51} height={35} />
             </button>

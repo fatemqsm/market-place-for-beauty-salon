@@ -73,7 +73,7 @@ function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
       role="dialog"
       aria-label="انتخاب زمان"
       tabIndex={-1}
-      className="search-panel flex w-full flex-col gap-5 p-6 outline-none lg:w-[392px]"
+      className="search-panel flex w-full flex-col gap-5 p-6 outline-none lg:w-98"
     >
       <div className="flex gap-2">
         {quickDays.map((day) => (
@@ -82,7 +82,7 @@ function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
             type="button"
             aria-pressed={criteria.date === day.key}
             onClick={() => update({ date: day.key })}
-            className="h-9 cursor-pointer rounded-full border border-primary px-4 text-sm font-semibold text-text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white"
+            className="search-chip focus-ring-2"
           >
             {day.label}
           </button>
@@ -97,7 +97,7 @@ function TimePanel({ id, onDone }: { id: string; onDone: () => void }) {
           {timeSlots.map((slot) => (
             <label
               key={slot.id}
-              className="flex h-9 cursor-pointer items-center gap-1 rounded-full border border-primary px-3 text-sm font-semibold text-text-secondary has-checked:border-accent has-checked:bg-accent has-checked:text-white has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink"
+              className="search-chip focus-ring-2 gap-1 px-3"
             >
               <input
                 type="radio"
@@ -172,7 +172,7 @@ function HourSelect({ label, value, invalid, errorId, onChange }: HourSelectProp
         aria-describedby={invalid ? errorId : undefined}
         onChange={(event) => onChange(event.target.value)}
         dir="ltr"
-        className="h-10 rounded-lg bg-surface px-3 text-base text-text-secondary shadow-box focus-visible:outline-2 focus-visible:outline-ink aria-invalid:outline-2 aria-invalid:outline-error"
+        className="search-input h-10 px-3 text-base"
       >
         {customHours.map((hour) => (
           <option key={hour} value={hour}>

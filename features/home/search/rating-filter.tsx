@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useId, useRef } from "react";
+import { CheckboxIcon } from "../icons";
 import { useSearch } from "./search-context";
 import { ratingOptions } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
@@ -40,7 +41,7 @@ export function RatingFilter({ open, onOpenChange, className }: SearchFieldProps
         id={panelId}
         hidden={!open}
         tabIndex={-1}
-        className="search-panel w-[338px] max-w-full px-16 outline-none"
+        className="search-panel w-84.5 max-w-full px-16 outline-none"
       >
         <legend className="sr-only">امتیاز سالن</legend>
         <div className="flex flex-col gap-6">
@@ -67,14 +68,11 @@ type RatingOptionProps = {
 
 function RatingOption({ label, checked, onChange }: RatingOptionProps) {
   return (
-    <label className="flex cursor-pointer items-center gap-2 rounded-sm text-base font-semibold text-text-secondary has-checked:text-accent has-focus-visible:outline-2 has-focus-visible:outline-offset-4 has-focus-visible:outline-ink">
+    <label
+      className={`focus-ring-4 flex cursor-pointer items-center gap-2 rounded-sm text-base font-semibold ${checked ? "text-selected" : "text-text-secondary"}`}
+    >
       <input type="checkbox" checked={checked} onChange={onChange} className="sr-only" />
-      <Image
-        src={checked ? "/home/tick-checked.svg" : "/home/tick-unchecked.svg"}
-        alt=""
-        width={18}
-        height={18}
-      />
+      <CheckboxIcon checked={checked} />
       {label}
     </label>
   );

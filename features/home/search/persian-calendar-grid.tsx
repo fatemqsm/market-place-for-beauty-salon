@@ -23,6 +23,16 @@ type PersianCalendarProps = {
 // In RTL, the left arrow moves forward in time and the right arrow moves back.
 const keyOffsets: Record<string, number> = { ArrowLeft: 1, ArrowRight: -1, ArrowDown: 7, ArrowUp: -7 };
 
+const monthButtonClassName =
+  "focus-ring-0 flex size-8 items-center justify-center rounded-full text-lg text-ink enabled:cursor-pointer enabled:hover:bg-hover disabled:opacity-30";
+
+function dayStateClassName(past: boolean, selected: boolean) {
+  if (past) {
+    return "text-disabled opacity-50";
+  }
+  return selected ? "cursor-pointer bg-selected text-white" : "cursor-pointer text-ink hover:bg-hover";
+}
+
 export function PersianCalendar({ value, onChange }: PersianCalendarProps) {
   const [today] = useState(() => startOfDay(new Date()));
   const todayKey = toDateKey(today);
@@ -69,7 +79,7 @@ export function PersianCalendar({ value, onChange }: PersianCalendarProps) {
           aria-label="ماه قبل"
           disabled={isCurrentMonth}
           onClick={() => setMonthStart(shiftPersianMonth(monthStart, -1))}
-          className="flex size-8 cursor-pointer items-center justify-center rounded-full text-lg text-ink hover:bg-surface focus-visible:outline-2 focus-visible:outline-ink disabled:cursor-default disabled:opacity-30"
+          className={monthButtonClassName}
         >
           ›
         </button>
@@ -80,7 +90,7 @@ export function PersianCalendar({ value, onChange }: PersianCalendarProps) {
           type="button"
           aria-label="ماه بعد"
           onClick={() => setMonthStart(shiftPersianMonth(monthStart, 1))}
-          className="flex size-8 cursor-pointer items-center justify-center rounded-full text-lg text-ink hover:bg-surface focus-visible:outline-2 focus-visible:outline-ink"
+          className={monthButtonClassName}
         >
           ‹
         </button>
@@ -94,6 +104,7 @@ export function PersianCalendar({ value, onChange }: PersianCalendarProps) {
         {days.map((day, index) => {
           const key = dayKeys[index];
           const past = key < todayKey;
+          const selected = key === value;
           return (
             <button
               key={key}
@@ -101,7 +112,7 @@ export function PersianCalendar({ value, onChange }: PersianCalendarProps) {
               data-date={key}
               disabled={past}
               tabIndex={key === tabbableKey ? 0 : -1}
-              aria-pressed={key === value}
+              aria-pressed={selected}
               aria-label={fullDateFormatter.format(day)}
               aria-current={key === todayKey ? "date" : undefined}
               onClick={() => {
@@ -110,7 +121,7 @@ export function PersianCalendar({ value, onChange }: PersianCalendarProps) {
               }}
               onKeyDown={(event) => handleKeyDown(event, key)}
               style={index === 0 ? { gridColumnStart: weekColumn(day) + 1 } : undefined}
-              className="mx-auto flex size-9 cursor-pointer items-center justify-center rounded-full text-sm font-semibold text-ink hover:bg-surface focus-visible:outline-2 focus-visible:outline-ink disabled:cursor-default disabled:text-text-muted disabled:opacity-50 disabled:hover:bg-transparent aria-[current=date]:border aria-[current=date]:border-accent aria-pressed:bg-accent aria-pressed:text-white"
+              className={`focus-ring-0 mx-auto flex size-9 items-center justify-center rounded-full text-sm font-semibold aria-[current=date]:border aria-[current=date]:border-accent ${dayStateClassName(past, selected)}`}
             >
               {index + 1}
             </button>

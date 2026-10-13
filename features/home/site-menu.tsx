@@ -27,7 +27,7 @@ const mobileQuery = "(width < 64rem)";
 const sheetOffset = 37;
 
 const itemClassName =
-  "flex h-[38px] items-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink";
+  "focus-ring-4 flex h-9.5 items-center rounded-sm";
 
 export function SiteMenu({ variant = "header" }: SiteMenuProps) {
   const pathname = usePathname();
@@ -92,7 +92,7 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
         aria-expanded={open}
         aria-controls={panelId}
         onClick={toggle}
-        className={`flex cursor-pointer items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${responsive ? "h-[50px] lg:h-[46px]" : "h-12"}`}
+        className={`focus-ring-2 flex cursor-pointer items-center justify-center rounded-full ${responsive ? "h-12.5 lg:h-11.5" : "h-12"}`}
       >
         {responsive && (
           <Image src={mobileIcon.src} alt="" width={mobileIcon.width} height={mobileIcon.height} className="max-w-none lg:hidden" />
@@ -110,7 +110,7 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
         aria-label="منوی سایت"
         hidden={!open}
         style={{ "--sheet-top": `${sheetTop}px` } as CSSProperties}
-        className="z-40 bg-white shadow-[0_9px_13px_rgba(0,0,0,0.16)] max-lg:fixed max-lg:inset-x-0 max-lg:top-(--sheet-top) max-lg:bottom-0 max-lg:overflow-y-auto max-lg:p-8 lg:absolute lg:end-0 lg:top-[calc(100%+16px)] lg:z-50 lg:w-[313px] lg:rounded-lg lg:px-16 lg:py-8"
+        className="z-40 bg-white shadow-popover max-lg:fixed max-lg:inset-x-0 max-lg:top-(--sheet-top) max-lg:bottom-0 max-lg:overflow-y-auto max-lg:p-8 lg:absolute lg:inset-e-0 lg:top-[calc(100%+16px)] lg:z-50 lg:w-78.25 lg:rounded-lg lg:px-16 lg:py-8"
       >
         {responsive && (
           <div className="mb-8 flex flex-col items-start gap-8 lg:hidden">
@@ -118,12 +118,12 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
               type="button"
               aria-disabled="true"
               title="ورود به‌زودی فعال می‌شود"
-              className={buttonClassName("glass", "h-[46px]")}
+              className={buttonClassName("glass", "h-11.5")}
             >
               ورود
             </button>
             <div className="w-full border-b border-primary pb-8">
-              <Link href="/#for-business" onClick={() => setOpenOnPath(null)} className={buttonClassName("primary", "h-[46px]")}>
+              <Link href="/#for-business" onClick={() => setOpenOnPath(null)} className={buttonClassName("primary", "h-11.5")}>
                 افزودن کسب‌وکار
               </Link>
             </div>
@@ -131,7 +131,7 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
         )}
         <ul className="flex flex-col gap-8 text-lg font-semibold text-ink lg:gap-4">
           <li>
-            <span aria-disabled="true" title="این بخش به‌زودی اضافه می‌شود" className="flex h-[38px] cursor-not-allowed items-center">
+            <span aria-disabled="true" title="این بخش به‌زودی اضافه می‌شود" className="flex h-9.5 cursor-not-allowed items-center">
               چرا وریفام
             </span>
           </li>

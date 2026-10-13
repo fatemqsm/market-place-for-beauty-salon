@@ -13,7 +13,7 @@ type SalonCarouselProps = {
 };
 
 const pillButtonClassName =
-  "h-full flex-1 cursor-pointer rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink aria-disabled:cursor-default";
+  "focus-ring-2 h-full flex-1 rounded-full not-aria-disabled:cursor-pointer";
 
 export function SalonCarousel({ title, items, gradientTitle = false, className = "" }: SalonCarouselProps) {
   const titleId = useId();
@@ -43,7 +43,8 @@ export function SalonCarousel({ title, items, gradientTitle = false, className =
       return;
     }
     const step = card.getBoundingClientRect().width + parseFloat(getComputedStyle(scroller).columnGap);
-    scroller.scrollBy({ left: -direction * step, behavior: "smooth" });
+    // No `behavior`: the scroller's motion-safe:scroll-smooth decides, so reduced motion jumps instantly.
+    scroller.scrollBy({ left: -direction * step });
   }
 
   function toggleSaved(id: string) {
@@ -59,15 +60,15 @@ export function SalonCarousel({ title, items, gradientTitle = false, className =
   }
 
   return (
-    <section aria-labelledby={titleId} className={`me-auto w-full max-w-[1279px] ${className}`}>
-      <div className="flex h-[52px] items-center justify-between gap-4">
+    <section aria-labelledby={titleId} className={`me-auto w-full max-w-319.75 ${className}`}>
+      <div className="flex h-13 items-center justify-between gap-4">
         <h2
           id={titleId}
           className={`flex h-full flex-1 items-center text-base leading-none font-semibold text-ink lg:text-2xl lg:font-medium ${gradientTitle ? "lg:text-gradient-title" : ""}`}
         >
           {title}
         </h2>
-        <div className="relative flex h-[30px] w-[90px] shrink-0 lg:hidden">
+        <div className="relative flex h-7.5 w-22.5 shrink-0 lg:hidden">
           <Image src="/home/carousel-nav.svg" alt="" fill className="pointer-events-none" />
           <button
             type="button"
@@ -93,7 +94,7 @@ export function SalonCarousel({ title, items, gradientTitle = false, className =
           id={scrollerId}
           ref={scrollerRef}
           onScroll={updateEdges}
-          className="-m-6 flex min-w-0 flex-1 snap-x snap-mandatory scroll-px-6 gap-14 overflow-x-auto sm:gap-4 scroll-smooth p-6 [scrollbar-width:none] lg:snap-proximity [&::-webkit-scrollbar]:hidden"
+          className="scrollbar-none -m-6 flex min-w-0 flex-1 snap-x snap-mandatory scroll-px-6 gap-14 overflow-x-auto p-6 sm:gap-4 lg:snap-proximity motion-safe:scroll-smooth"
         >
           {items.map((item) => (
             <SalonCard key={item.id} saved={savedIds.has(item.id)} onToggleSave={() => toggleSaved(item.id)} />
@@ -105,7 +106,7 @@ export function SalonCarousel({ title, items, gradientTitle = false, className =
           aria-label={`نمایش سالن‌های بیشتر در ${title}`}
           aria-disabled={atEnd}
           onClick={atEnd ? undefined : () => scrollByCards(1)}
-          className="hidden size-[63px] shrink-0 cursor-pointer items-center justify-center rounded-full transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink aria-disabled:cursor-default aria-disabled:opacity-40 lg:flex"
+          className="focus-ring-2 hidden size-15.75 shrink-0 items-center justify-center rounded-full transition-opacity not-aria-disabled:cursor-pointer aria-disabled:opacity-40 lg:flex"
         >
           <Image src="/home/navigate-next.svg" alt="" width={63} height={63} className="-scale-x-100" />
         </button>

@@ -52,13 +52,14 @@ The path alias `@/*` maps to the repository root.
 - Use utility classes for one-off layout and simple composition.
 - When a base component repeats the same rules, put those rules in a stylesheet next to the component and load that stylesheet through the existing global CSS entry. Do not also duplicate those rules as utilities in JSX.
 - Add design tokens through the current `@theme` approach when the approved design supplies the values. Leave Tailwind's default palette in place.
+- Follow the token, icon, focus, conflict, and canonical-class conventions in the "Design system" and "CSS and Tailwind conventions" sections of `README.md`.
 - Do not add CSS Modules or a second styling system unless an approved implementation needs it.
 
 ## Persian, RTL, and type
 
 - The intended document defaults are `lang="fa"` and `dir="rtl"`. Set them on the root layout when implementing application UI, unless an approved requirement says otherwise.
 - Prefer logical CSS properties (`margin-inline`, `padding-inline`, `text-start`, and the matching Tailwind logical utilities) so RTL layout stays correct.
-- The font is intentionally undecided. Do not choose, download, copy, or wire up a font. Wait for the approved Figma design. Do not copy font files from another repository unless that design decision and the license are both confirmed.
+- The fonts come from the approved Figma design: Vazirmatn for text and Agbalumo for the wordmark, both loaded through `next/font` in `app/layout.tsx`. Do not add another font, or copy font files from another repository, unless the design and the license both confirm it.
 - Format digits according to the value. A telephone number, code, or identifier does not automatically use the same digits as surrounding prose or a displayed price.
 - Add Jalali date handling only when a product requirement needs a date.
 

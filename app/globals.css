@@ -2,36 +2,58 @@
 @import "../components/ui/button.css" layer(components);
 @import "../features/home/search/search.css" layer(components);
 
-:root {
-  --background: #ffffff;
-  --foreground: #2c2c2c;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: #b8b8c8;
-  --color-accent: #d4a8b0;
-  --color-error: #c47a7a;
-  --color-ink: #2c2c2c;
-  --color-text-muted: #9a9a9a;
-  --color-text-secondary: #6b6b6b;
-  --color-stars: #ffefae;
-  --color-surface: #faf8f9;
-  --shadow-box: 0 0 8px rgba(0, 0, 0, 0.16);
+/*
+ * Design tokens. Values come from the approved Figma file; see README.md "Design system".
+ * A plain (not `inline`) @theme also emits each token as a CSS variable, so component
+ * stylesheets read them with var(--…).
+ */
+@theme {
   --font-sans: var(--font-vazirmatn), Tahoma, "Segoe UI", sans-serif;
   --font-logo: var(--font-agbalumo), cursive;
+
+  /* Palette (Figma "Color/*" styles). */
+  --color-ink: #2c2c2c;
+  --color-text-secondary: #6b6b6b;
+  --color-text-muted: #9a9a9a;
+  --color-primary: #b8b8c8;
+  --color-accent: #d4a8b0;
+  --color-background: #fff;
+  --color-surface: #faf8f9;
+  --color-stars: #ffefae;
+  --color-error: #c47a7a;
+
+  /* Semantic roles. Prefer these when the role, not the hue, is what matters. */
+  --color-border: var(--color-primary);
+  --color-focus: var(--color-ink);
+  --color-hover: var(--color-surface);
+  --color-selected: var(--color-accent);
+  --color-disabled: var(--color-text-muted);
+
+  --gradient-button: url("/home/gradient-button.svg");
+  --gradient-title: url("/home/gradient-title.svg");
+  --gradient-hero: url("/home/gradient-hero-title.svg");
+
+  --shadow-box: 0 0 8px rgb(0 0 0 / 0.16);
+  --shadow-card: 6px 6px 20px rgb(0 0 0 / 0.06);
+  --shadow-popover: 0 9px 13px rgb(0 0 0 / 0.16);
+  --shadow-glass: 4px 4px 21px rgb(217 217 217 / 0.92);
+
+  /* Filter shadows follow the painted shape instead of the box. */
+  --drop-shadow-box: 0 0 8px rgb(0 0 0 / 0.16);
+  --drop-shadow-nav: 7px -3px 17px rgb(0 0 0 / 0.25);
+
+  /*
+   * No named spacing tokens: Tailwind's canonical-class check rewrites any equal value to the
+   * token name, so a "gutter" token would also rename unrelated 27px heights. Gutters and control
+   * heights are listed in README.md and use the default spacing scale.
+   */
+  --container-page: 90rem;
+  --container-search: 65.375rem;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-vazirmatn), Tahoma, "Segoe UI", sans-serif;
-}
-
-/* Utilities rather than plain classes, so they can be switched per breakpoint (`lg:text-gradient-hero`). */
-@utility text-gradient-button {
-  background-image: url("/home/gradient-button.svg");
+/* Gradient text. A utility, not a plain class, so it can switch per breakpoint (`lg:text-gradient-hero`). */
+@utility text-gradient-* {
+  background-image: --value(--gradient-*);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   -webkit-background-clip: text;
@@ -39,20 +61,14 @@ body {
   color: transparent;
 }
 
-@utility text-gradient-title {
-  background-image: url("/home/gradient-title.svg");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-@utility text-gradient-hero {
-  background-image: url("/home/gradient-hero-title.svg");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/*
+ * Keyboard focus outline; the number is the offset in pixels (`focus-ring-2`).
+ * It also covers labels that wrap a visually hidden input, and leaves invalid
+ * controls to their own error outline.
+ */
+@utility focus-ring-* {
+  &:is(:focus-visible, :has(:focus-visible)):not([aria-invalid="true"]) {
+    outline: 2px solid var(--color-focus);
+    outline-offset: calc(--value(integer) * 1px);
+  }
 }

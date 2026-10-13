@@ -1,0 +1,45 @@
+import type { SVGProps } from "react";
+
+// Glyphs that the design shows in more than one color. They draw with currentColor, so the parent's text color sets their color.
+type IconProps = SVGProps<SVGSVGElement>;
+
+export function SearchIcon(props: IconProps) {
+  return (
+    <svg width={18} height={18} viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true" {...props}>
+      <path d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z" />
+      <path d="M17 17L14 14" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function HeartIcon({ filled, ...props }: IconProps & { filled: boolean }) {
+  return (
+    <svg width={25} height={25} viewBox="0 0 25 25" aria-hidden="true" {...props}>
+      <path
+        d="M19.3334 13.913C15.0176 17.8696 12.5 19 12.5 19C12.5 19 9.98242 17.8696 5.66657 13.913C1.35073 9.95652 4.22796 6 7.8245 6C11.421 6 12.5 9.3913 12.5 9.3913C12.5 9.3913 13.579 6 17.1755 6C20.772 6 23.6493 9.95652 19.3334 13.913Z"
+        fill={filled ? "currentColor" : "none"}
+        stroke="currentColor"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+// The tick stays white in both states, as in the design; only the box follows currentColor.
+export function CheckboxIcon({ checked, ...props }: IconProps & { checked: boolean }) {
+  return (
+    <svg width={18} height={18} viewBox="0 0 18 18" fill="none" aria-hidden="true" {...props}>
+      {checked ? (
+        <rect width="18" height="18" rx="4" fill="currentColor" />
+      ) : (
+        <rect x="0.75" y="0.75" width="16.5" height="16.5" rx="3.25" stroke="currentColor" strokeWidth={1.5} />
+      )}
+      <path
+        d="M12.729 4.68825C12.5568 4.59254 12.3674 4.53169 12.1717 4.50918C11.976 4.48667 11.7777 4.50293 11.5883 4.55705C11.3988 4.61116 11.2219 4.70207 11.0676 4.82457C10.9133 4.94707 10.7847 5.09877 10.689 5.271L7.90425 10.2825L6.3105 8.68875C6.17213 8.54548 6.00661 8.43121 5.82361 8.3526C5.6406 8.27398 5.44377 8.2326 5.2446 8.23087C5.04543 8.22914 4.84791 8.2671 4.66357 8.34252C4.47922 8.41794 4.31175 8.52932 4.17091 8.67016C4.03007 8.811 3.91869 8.97847 3.84327 9.16282C3.76785 9.34716 3.72989 9.54468 3.73162 9.74385C3.73335 9.94302 3.77473 10.1399 3.85335 10.3229C3.93196 10.5059 4.04623 10.6714 4.1895 10.8098L7.1895 13.8098C7.473 14.094 7.8555 14.25 8.25 14.25L8.45775 14.235C8.68766 14.2028 8.90697 14.1178 9.09841 13.9864C9.28986 13.8551 9.44821 13.6812 9.561 13.4783L13.311 6.72825C13.4067 6.55609 13.4676 6.36676 13.4902 6.17106C13.5128 5.97537 13.4966 5.77714 13.4425 5.58771C13.3885 5.39827 13.2976 5.22134 13.1752 5.06701C13.0528 4.91268 12.9012 4.78398 12.729 4.68825Z"
+        fill="white"
+      />
+    </svg>
+  );
+}

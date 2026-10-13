@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
+import { SearchIcon } from "../icons";
 import { SiteMenu } from "../site-menu";
 import { useDismiss } from "../use-dismiss";
 import { Wordmark } from "../wordmark";
@@ -53,7 +53,8 @@ function StickyBar() {
   function search() {
     setOpenPanel(null);
     submit();
-    document.getElementById(heroSearchId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    document.getElementById(heroSearchId)?.scrollIntoView({ behavior, block: "start" });
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -81,12 +82,12 @@ function StickyBar() {
     <div className="fixed inset-x-0 top-8 z-50 hidden px-8 lg:block">
       <div
         ref={rootRef}
-        className="mx-auto flex min-h-[78px] max-w-[1376px] items-center justify-between gap-4 rounded-2xl bg-white/50 px-4 backdrop-blur-md"
+        className="mx-auto flex min-h-19.5 max-w-344 items-center justify-between gap-4 rounded-2xl bg-white/50 px-4 backdrop-blur-md"
       >
         <Link
           href="/"
           aria-label="وریفام، صفحه اصلی"
-          className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+          className="focus-ring-4 shrink-0 rounded-sm"
         >
           <Wordmark />
         </Link>
@@ -97,17 +98,17 @@ function StickyBar() {
             aria-label="جستجوی سالن"
             noValidate
             onSubmit={handleSubmit}
-            className="flex w-full min-w-0 max-w-[1046px] items-center gap-2 rounded-[32px] bg-white/50 py-[6px] pe-[6px] shadow-box"
+            className="flex w-full min-w-0 max-w-search items-center gap-2 rounded-4xl bg-white/50 py-1.5 pe-1.5 shadow-box"
           >
             <ServiceField {...panelProps("service")} />
             <TimeField {...panelProps("time")} />
             <LocationField {...panelProps("location")} />
-            <Button type="submit" className="h-[45px] shrink-0 rounded-3xl px-6">
+            <Button type="submit" className="h-11.25 shrink-0 rounded-3xl px-6">
               جستجو
             </Button>
           </form>
         ) : (
-          <div className="flex h-12 w-full min-w-0 max-w-[797px] items-center rounded-3xl bg-white p-1 drop-shadow-[0_0_8px_rgba(0,0,0,0.16)]">
+          <div className="flex h-12 w-full min-w-0 max-w-199.25 items-center rounded-3xl bg-white p-1 drop-shadow-box">
             {segments.map((segment, index) => (
               <button
                 key={segment.panel}
@@ -115,13 +116,13 @@ function StickyBar() {
                 type="button"
                 aria-label={`جستجو: ${segment.label}`}
                 onClick={() => expand(segment.panel)}
-                className={`flex h-10 min-w-0 flex-1 cursor-pointer items-center justify-center px-4 text-lg font-semibold whitespace-nowrap text-text-muted hover:bg-surface focus-visible:outline-2 focus-visible:outline-ink ${index < segments.length - 1 ? "border-l border-text-muted" : "rounded-e-3xl"}`}
+                className={`focus-ring-0 flex h-10 min-w-0 flex-1 cursor-pointer items-center justify-center px-4 text-lg font-semibold whitespace-nowrap text-text-muted hover:bg-hover ${index < segments.length - 1 ? "border-l border-text-muted" : "rounded-e-3xl"}`}
               >
                 <span className="truncate">{segment.label}</span>
               </button>
             ))}
-            <Button aria-label="جستجو" onClick={search} className="h-10 w-16 shrink-0 rounded-[32px] px-0">
-              <Image src="/home/search-white.svg" alt="" width={16} height={16} />
+            <Button aria-label="جستجو" onClick={search} className="h-10 w-16 shrink-0 rounded-4xl px-0">
+              <SearchIcon width={16} height={16} />
             </Button>
           </div>
         )}

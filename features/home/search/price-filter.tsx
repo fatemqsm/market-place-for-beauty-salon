@@ -54,7 +54,7 @@ export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps)
         id={panelId}
         hidden={!open}
         tabIndex={-1}
-        className="search-panel w-full min-w-[300px] px-16 outline-none"
+        className="search-panel w-full min-w-75 px-16 outline-none"
       >
         <legend className="sr-only">بازه قیمت</legend>
         <div className="flex flex-col gap-4">
@@ -72,7 +72,7 @@ export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps)
             errorId={errorId}
             onChange={(priceTo) => update({ priceTo })}
           />
-          <div dir="ltr" className="relative h-[14px] py-4">
+          <div dir="ltr" className="relative h-3.5 py-4">
             <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-surface" />
             <div
               className="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-accent"
@@ -132,7 +132,7 @@ function PriceInput({ label, value, invalid, errorId, onChange }: PriceInputProp
         aria-invalid={invalid}
         aria-describedby={invalid ? errorId : undefined}
         onChange={(event) => onChange(toLatinDigits(event.target.value))}
-        className="h-[43px] rounded-lg bg-surface px-4 text-start text-base text-text-secondary shadow-box outline-none focus-visible:bg-white focus-visible:outline-2 focus-visible:outline-ink aria-invalid:outline-2 aria-invalid:outline-error"
+        className="search-input h-10.75 px-4 text-start text-base"
       />
     </label>
   );

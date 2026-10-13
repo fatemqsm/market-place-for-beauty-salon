@@ -3,20 +3,20 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   padding-inline: 32px;
   font-size: 18px;
   font-weight: 600;
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
-  transition:
-    filter 150ms ease,
-    background-color 150ms ease;
+  transition-property: filter, background-color;
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing-function);
 }
 
 .button:focus-visible {
-  outline: 2px solid #2c2c2c;
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
@@ -26,9 +26,10 @@
 }
 
 .button-primary {
-  color: #fff;
+  color: var(--color-white);
+  /* The solid color is the gradient's darkest stop, shown until the image loads. */
   background:
-    url("/home/gradient-button.svg") center / 100% 100% no-repeat,
+    var(--gradient-button) center / 100% 100% no-repeat,
     #1d1518;
 }
 
@@ -37,23 +38,23 @@
 }
 
 .button-secondary {
-  background: #fff;
-  color: #2c2c2c;
+  background: var(--color-background);
+  color: var(--color-ink);
 }
 
 .button-secondary:hover:not(:disabled, [aria-disabled="true"]) {
-  background: #faf8f9;
+  background: var(--color-hover);
 }
 
 /* Figma rounds only the top-right corner of this button, regardless of direction. */
 .button-glass {
   border-radius: 0;
-  border-top-right-radius: 24px;
-  background: rgba(255, 255, 255, 0.5);
-  color: #2c2c2c;
-  box-shadow: 4px 4px 21px rgba(217, 217, 217, 0.92);
+  border-top-right-radius: var(--radius-3xl);
+  background: rgb(255 255 255 / 0.5);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-glass);
 }
 
 .button-glass:hover:not(:disabled, [aria-disabled="true"]) {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgb(255 255 255 / 0.8);
 }

@@ -6,22 +6,22 @@ export function BusinessCta() {
     <section
       id="for-business"
       aria-labelledby="for-business-title"
-      className="relative mx-auto mt-12 flex w-full max-w-[1440px] scroll-mt-8 flex-col gap-10 max-lg:h-[394px] max-lg:justify-center lg:mt-24 xl:mt-[172px] xl:block xl:h-[637px]"
+      className="relative mx-auto mt-12 flex w-full max-w-page scroll-mt-8 flex-col gap-10 max-lg:h-98.5 max-lg:justify-center lg:mt-24 xl:mt-43 xl:block xl:h-159.25"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-[-835px] left-[-638px] -z-10 h-[1869px] w-[1962.5px] -scale-y-100 lg:top-[-759px] lg:left-[-247px]"
+        className="pointer-events-none absolute -top-208.75 -left-159.5 -z-10 h-[1869px] w-[1962.5px] -scale-y-100 lg:-top-189.75 lg:-left-61.75"
       >
         <Image src="/home/glow-ellipse.svg" alt="" fill sizes="1963px" />
       </div>
-      <div className="flex flex-col items-center gap-9 px-[27px] text-center lg:items-start lg:px-4 lg:text-start xl:absolute xl:top-0 xl:right-[103px] xl:z-10 xl:h-[394px] xl:w-[497px] xl:justify-center xl:px-0">
+      <div className="flex flex-col items-center gap-9 px-6.75 text-center lg:items-start lg:px-4 lg:text-start xl:absolute xl:top-0 xl:right-25.75 xl:z-10 xl:h-98.5 xl:w-124.25 xl:justify-center xl:px-0">
         <h2
           id="for-business-title"
-          className="text-gradient-title flex h-[58px] w-[333px] max-w-full items-center text-[30px] leading-normal font-medium lg:block lg:h-auto lg:w-full lg:text-4xl lg:leading-[58px] lg:font-bold"
+          className="text-gradient-title flex h-14.5 w-83.25 max-w-full items-center text-3xl leading-normal font-medium lg:block lg:h-auto lg:w-full lg:text-4xl lg:leading-14.5 lg:font-bold"
         >
           کسب‌وکارت رو متحول کن!
         </h2>
-        <p className="flex h-[90px] items-center text-base leading-normal font-semibold text-ink lg:block lg:h-auto lg:text-xl lg:leading-[49.3px]">
+        <p className="flex h-22.5 items-center text-base leading-normal font-semibold text-ink lg:block lg:h-auto lg:text-xl lg:leading-[49.3px]">
           <span>
             با وریفام، نوبت‌دهی رو خودکار کن،
             <br />
@@ -30,13 +30,13 @@ export function BusinessCta() {
             و درآمدت رو افزایش بده.
           </span>
         </p>
-        <Button aria-disabled="true" title="این بخش به‌زودی اضافه می‌شود" className="h-[46px]">
+        <Button aria-disabled="true" title="این بخش به‌زودی اضافه می‌شود" className="h-11.5">
           اطلاعات بیشتر
         </Button>
       </div>
       <div
         aria-hidden="true"
-        className="relative aspect-[1596/595] w-full overflow-hidden -scale-x-100 max-lg:hidden xl:absolute xl:top-[42px] xl:left-[-188px] xl:h-[595px] xl:w-[1596px]"
+        className="relative aspect-1596/595 w-full overflow-hidden -scale-x-100 max-lg:hidden xl:absolute xl:top-10.5 xl:-left-47 xl:h-148.75 xl:w-[1596px]"
       >
         <Image
           src="/home/for-business.png"

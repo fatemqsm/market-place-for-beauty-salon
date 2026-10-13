@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { SearchIcon } from "../icons";
 import { useSearch } from "./search-context";
 import { serviceOptions } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
@@ -75,7 +75,7 @@ export function ServiceField({ open, onOpenChange, size = "default", autoFocus, 
         data-active={open ? "" : undefined}
         className="search-field"
       >
-        <Image src="/home/search.svg" alt="" width={18} height={18} className="shrink-0" />
+        <SearchIcon className="shrink-0 text-text-secondary" />
         <span className="search-field-label">{criteria.service || "انتخاب خدمات"}</span>
       </button>
       <ul
@@ -83,7 +83,7 @@ export function ServiceField({ open, onOpenChange, size = "default", autoFocus, 
         role="listbox"
         aria-labelledby={labelId}
         hidden={!open}
-        className="search-panel flex w-full min-w-[240px] flex-col gap-1 p-2"
+        className="search-panel flex w-full min-w-60 flex-col gap-1 p-2"
       >
         {serviceOptions.map((option, index) => (
           <li

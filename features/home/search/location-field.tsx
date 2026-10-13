@@ -102,7 +102,7 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
           onKeyDown={handleKeyDown}
         />
       </label>
-      <div hidden={!open} className="search-panel w-full min-w-[240px] p-2">
+      <div hidden={!open} className="search-panel w-full min-w-60 p-2">
         <ul id={listId} role="listbox" aria-label="پیشنهاد موقعیت">
           <li
             id={optionId}
@@ -113,7 +113,7 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
             onMouseDown={(event) => event.preventDefault()}
             onMouseEnter={() => setHighlighted(true)}
             onClick={locateMe}
-            className="search-option min-h-[60px] justify-center"
+            className="search-option min-h-15 justify-center"
           >
             {locating ? "در حال دریافت موقعیت…" : myLocationLabel}
           </li>
