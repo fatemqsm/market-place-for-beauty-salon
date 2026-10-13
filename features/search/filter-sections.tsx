@@ -39,8 +39,8 @@ function FilterFieldset({ icon, label, children }: { icon: ReactNode; label: str
 
 function textInputClassName(variant: SectionVariant) {
   return cn(
-    "w-full rounded-lg px-4 text-base text-text-secondary shadow-box outline-none transition-shadow",
-    variant === "sidebar" ? "h-9 bg-white/50" : "h-13.5 bg-background",
+    "w-full rounded-lg px-4 text-base text-ink shadow-box outline-none transition-shadow duration-fast ease-standard",
+    variant === "sidebar" ? "h-9 bg-background/70" : "h-13.5 bg-background",
     // The design marks a focused text input with the accent glow instead of an outline.
     "focus:shadow-glow",
   );

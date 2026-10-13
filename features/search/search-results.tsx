@@ -15,7 +15,7 @@ export function SearchResults() {
 
   return (
     <>
-      <p role="status" className="text-base/none font-semibold text-text-muted max-lg:sr-only">
+      <p role="status" className="text-sm/normal font-semibold text-text-secondary lg:text-base/none">
         {`${results.length} نتیجه یافت شد.`}
       </p>
       <p role="alert" className="text-base font-semibold text-error empty:hidden">

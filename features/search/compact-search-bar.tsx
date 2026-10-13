@@ -74,6 +74,16 @@ export function CompactSearchBar({ onInvalid }: CompactSearchBarProps) {
     };
   }
 
+  function segmentIsSet(panel: Panel) {
+    if (panel === "service") {
+      return criteria.service !== "";
+    }
+    if (panel === "time") {
+      return describeTime(criteria) !== "";
+    }
+    return criteria.location.trim() !== "";
+  }
+
   const segments: { panel: Panel; label: string }[] = [
     { panel: "service", label: criteria.service || "انتخاب خدمات" },
     { panel: "time", label: describeTime(criteria) || "انتخاب زمان" },
@@ -83,7 +93,7 @@ export function CompactSearchBar({ onInvalid }: CompactSearchBarProps) {
   return (
     <div
       ref={rootRef}
-      className="mx-auto flex min-h-19.5 max-w-344 items-center justify-between gap-4 rounded-2xl bg-white/50 px-4 backdrop-blur-md"
+      className="mx-auto flex min-h-19.5 max-w-344 items-center justify-between gap-4 rounded-2xl border border-border bg-background/75 px-4 shadow-glass backdrop-blur-md"
     >
       <Link href="/" aria-label="وریفام، صفحه اصلی" className="focus-ring-4 shrink-0 rounded-sm">
         <Wordmark />
@@ -95,7 +105,7 @@ export function CompactSearchBar({ onInvalid }: CompactSearchBarProps) {
           aria-label="جستجوی سالن"
           noValidate
           onSubmit={handleSubmit}
-          className="flex w-full min-w-0 max-w-search items-center gap-2 rounded-4xl bg-white/50 py-1.5 pe-1.5 shadow-box"
+          className="flex w-full min-w-0 max-w-search items-center gap-2 rounded-4xl border border-border bg-background/80 py-1.5 pe-1.5 shadow-box"
         >
           <ServiceField {...panelProps("service")} />
           <TimeField {...panelProps("time")} />
@@ -105,7 +115,7 @@ export function CompactSearchBar({ onInvalid }: CompactSearchBarProps) {
           </Button>
         </form>
       ) : (
-        <div className="flex h-12 w-full min-w-0 max-w-199.25 items-center rounded-3xl bg-white p-1 drop-shadow-box">
+        <div className="flex h-12 w-full min-w-0 max-w-199.25 items-center rounded-3xl border border-border bg-background p-1 drop-shadow-box">
           {segments.map((segment, index) => (
             <button
               key={segment.panel}
@@ -114,8 +124,9 @@ export function CompactSearchBar({ onInvalid }: CompactSearchBarProps) {
               aria-label={`جستجو: ${segment.label}`}
               onClick={() => expand(segment.panel)}
               className={cn(
-                "focus-ring-0 flex h-10 min-w-0 flex-1 cursor-pointer items-center justify-center px-4 text-lg font-semibold whitespace-nowrap text-text-muted hover:bg-hover",
-                index < segments.length - 1 ? "border-l border-text-muted" : "rounded-e-3xl",
+                "focus-ring-0 flex h-10 min-w-0 flex-1 cursor-pointer items-center justify-center px-4 text-lg font-semibold whitespace-nowrap transition-colors duration-fast ease-standard hover:bg-hover hover:text-ink",
+                segmentIsSet(segment.panel) ? "text-ink" : "text-text-muted",
+                index < segments.length - 1 ? "border-l border-border" : "rounded-e-3xl",
               )}
             >
               <span className="truncate">{segment.label}</span>

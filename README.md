@@ -74,19 +74,24 @@ All tokens live in the `@theme` block of `app/globals.css`, using Tailwind CSS v
 
 ### Colors
 
-The palette below comes from the Figma color styles.
+The roles below come from the Figma color styles. The hues are the warm ivory, plum, and champagne palette for the marketplace.
 
 | Token | Value | Used for |
 | --- | --- | --- |
-| `ink` | `#2c2c2c` | Primary text and icons |
-| `text-secondary` | `#6b6b6b` | Secondary text, inactive icons and options |
-| `text-muted` | `#9a9a9a` | Placeholders, empty field labels, weekday headings |
-| `primary` | `#b8b8c8` | Borders, dividers, image placeholders |
-| `accent` | `#d4a8b0` | Brand accent: active navigation, today marker, range slider |
-| `background` | `#fff` | Page and popover background |
-| `surface` | `#faf8f9` | Filled fields, footer, hover background |
-| `stars` | `#ffefae` | Rating stars |
-| `error` | `#c47a7a` | Validation messages and invalid outlines |
+| `ink` | `#2c2426` | Primary text and icons |
+| `text-secondary` | `#5e5456` | Secondary text, inactive icons and options |
+| `text-muted` | `#6a605c` | Placeholders, empty field labels, weekday headings |
+| `primary` | `#d4cbc3` | Borders, dividers, image placeholders, the map canvas |
+| `accent` | `#7a3e52` | Brand accent: active navigation, today marker, range slider, saved state |
+| `background` | `#fbf7f2` | Page, cards, and popover background |
+| `surface` | `#f3ebe3` | Filled fields, footer, hover background, search workspace |
+| `stars` | `#b08d3e` | Rating stars |
+| `error` | `#9b3a42` | Validation messages and invalid outlines |
+| `success` | `#2f6b4f` | Positive confirmation, once a flow has one |
+| `warning` | `#8a5a12` | Caution, once a flow has one |
+| `info` | `#3d5c73` | Neutral notices, once a flow has one |
+| `brand` | `#2c2026` | Solid fallback behind the primary-button gradient |
+| `on-accent` | `#fff` | Text and icons on `accent`, `selected`, and `brand` |
 
 Semantic aliases point at the palette. Use one when the role matters more than the hue:
 
@@ -98,17 +103,19 @@ Semantic aliases point at the palette. Use one when the role matters more than t
 | `selected` | `accent` | Selected days, chips, rating options, saved hearts |
 | `disabled` | `text-muted` | Text of disabled options |
 
-The design defines no success, warning, info, link, or overlay colors, so there are no tokens for them. Links inherit the color of the text around them. Add those tokens when the design supplies values. There is no dark mode.
+`success`, `warning`, and `info` are reserved for feedback that does not exist in the current screens. Do not use them as decoration. Links inherit the color of the text around them. There is no dark mode.
 
 ### Gradients, shadows, radii, and layers
 
 - **Gradients.** `--gradient-button`, `--gradient-title`, and `--gradient-hero` point to SVG files in `public/home/`. Use `text-gradient-button`, `text-gradient-title`, or `text-gradient-hero` for gradient text. These are utilities, so they work with breakpoints, for example `lg:text-gradient-hero`. The primary button uses `--gradient-button` as its background.
 - **Box shadows:**
   - `shadow-box`: fields, panels, and inputs.
-  - `shadow-card`: salon cards.
-  - `shadow-popover`: the menu.
-  - `shadow-glass`: the glass button.
-  - `shadow-glow`: the accent glow (Figma "Gradient/ColurfulInput") on a focused filter input and an open filter chip.
+  - `shadow-card`: salon cards at rest.
+  - `shadow-card-hover`: salon cards under a pointer.
+  - `shadow-popover`: menus and search panels.
+  - `shadow-sheet`: the mobile filter sheet.
+  - `shadow-glass`: glass bars and the glass button.
+  - `shadow-glow`: the accent ring on a focused filter input and an open filter chip.
 - **Filter shadows** follow the painted shape:
   - `drop-shadow-box`: the sticky search pill.
   - `drop-shadow-nav`: the mobile bottom navigation.
@@ -246,10 +253,12 @@ The repository has no automated visual or accessibility tests. State which of th
 ## Motion and interaction
 
 - **Transitions.**
-  - Keep them short and limited to color, background, opacity, filter, or shadow.
-  - Use `transition-colors` or `transition-opacity`, or name the properties, as `transition-[filter,background-color]` on `Button` does. All of them use Tailwind's default 150ms duration and easing.
-  - Do not add an animation library, and do not use motion that delays input.
+  - Keep them short and limited to color, background, opacity, filter, shadow, or a transform that does not move layout (`scale`, `translate`).
+  - Use the motion tokens: `duration-fast` (150ms) for color, opacity, and press feedback; `duration-base` (220ms) with `animate-overlay` or `animate-rise` for menus, panels, and the sticky bar; `duration-slow` (360ms) with `animate-sheet` or an image `scale` for larger reveals.
+  - Easing is `ease-standard` for entries and `ease-exit` for departures. Do not invent a one-off duration.
+  - Do not add an animation library, and do not use motion that delays input. Do not fade the page in from transparent.
 - **Reduced motion.**
+  - `app/globals.css` shortens every animation and transition when `prefers-reduced-motion: reduce` is set. Entrance utilities still use `motion-safe:` so those users never start from a hidden frame.
   - The carousel scroller uses `motion-safe:scroll-smooth`, and `scrollBy` is called without `behavior`, so users who prefer reduced motion get an instant jump.
   - The sticky header checks `prefers-reduced-motion` before its smooth `scrollIntoView`.
   - `<html>` has no global smooth scrolling.

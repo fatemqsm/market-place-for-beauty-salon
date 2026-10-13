@@ -7,8 +7,8 @@ export function MidBackground(props: SVGProps<SVGSVGElement>) {
       <path d="M0 0H838.568V1440.01H0V0Z" fill={`url(#${gradientId})`} />
       <defs>
         <linearGradient id={gradientId} x1="789.351" y1="991.862" x2="324.301" y2="1075.07" gradientUnits="userSpaceOnUse">
-          <stop offset="0.1286" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" />
+          <stop offset="0.1286" stopColor="#FBF7F2" stopOpacity="0" />
+          <stop offset="1" stopColor="#FBF7F2" />
         </linearGradient>
       </defs>
     </svg>

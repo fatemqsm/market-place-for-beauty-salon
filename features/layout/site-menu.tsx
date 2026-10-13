@@ -17,7 +17,7 @@ const mobileQuery = "(width < 64rem)";
 const sheetOffset = 37;
 
 const itemClassName =
-  "focus-ring-4 flex h-9.5 items-center rounded-sm";
+  "focus-ring-4 flex h-9.5 items-center rounded-sm transition-colors duration-fast ease-standard hover:text-accent";
 
 export function SiteMenu({ variant = "header" }: SiteMenuProps) {
   const pathname = usePathname();
@@ -93,7 +93,7 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
         aria-label="منوی سایت"
         hidden={!open}
         style={{ "--sheet-top": `${sheetTop}px` } as CSSProperties}
-        className="z-40 bg-white shadow-popover max-lg:fixed max-lg:inset-x-0 max-lg:top-(--sheet-top) max-lg:bottom-0 max-lg:overflow-y-auto max-lg:p-8 lg:absolute lg:inset-e-0 lg:top-[calc(100%+16px)] lg:z-50 lg:w-78.25 lg:rounded-lg lg:px-16 lg:py-8"
+        className="z-40 bg-background shadow-popover motion-safe:animate-overlay max-lg:fixed max-lg:inset-x-0 max-lg:top-(--sheet-top) max-lg:bottom-0 max-lg:overflow-y-auto max-lg:p-8 lg:absolute lg:inset-e-0 lg:top-[calc(100%+16px)] lg:z-50 lg:w-78.25 lg:rounded-lg lg:border lg:border-border lg:px-16 lg:py-8"
       >
         {responsive && (
           <div className="mb-8 flex flex-col items-start gap-8 lg:hidden">
@@ -114,7 +114,7 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
         )}
         <ul className="flex flex-col gap-8 text-lg font-semibold text-ink lg:gap-4">
           <li>
-            <span aria-disabled="true" title="این بخش به‌زودی اضافه می‌شود" className="flex h-9.5 cursor-not-allowed items-center">
+            <span aria-disabled="true" title="این بخش به‌زودی اضافه می‌شود" className="flex h-9.5 cursor-not-allowed items-center text-disabled">
               چرا وریفام
             </span>
           </li>

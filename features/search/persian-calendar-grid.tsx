@@ -25,13 +25,13 @@ type PersianCalendarProps = {
 const keyOffsets: Record<string, number> = { ArrowLeft: 1, ArrowRight: -1, ArrowDown: 7, ArrowUp: -7 };
 
 const monthButtonClassName =
-  "focus-ring-0 flex size-8 items-center justify-center rounded-full text-lg text-ink enabled:cursor-pointer enabled:hover:bg-hover disabled:opacity-30";
+  "focus-ring-0 flex size-8 items-center justify-center rounded-full text-lg text-ink transition-colors duration-fast ease-standard enabled:cursor-pointer enabled:hover:bg-hover disabled:opacity-30";
 
 function dayStateClassName(past: boolean, selected: boolean) {
   if (past) {
     return "text-disabled opacity-50";
   }
-  return selected ? "cursor-pointer bg-selected text-white" : "cursor-pointer text-ink hover:bg-hover";
+  return selected ? "cursor-pointer bg-selected text-on-accent" : "cursor-pointer text-ink hover:bg-hover";
 }
 
 export function PersianCalendar({ value, onChange }: PersianCalendarProps) {
@@ -123,7 +123,7 @@ export function PersianCalendar({ value, onChange }: PersianCalendarProps) {
               onKeyDown={(event) => handleKeyDown(event, key)}
               style={index === 0 ? { gridColumnStart: weekColumn(day) + 1 } : undefined}
               className={cn(
-                "focus-ring-0 mx-auto flex size-9 items-center justify-center rounded-full text-sm font-semibold aria-[current=date]:border aria-[current=date]:border-accent",
+                "focus-ring-0 mx-auto flex size-9 items-center justify-center rounded-full text-sm font-semibold transition-colors duration-fast ease-standard aria-[current=date]:border aria-[current=date]:border-accent",
                 dayStateClassName(past, selected),
               )}
             >

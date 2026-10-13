@@ -103,7 +103,7 @@ export function SalonCarousel({ title, items, gradientTitle = false, className }
           aria-label={`نمایش سالن‌های بیشتر در ${title}`}
           aria-disabled={atEnd}
           onClick={atEnd ? undefined : () => scrollByCards(1)}
-          className="focus-ring-2 hidden size-15.75 shrink-0 items-center justify-center rounded-full transition-opacity not-aria-disabled:cursor-pointer aria-disabled:opacity-40 lg:flex"
+          className="focus-ring-2 hidden size-15.75 shrink-0 items-center justify-center rounded-full transition-opacity duration-fast ease-standard not-aria-disabled:cursor-pointer aria-disabled:opacity-40 lg:flex"
         >
           <NavigateNextIcon className="-scale-x-100 text-text-secondary" />
         </button>

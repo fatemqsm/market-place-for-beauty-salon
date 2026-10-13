@@ -29,7 +29,8 @@ const filters: { id: Filter; label: string; isSet: (criteria: SearchCriteria) =>
   { id: "sort", label: "مرتب‌سازی", isSet: (criteria) => criteria.sort !== "default" },
 ];
 
-const chipBaseClassName = "flex h-10 shrink-0 items-center gap-1 rounded-4xl px-3 text-base/none font-semibold whitespace-nowrap";
+const chipBaseClassName =
+  "flex h-10 shrink-0 items-center gap-1 rounded-4xl px-3 text-base/none font-semibold whitespace-nowrap transition-[background-color,box-shadow,color,border-color] duration-fast ease-standard";
 
 function chipClassName(set: boolean, open: boolean) {
   if (set) {
@@ -103,7 +104,9 @@ export function MobileFilters({ className }: { className?: string }) {
                   className={chipClassName(filter.isSet(criteria), open)}
                 >
                   {filter.label}
-                  <ChevronDownIcon className={cn("shrink-0", open && "-scale-y-100")} />
+                  <ChevronDownIcon
+                    className={cn("shrink-0 transition-transform duration-base ease-standard", open && "-scale-y-100")}
+                  />
                 </button>
               </li>
             );
@@ -144,13 +147,13 @@ function BottomSheet({ id, label, onClose, children }: BottomSheetProps) {
       role="dialog"
       aria-label={label}
       tabIndex={-1}
-      className="fixed inset-x-0 bottom-0 z-60 flex max-h-[85dvh] min-h-72.25 flex-col gap-8 overflow-y-auto rounded-t-2xl bg-background p-4 shadow-[4px_4px_24px_rgb(0_0_0/0.33)] outline-none"
+      className="fixed inset-x-0 bottom-0 z-60 flex max-h-[85dvh] min-h-72.25 flex-col gap-8 overflow-y-auto rounded-t-2xl border-t border-border bg-background p-4 shadow-sheet outline-none motion-safe:animate-sheet"
     >
       <button
         type="button"
         aria-label="بستن"
         onClick={onClose}
-        className="focus-ring-2 relative size-5 shrink-0 cursor-pointer self-start rounded-sm text-ink"
+        className="focus-ring-2 relative size-5 shrink-0 cursor-pointer self-start rounded-sm text-ink transition-colors duration-fast ease-standard hover:text-accent"
       >
         {/* CloseIcon pads its cross; this size draws the sheet's 15px cross centered in the 20px slot. */}
         <CloseIcon width={40} height={27.5} strokeWidth={3.2} className="absolute top-1/2 left-1/2 max-w-none -translate-1/2" />

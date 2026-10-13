@@ -2,24 +2,33 @@
 @import "../features/search/search.css" layer(components);
 
 /*
- * Design tokens. Values come from the approved Figma file; see README.md "Design system".
+ * Design tokens. Roles follow the approved Figma system; hues are the warm ivory, plum, and
+ * champagne palette documented in README.md "Design system".
  * A plain (not `inline`) @theme also emits each token as a CSS variable, so component
  * stylesheets read them with var(--…).
+ *
+ * Spacing and radii stay on Tailwind's default scale. Named spacing tokens would be rewritten
+ * onto unrelated properties by the canonical-class check. See README.md.
  */
 @theme {
   --font-sans: var(--font-vazirmatn), Tahoma, "Segoe UI", sans-serif;
   --font-logo: var(--font-agbalumo), cursive;
 
-  /* Palette (Figma "Color/*" styles). */
-  --color-ink: #2c2c2c;
-  --color-text-secondary: #6b6b6b;
-  --color-text-muted: #9a9a9a;
-  --color-primary: #b8b8c8;
-  --color-accent: #d4a8b0;
-  --color-background: #fff;
-  --color-surface: #faf8f9;
-  --color-stars: #ffefae;
-  --color-error: #c47a7a;
+  /* Palette. */
+  --color-ink: #2c2426;
+  --color-text-secondary: #5e5456;
+  --color-text-muted: #6a605c;
+  --color-primary: #d4cbc3;
+  --color-accent: #7a3e52;
+  --color-background: #fbf7f2;
+  --color-surface: #f3ebe3;
+  --color-stars: #b08d3e;
+  --color-error: #9b3a42;
+  --color-success: #2f6b4f;
+  --color-warning: #8a5a12;
+  --color-info: #3d5c73;
+  --color-brand: #2c2026;
+  --color-on-accent: #fff;
 
   /* Semantic roles. Prefer these when the role, not the hue, is what matters. */
   --color-border: var(--color-primary);
@@ -32,15 +41,17 @@
   --gradient-title: url("/home/gradient-title.svg");
   --gradient-hero: url("/home/gradient-hero-title.svg");
 
-  --shadow-box: 0 0 8px rgb(0 0 0 / 0.16);
-  --shadow-card: 6px 6px 20px rgb(0 0 0 / 0.06);
-  --shadow-popover: 0 9px 13px rgb(0 0 0 / 0.16);
-  --shadow-glass: 4px 4px 21px rgb(217 217 217 / 0.92);
-  --shadow-glow: 0 0 8px var(--color-accent);
+  --shadow-box: 0 1px 2px rgb(44 36 38 / 0.04), 0 6px 16px rgb(44 36 38 / 0.08);
+  --shadow-card: 0 8px 24px rgb(44 36 38 / 0.06);
+  --shadow-card-hover: 0 14px 32px rgb(44 36 38 / 0.12);
+  --shadow-popover: 0 16px 40px rgb(44 36 38 / 0.14);
+  --shadow-sheet: 0 -12px 40px rgb(44 36 38 / 0.16);
+  --shadow-glass: 0 8px 28px rgb(44 36 38 / 0.08);
+  --shadow-glow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 32%, transparent);
 
   /* Filter shadows follow the painted shape instead of the box. */
-  --drop-shadow-box: 0 0 8px rgb(0 0 0 / 0.16);
-  --drop-shadow-nav: 7px -3px 17px rgb(0 0 0 / 0.25);
+  --drop-shadow-box: 0 4px 16px rgb(44 36 38 / 0.1);
+  --drop-shadow-nav: 0 -6px 20px rgb(44 36 38 / 0.1);
 
   /*
    * No named spacing tokens: Tailwind's canonical-class check rewrites any equal value to the
@@ -49,6 +60,16 @@
    */
   --container-page: 90rem;
   --container-search: 65.375rem;
+
+  /* Motion. Fast is for color and press feedback; base for overlays; slow for image reveals. */
+  --duration-fast: 150ms;
+  --duration-base: 220ms;
+  --duration-slow: 360ms;
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --animate-rise: rise 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-overlay: overlay 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-sheet: sheet 360ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /*
@@ -76,5 +97,50 @@
   &:is(:focus-visible, :has(:focus-visible)):not([aria-invalid="true"]) {
     outline: 2px solid var(--color-focus);
     outline-offset: calc(--value(integer) * 1px);
+  }
+}
+
+/* Enter motion only. Resting styles match the last keyframe, so nothing stays offset after it ends. */
+@keyframes rise {
+  from {
+    translate: 0 0.5rem;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes overlay {
+  from {
+    opacity: 0;
+    translate: 0 0.375rem;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes sheet {
+  from {
+    translate: 0 1rem;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+/*
+ * Unlayered on purpose: it beats Tailwind's utility layer, so reduced motion shortens every
+ * transition and animation without `!important`.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+    transition-duration: 1ms;
+    scroll-behavior: auto;
   }
 }

@@ -21,16 +21,16 @@ function fieldBackground(size: FieldSize, filled: boolean, active: boolean) {
   if (size === "compact") {
     return "bg-transparent";
   }
-  return filled ? "bg-surface" : "bg-white/50";
+  return filled ? "bg-surface" : "bg-background/70";
 }
 
 /** Trigger of a search popover: a button, or a label that wraps a text input. */
 export function searchFieldClassName({ size = "default", filled, active, className }: SearchFieldState) {
   return cn(
-    "focus-ring-2 flex w-full min-w-0 cursor-pointer items-center gap-2 px-4 text-start font-semibold whitespace-nowrap transition-[background-color,box-shadow]",
+    "focus-ring-2 flex w-full min-w-0 cursor-pointer items-center gap-2 px-4 text-start font-semibold whitespace-nowrap transition-[background-color,box-shadow,color] duration-fast ease-standard",
     fieldSizeClassNames[size],
     fieldBackground(size, filled, active),
-    filled ? "text-text-secondary" : "text-text-muted",
+    filled ? "text-ink" : "text-text-muted",
     (filled || active) && "shadow-box",
     "focus-within:bg-background focus-within:shadow-box",
     className,
@@ -38,14 +38,17 @@ export function searchFieldClassName({ size = "default", filled, active, classNa
 }
 
 export const searchFieldInputClassName = cn(
-  "min-w-0 flex-1 bg-transparent text-text-secondary outline-none",
+  "min-w-0 flex-1 bg-transparent text-ink outline-none",
   "placeholder:text-text-muted",
 );
 
 export const searchFieldLabelClassName = "min-w-0 truncate";
 
 export function searchPanelClassName(className?: string) {
-  return cn("absolute inset-s-0 top-full z-40 mt-2 rounded-lg bg-background p-8 shadow-box", className);
+  return cn(
+    "absolute inset-s-0 top-full z-40 mt-2 rounded-lg border border-border bg-background p-8 shadow-popover motion-safe:animate-overlay",
+    className,
+  );
 }
 
 type SearchOptionState = {
@@ -56,7 +59,7 @@ type SearchOptionState = {
 
 export function searchOptionClassName({ highlighted, selected, className }: SearchOptionState) {
   return cn(
-    "flex min-h-10 w-full cursor-pointer items-center gap-2 rounded-lg px-3 text-start text-base font-semibold hover:bg-hover",
+    "flex min-h-10 w-full cursor-pointer items-center gap-2 rounded-lg px-3 text-start text-base font-semibold transition-colors duration-fast ease-standard hover:bg-hover",
     highlighted && "bg-hover",
     selected ? "text-selected" : "text-text-secondary",
     className,
@@ -66,8 +69,8 @@ export function searchOptionClassName({ highlighted, selected, className }: Sear
 /** Pill choice: the date shortcuts (buttons with `aria-pressed`) and the time slots (labels around a radio). */
 export function searchChipClassName(selected: boolean, className?: string) {
   return cn(
-    "inline-flex h-9 cursor-pointer items-center justify-center rounded-full border px-4 text-sm/normal font-semibold",
-    selected ? "border-selected bg-selected text-white" : "border-border text-text-secondary",
+    "inline-flex h-9 cursor-pointer items-center justify-center rounded-full border px-4 text-sm/normal font-semibold transition-colors duration-fast ease-standard",
+    selected ? "border-selected bg-selected text-on-accent" : "border-border text-text-secondary hover:bg-hover",
     className,
   );
 }
@@ -75,7 +78,7 @@ export function searchChipClassName(selected: boolean, className?: string) {
 /** Text inputs and selects inside the search panels. Size and type stay at the call site. */
 export function searchInputClassName(invalid: boolean, className?: string) {
   return cn(
-    "focus-ring-0 rounded-lg bg-surface text-text-secondary shadow-box",
+    "focus-ring-0 rounded-lg bg-surface text-ink shadow-box transition-[background-color,box-shadow] duration-fast ease-standard",
     "focus-visible:bg-background",
     invalid && "outline-2 outline-error",
     className,

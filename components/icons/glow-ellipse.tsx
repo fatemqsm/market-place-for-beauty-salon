@@ -7,9 +7,9 @@ export function GlowEllipse(props: SVGProps<SVGSVGElement>) {
   return (
     <svg width={1962.5} height={1869} viewBox="0 0 1962.5 1869" fill="none" overflow="visible" aria-hidden="true" {...props}>
       <g filter={`url(#${smallBlurId})`}>
-        <circle cx="140" cy="140" r="140" transform="matrix(-1 0 0 1 1115 772.99)" fill="#C47A7A" />
+        <circle cx="140" cy="140" r="140" transform="matrix(-1 0 0 1 1115 772.99)" fill="#C4A484" />
       </g>
-      <g filter={`url(#${largeBlurId})`} fill="#B8B8C8">
+      <g filter={`url(#${largeBlurId})`} fill="#E4D5C8">
         <path d="M500 1162C500 1276.32 592.677 1369 707 1369C821.323 1369 914 1276.32 914 1162C914 1047.68 821.323 955 707 955C592.677 955 500 1047.68 500 1162Z" />
         <path d="M1048.5 707C1048.5 821.323 1141.18 914 1255.5 914C1369.82 914 1462.5 821.323 1462.5 707C1462.5 592.677 1369.82 500 1255.5 500C1141.18 500 1048.5 592.677 1048.5 707Z" />
       </g>

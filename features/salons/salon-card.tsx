@@ -12,7 +12,12 @@ type SalonCardProps = {
 
 export function SalonCard({ imageCount, saved, onToggleSave, className }: SalonCardProps) {
   return (
-    <article className={cn("relative w-full rounded-lg bg-white/50 shadow-card", className)}>
+    <article
+      className={cn(
+        "group relative w-full rounded-lg border border-border bg-background shadow-card transition-[box-shadow,border-color] duration-base ease-standard hover:border-accent hover:shadow-card-hover",
+        className,
+      )}
+    >
       <SalonCardImages count={imageCount} salonName={salonListing.name} />
       <div className="flex flex-col px-2 pt-2 pb-4">
         <div className="flex h-6.75 items-end justify-between">
@@ -25,11 +30,11 @@ export function SalonCard({ imageCount, saved, onToggleSave, className }: SalonC
             </span>
           </p>
         </div>
-        <p className="flex h-4.5 items-end gap-2 text-xs leading-none text-ink">
+        <p className="flex h-4.5 items-end gap-2 text-xs leading-none text-text-secondary">
           <PinIcon className="text-accent" />
           {salonListing.area}
         </p>
-        <p className="flex h-4.25 items-end text-xs leading-none text-text-secondary">
+        <p className="flex h-4.25 items-end text-xs leading-none text-text-muted">
           <span dir="ltr">{salonListing.reviews}</span>&nbsp;بازخورد
         </p>
       </div>
@@ -39,8 +44,8 @@ export function SalonCard({ imageCount, saved, onToggleSave, className }: SalonC
         aria-label={saved ? `حذف ${salonListing.name} از علاقه‌مندی‌ها` : `افزودن ${salonListing.name} به علاقه‌مندی‌ها`}
         onClick={onToggleSave}
         className={cn(
-          "focus-ring-2 absolute inset-e-2 top-2 flex h-9.25 w-9.5 cursor-pointer items-center justify-center rounded-full bg-white/50 lg:inset-e-2.25 lg:size-6.25",
-          saved ? "text-selected" : "text-text-secondary",
+          "focus-ring-2 absolute inset-e-2 top-2 flex h-9.25 w-9.5 cursor-pointer items-center justify-center rounded-full shadow-box transition-[color,background-color,scale] duration-fast ease-standard motion-safe:active:scale-95 lg:inset-e-2.25 lg:size-6.25",
+          saved ? "bg-accent/15 text-selected" : "bg-background/80 text-text-secondary hover:bg-background",
         )}
       >
         <HeartIcon filled={saved} className="-scale-x-100" />

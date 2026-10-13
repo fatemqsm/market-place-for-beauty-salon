@@ -97,7 +97,7 @@ export function HeroSearch() {
       onSubmit={handleSubmit}
       className="mx-auto mt-4.5 w-full max-w-85.75 scroll-mt-40 lg:mt-57.5 lg:max-w-search"
     >
-      <div className="flex flex-col gap-2 rounded-lg bg-white/50 p-2 lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-2 rounded-lg border border-border bg-background/80 p-2 shadow-box backdrop-blur-sm lg:flex-row lg:items-center lg:justify-between">
         <ServiceField {...panelProps("service")} className="lg:w-74.25" />
         <TimeField {...panelProps("time")} className="lg:w-74.25" />
         <LocationField {...panelProps("location")} className="lg:w-74.25" />
@@ -113,8 +113,8 @@ export function HeroSearch() {
       </div>
 
       {advanced ? (
-        <div id={advancedId} className="mt-2 flex flex-col gap-2 max-lg:hidden">
-          <div className="flex items-center justify-between gap-2 rounded-lg bg-white/50 p-2">
+        <div id={advancedId} className="mt-2 flex flex-col gap-2 motion-safe:animate-overlay max-lg:hidden">
+          <div className="flex items-center justify-between gap-2 rounded-lg border border-border bg-background/80 p-2 shadow-box">
             <button
               type="button"
               aria-label="بستن جستجوی پیشرفته"
@@ -131,7 +131,7 @@ export function HeroSearch() {
               {advancedToggle}
             </div>
           </div>
-          <div className="grid gap-2 rounded-lg bg-white/50 p-2 lg:grid-cols-3">
+          <div className="grid gap-2 rounded-lg border border-border bg-background/80 p-2 shadow-box lg:grid-cols-3">
             <SalonNameField />
             <PriceFilter {...panelProps("price")} />
             <RatingFilter {...panelProps("rating")} />

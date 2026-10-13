@@ -16,7 +16,7 @@ export function StickySearchHeader() {
     return null;
   }
   return (
-    <div className="fixed inset-x-0 top-8 z-50 hidden px-8 lg:block">
+    <div className="fixed inset-x-0 top-8 z-50 hidden px-8 motion-safe:animate-rise lg:block">
       {/* The hero form shows the validation message, so a blocked search scrolls back to it. */}
       <CompactSearchBar onInvalid={scrollToHeroSearch} />
     </div>

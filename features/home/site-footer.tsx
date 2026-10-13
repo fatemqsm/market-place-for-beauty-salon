@@ -6,12 +6,13 @@ import { Wordmark } from "@/features/layout/wordmark";
 const aboutItems = ["فرصت‌های شغلی", "بلاگ", "تماس با ما"];
 const businessItems = ["تعرفه‌ها", "پشتیبانی", "شروع همکاری"];
 
-const contactClassName = "flex h-6 items-center gap-2 text-base font-semibold text-text-secondary";
+const contactClassName =
+  "flex h-6 items-center gap-2 text-base font-semibold text-text-secondary transition-colors duration-fast ease-standard";
 
 export function SiteFooter() {
   // On mobile the bottom padding keeps the footer background visible behind the fixed bottom nav.
   return (
-    <footer className="bg-surface max-lg:pb-17">
+    <footer className="border-t border-border bg-surface max-lg:pb-17">
       <div className="mx-auto w-full max-w-page px-4 max-lg:flex max-lg:h-128 max-lg:flex-col max-lg:items-center max-lg:justify-between max-lg:pt-20 max-lg:pb-14.25 lg:ps-39.25 lg:pe-35 lg:pt-17.25 lg:pb-22.5">
         <div className="flex w-full items-center justify-center p-2.5 max-lg:h-12.25 lg:justify-start">
           <Link
@@ -26,7 +27,7 @@ export function SiteFooter() {
           <address className="flex w-35 flex-col items-start gap-2 not-italic max-lg:order-last max-lg:h-25.75">
             <a
               href="tel:02176901531"
-              className={cn(contactClassName, "focus-ring-2 rounded-sm")}
+              className={cn(contactClassName, "focus-ring-2 rounded-sm hover:text-ink")}
             >
               <PhoneIcon width={19} height={21} className="mx-0.5" />
               <span dir="ltr">02176901531</span>

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import { ArrowIcon, MapPinPlusIcon } from "@/components/icons";
+import { cn } from "@/lib/utils";
 import { useSearch } from "./search-context";
 import { serviceOptions } from "./search-criteria";
 import { describeTime } from "./time-field";
@@ -32,7 +33,7 @@ export function MobileSearchHeader({ mapView, onToggleMap }: MobileSearchHeaderP
         type="button"
         aria-label="بازگشت"
         onClick={goBack}
-        className="focus-ring-2 flex h-6 w-7 shrink-0 cursor-pointer items-center justify-center rounded-sm text-text-secondary"
+        className="focus-ring-2 flex h-6 w-7 shrink-0 cursor-pointer items-center justify-center rounded-sm text-text-secondary transition-colors duration-fast ease-standard hover:text-ink"
       >
         <ArrowIcon className="-scale-x-100" />
       </button>
@@ -60,7 +61,10 @@ export function MobileSearchHeader({ mapView, onToggleMap }: MobileSearchHeaderP
         aria-label="نقشه"
         aria-pressed={mapView}
         onClick={onToggleMap}
-        className="focus-ring-2 flex shrink-0 cursor-pointer items-center justify-center rounded-4xl border-[0.5px] border-text-secondary p-2.25 text-text-secondary"
+        className={cn(
+          "focus-ring-2 flex shrink-0 cursor-pointer items-center justify-center rounded-4xl border-[0.5px] p-2.25 transition-colors duration-fast ease-standard",
+          mapView ? "border-accent bg-surface text-accent" : "border-text-secondary text-text-secondary hover:text-ink",
+        )}
       >
         <MapPinPlusIcon />
       </button>

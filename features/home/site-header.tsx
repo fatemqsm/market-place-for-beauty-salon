@@ -5,7 +5,7 @@ import { Wordmark } from "@/features/layout/wordmark";
 
 export function SiteHeader() {
   return (
-    <header className="flex h-12.5 w-full items-center justify-between gap-4 max-lg:ps-2.25 lg:h-19 lg:rounded-2xl lg:bg-white/50 lg:px-20">
+    <header className="flex h-12.5 w-full items-center justify-between gap-4 max-lg:ps-2.25 lg:h-19 lg:rounded-2xl lg:border lg:border-border lg:bg-background/70 lg:px-20 lg:shadow-glass lg:backdrop-blur-md">
       <Link
         href="/"
         aria-label="وریفام، صفحه اصلی"

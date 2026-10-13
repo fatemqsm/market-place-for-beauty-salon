@@ -11,7 +11,10 @@ export default function Search(props: PageProps<"/search">) {
   return (
     <Suspense
       fallback={
-        <p role="status" className="p-8 text-center text-base font-semibold text-text-secondary">
+        <p
+          role="status"
+          className="grid min-h-dvh place-items-center bg-surface p-8 text-center text-base font-semibold text-text-secondary"
+        >
           در حال بارگذاری جستجو…
         </p>
       }
