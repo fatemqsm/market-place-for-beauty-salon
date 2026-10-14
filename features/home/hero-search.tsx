@@ -95,7 +95,7 @@ export function HeroSearch() {
       aria-label="جستجوی سالن"
       noValidate
       onSubmit={handleSubmit}
-      className="mx-auto mt-6 w-full max-w-85.75 scroll-mt-40 motion-safe:animate-fade-up motion-safe:[animation-delay:270ms] lg:mt-14 lg:max-w-search"
+      className="relative z-10 mx-auto mt-6 w-full max-w-85.75 scroll-mt-40 motion-safe:animate-fade-up motion-safe:[animation-delay:270ms] lg:mt-14 lg:max-w-search"
     >
       <div className="flex flex-col gap-2 rounded-xl border border-border bg-background/80 p-2 shadow-popover backdrop-blur-sm lg:flex-row lg:items-center lg:justify-between">
         <ServiceField {...panelProps("service")} className="lg:w-74.25" />

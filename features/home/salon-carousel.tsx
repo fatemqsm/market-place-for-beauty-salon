@@ -91,7 +91,18 @@ export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, cl
           </button>
         </div>
       </Reveal>
-      <div className="mt-5 flex items-center gap-4 lg:mt-6">
+      <div className="relative mt-5 flex items-center gap-4 lg:mt-6">
+        {/* Sits in the page's wider start gutter, mirroring the end arrow without narrowing the row. */}
+        <button
+          type="button"
+          aria-controls={scrollerId}
+          aria-label={`سالن قبلی در ${title}`}
+          aria-disabled={atStart}
+          onClick={atStart ? undefined : () => scrollByCards(-1)}
+          className={cn(arrowButtonClassName, "absolute -start-18 top-1/2 z-10 hidden size-14 -translate-y-1/2 lg:flex")}
+        >
+          <NavigateNextIcon />
+        </button>
         {/* On phones the gap exceeds the 27px page padding plus the card shadow, so the next card stays off-screen. */}
         <div
           id={scrollerId}
@@ -117,7 +128,7 @@ export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, cl
           aria-label={`نمایش سالن‌های بیشتر در ${title}`}
           aria-disabled={atEnd}
           onClick={atEnd ? undefined : () => scrollByCards(1)}
-          className={cn(arrowButtonClassName, "hidden size-14 lg:flex")}
+          className={cn(arrowButtonClassName, "relative z-10 hidden size-14 lg:flex")}
         >
           <NavigateNextIcon className="-scale-x-100" />
         </button>

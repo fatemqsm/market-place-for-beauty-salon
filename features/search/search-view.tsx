@@ -76,7 +76,7 @@ export function SearchView() {
       )}
     >
       <h1 className="sr-only">جستجوی سالن</h1>
-      <header>
+      <header className="relative z-10">
         <div className="max-lg:hidden">
           <CompactSearchBar />
         </div>
