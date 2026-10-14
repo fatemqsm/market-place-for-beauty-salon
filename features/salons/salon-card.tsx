@@ -1,40 +1,39 @@
 import { HeartIcon, PinIcon, StarIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { SalonCardImages } from "./salon-card-images";
-import { salonListing } from "./salons";
+import { salonListing, type SalonPlate } from "./salons";
 
 type SalonCardProps = {
+  plate: SalonPlate;
   imageCount: number;
   saved: boolean;
   onToggleSave: () => void;
   className?: string;
 };
 
-export function SalonCard({ imageCount, saved, onToggleSave, className }: SalonCardProps) {
+export function SalonCard({ plate, imageCount, saved, onToggleSave, className }: SalonCardProps) {
   return (
     <article
       className={cn(
-        "group relative w-full rounded-lg border border-border bg-background shadow-card transition-[box-shadow,border-color] duration-base ease-standard hover:border-accent hover:shadow-card-hover",
+        "group relative w-full rounded-xl border border-border bg-background shadow-card transition-[box-shadow,border-color,translate] duration-base ease-standard hover:border-accent-soft hover:shadow-card-hover motion-safe:hover:-translate-y-1",
         className,
       )}
     >
-      <SalonCardImages count={imageCount} salonName={salonListing.name} />
-      <div className="flex flex-col px-2 pt-2 pb-4">
-        <div className="flex h-6.75 items-end justify-between">
-          <h3 className="text-base leading-none font-semibold text-ink">{salonListing.name}</h3>
-          <p className="flex items-center gap-1.25 text-base leading-none font-semibold text-ink">
+      <SalonCardImages count={imageCount} salonName={salonListing.name} plate={plate} />
+      <div className="flex flex-col gap-1.5 px-3 pt-3 pb-4">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-base leading-snug font-bold text-ink">{salonListing.name}</h3>
+          <p className="flex shrink-0 items-center gap-1 rounded-full bg-surface px-2 py-0.5 text-sm leading-none font-bold text-ink">
             <span className="sr-only">امتیاز</span>
-            <StarIcon className="text-stars" />
-            <span dir="ltr" className="w-7.25 text-right">
-              {salonListing.rating}
-            </span>
+            <StarIcon width={14} height={14} className="text-stars" />
+            <span dir="ltr">{salonListing.rating}</span>
           </p>
         </div>
-        <p className="flex h-4.5 items-end gap-2 text-xs leading-none text-text-secondary">
+        <p className="flex items-center gap-1.5 text-xs leading-none text-text-secondary">
           <PinIcon className="text-accent" />
           {salonListing.area}
         </p>
-        <p className="flex h-4.25 items-end text-xs leading-none text-text-muted">
+        <p className="text-xs leading-none text-text-muted">
           <span dir="ltr">{salonListing.reviews}</span>&nbsp;بازخورد
         </p>
       </div>
@@ -44,11 +43,16 @@ export function SalonCard({ imageCount, saved, onToggleSave, className }: SalonC
         aria-label={saved ? `حذف ${salonListing.name} از علاقه‌مندی‌ها` : `افزودن ${salonListing.name} به علاقه‌مندی‌ها`}
         onClick={onToggleSave}
         className={cn(
-          "focus-ring-2 absolute inset-e-2 top-2 flex h-9.25 w-9.5 cursor-pointer items-center justify-center rounded-full shadow-box transition-[color,background-color,scale] duration-fast ease-standard motion-safe:active:scale-95 lg:inset-e-2.25 lg:size-6.25",
-          saved ? "bg-accent/15 text-selected" : "bg-background/80 text-text-secondary hover:bg-background",
+          "focus-ring-2 absolute inset-e-2 top-2 flex size-9 cursor-pointer items-center justify-center rounded-full shadow-box backdrop-blur-sm transition-[color,background-color,scale] duration-fast ease-standard motion-safe:active:scale-90 lg:size-8",
+          saved ? "bg-background text-selected" : "bg-background/80 text-text-secondary hover:bg-background hover:text-accent",
         )}
       >
-        <HeartIcon filled={saved} className="-scale-x-100" />
+        <HeartIcon
+          filled={saved}
+          width={18}
+          height={18}
+          className={cn("-scale-x-100", saved && "motion-safe:animate-pop")}
+        />
       </button>
     </article>
   );

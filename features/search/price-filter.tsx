@@ -40,7 +40,7 @@ export function PriceRangeSlider({ className }: { className?: string }) {
 
   return (
     <div dir="ltr" className={cn("relative h-3.5 py-4", className)}>
-      <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-surface" />
+      <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-surface-strong" />
       <div
         className="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-accent"
         style={{ left: `${percent(from)}%`, right: `${100 - percent(to)}%` }}

@@ -5,7 +5,7 @@ export function FilterSidebar({ id }: { id: string }) {
     <aside
       id={id}
       aria-label="جستجوی پیشرفته"
-      className="h-206.25 w-64 shrink-0 rounded-lg border border-border bg-background p-4 shadow-card motion-safe:animate-overlay"
+      className="h-206.25 w-64 shrink-0 rounded-xl border border-border bg-background p-4 shadow-card motion-safe:animate-overlay"
     >
       <div className="flex flex-col gap-8 px-4">
         <SalonNameSection variant="sidebar" />

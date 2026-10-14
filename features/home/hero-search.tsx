@@ -95,9 +95,9 @@ export function HeroSearch() {
       aria-label="جستجوی سالن"
       noValidate
       onSubmit={handleSubmit}
-      className="mx-auto mt-4.5 w-full max-w-85.75 scroll-mt-40 lg:mt-57.5 lg:max-w-search"
+      className="mx-auto mt-6 w-full max-w-85.75 scroll-mt-40 motion-safe:animate-fade-up motion-safe:[animation-delay:270ms] lg:mt-14 lg:max-w-search"
     >
-      <div className="flex flex-col gap-2 rounded-lg border border-border bg-background/80 p-2 shadow-box backdrop-blur-sm lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-2 rounded-xl border border-border bg-background/80 p-2 shadow-popover backdrop-blur-sm lg:flex-row lg:items-center lg:justify-between">
         <ServiceField {...panelProps("service")} className="lg:w-74.25" />
         <TimeField {...panelProps("time")} className="lg:w-74.25" />
         <LocationField {...panelProps("location")} className="lg:w-74.25" />
@@ -114,12 +114,12 @@ export function HeroSearch() {
 
       {advanced ? (
         <div id={advancedId} className="mt-2 flex flex-col gap-2 motion-safe:animate-overlay max-lg:hidden">
-          <div className="flex items-center justify-between gap-2 rounded-lg border border-border bg-background/80 p-2 shadow-box">
+          <div className="flex items-center justify-between gap-2 rounded-xl border border-border bg-background/80 p-2 shadow-box">
             <button
               type="button"
               aria-label="بستن جستجوی پیشرفته"
               onClick={() => setAdvancedOpen(false)}
-              className="focus-ring-2 cursor-pointer rounded-lg"
+              className="focus-ring-2 flex size-11 cursor-pointer items-center justify-center rounded-lg text-text-secondary transition-colors duration-fast ease-standard hover:bg-hover hover:text-ink"
             >
               <CloseIcon />
             </button>
@@ -131,7 +131,7 @@ export function HeroSearch() {
               {advancedToggle}
             </div>
           </div>
-          <div className="grid gap-2 rounded-lg border border-border bg-background/80 p-2 shadow-box lg:grid-cols-3">
+          <div className="grid gap-2 rounded-xl border border-border bg-background/80 p-2 shadow-box lg:grid-cols-3">
             <SalonNameField />
             <PriceFilter {...panelProps("price")} />
             <RatingFilter {...panelProps("rating")} />
@@ -141,7 +141,10 @@ export function HeroSearch() {
         <div className="mt-4 flex justify-end max-lg:hidden">{advancedToggle}</div>
       )}
 
-      <p role="status" className="mt-4 text-center text-base font-semibold text-error empty:hidden">
+      <p
+        role="status"
+        className="mx-auto mt-4 w-fit rounded-lg border border-error/20 bg-error/5 px-4 py-2 text-center text-base font-semibold text-error motion-safe:animate-overlay empty:hidden"
+      >
         {errors.form}
       </p>
     </form>

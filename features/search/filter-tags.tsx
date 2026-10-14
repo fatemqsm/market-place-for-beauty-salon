@@ -30,8 +30,10 @@ export function FilterTags<T extends string | number>({
           <label
             key={option.value}
             className={cn(
-              "focus-ring-2 flex cursor-pointer items-center rounded-4xl border p-4 text-base/none font-semibold whitespace-nowrap transition-colors duration-fast ease-standard",
-              selected ? "border-selected bg-selected text-on-accent" : "border-border bg-background text-ink hover:bg-hover",
+              "focus-ring-2 flex cursor-pointer items-center rounded-4xl border px-4 py-3 text-base/none font-semibold whitespace-nowrap transition-[color,background-color,border-color,scale] duration-fast ease-standard motion-safe:active:scale-95",
+              selected
+                ? "border-selected bg-selected text-on-accent"
+                : "border-border bg-background text-ink hover:border-accent-soft hover:bg-hover",
             )}
           >
             <input

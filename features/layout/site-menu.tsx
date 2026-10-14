@@ -93,7 +93,7 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
         aria-label="منوی سایت"
         hidden={!open}
         style={{ "--sheet-top": `${sheetTop}px` } as CSSProperties}
-        className="z-40 bg-background shadow-popover motion-safe:animate-overlay max-lg:fixed max-lg:inset-x-0 max-lg:top-(--sheet-top) max-lg:bottom-0 max-lg:overflow-y-auto max-lg:p-8 lg:absolute lg:inset-e-0 lg:top-[calc(100%+16px)] lg:z-50 lg:w-78.25 lg:rounded-lg lg:border lg:border-border lg:px-16 lg:py-8"
+        className="z-40 bg-background shadow-popover max-lg:fixed max-lg:inset-x-0 max-lg:top-(--sheet-top) max-lg:bottom-0 max-lg:overflow-y-auto max-lg:rounded-t-2xl max-lg:border-t max-lg:border-border max-lg:p-8 max-lg:motion-safe:animate-sheet lg:absolute lg:inset-e-0 lg:top-[calc(100%+16px)] lg:z-50 lg:w-78.25 lg:rounded-xl lg:border lg:border-border lg:px-16 lg:py-8 lg:motion-safe:animate-overlay"
       >
         {responsive && (
           <div className="mb-8 flex flex-col items-start gap-8 lg:hidden">
@@ -105,7 +105,7 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
             >
               ورود
             </button>
-            <div className="w-full border-b border-primary pb-8">
+            <div className="w-full border-b border-border pb-8">
               <Link href="/#for-business" onClick={() => setOpenOnPath(null)} className={buttonClassName("primary", "h-11.5")}>
                 افزودن کسب‌وکار
               </Link>

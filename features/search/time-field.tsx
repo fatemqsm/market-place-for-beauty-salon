@@ -144,7 +144,7 @@ export function TimePanelContent({
       />
 
       <fieldset>
-        <legend className="mb-2 text-sm font-semibold text-ink z-10000">
+        <legend className="mb-2 text-sm font-semibold text-ink">
           بازه زمانی
         </legend>
         <div className="flex flex-wrap gap-2">

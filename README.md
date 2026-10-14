@@ -80,11 +80,13 @@ The roles below come from the Figma color styles. The hues are the warm ivory, p
 | --- | --- | --- |
 | `ink` | `#2c2426` | Primary text and icons |
 | `text-secondary` | `#5e5456` | Secondary text, inactive icons and options |
-| `text-muted` | `#6a605c` | Placeholders, empty field labels, weekday headings |
+| `text-muted` | `#786c68` | Placeholders, empty field labels, weekday headings |
 | `primary` | `#d4cbc3` | Borders, dividers, image placeholders, the map canvas |
 | `accent` | `#7a3e52` | Brand accent: active navigation, today marker, range slider, saved state |
+| `accent-soft` | `#d9b8c2` | Decorative rose: eyebrow rules, hairline frames, photo plates. Never used as text. |
 | `background` | `#fbf7f2` | Page, cards, and popover background |
 | `surface` | `#f3ebe3` | Filled fields, footer, hover background, search workspace |
+| `surface-strong` | `#e9dfd6` | Stronger hover fill (calendar days, carousel arrows) and the slider rail |
 | `stars` | `#b08d3e` | Rating stars |
 | `error` | `#9b3a42` | Validation messages and invalid outlines |
 | `success` | `#2f6b4f` | Positive confirmation, once a flow has one |
@@ -116,12 +118,14 @@ Semantic aliases point at the palette. Use one when the role matters more than t
   - `shadow-sheet`: the mobile filter sheet.
   - `shadow-glass`: glass bars and the glass button.
   - `shadow-glow`: the accent ring on a focused filter input and an open filter chip.
+  - `shadow-button`: the primary button, so it lifts slightly off the page.
 - **Filter shadows** follow the painted shape:
   - `drop-shadow-box`: the sticky search pill.
   - `drop-shadow-nav`: the mobile bottom navigation.
 - **Radii** use Tailwind's default scale:
   - `rounded-sm` (4px): focusable text links.
-  - `rounded-lg` (8px): cards, fields, buttons, and panels.
+  - `rounded-lg` (8px): fields, buttons, and compact panels.
+  - `rounded-xl` (12px): salon cards, the search form, popovers, the map, and the filter sidebar.
   - `rounded-2xl`: the header bar.
   - `rounded-3xl` and `rounded-4xl`: pills.
   - `rounded-full`: circular buttons.
@@ -153,7 +157,7 @@ Semantic aliases point at the palette. Use one when the role matters more than t
   - Single-color glyphs draw with `currentColor`. Set the color with a text utility on the icon or its parent, for example `text-text-secondary` or `text-stars`.
   - State variants are props: `HeartIcon` takes `filled`, and `MenuToggleIcon` takes `variant` (`header`, `compact`, or `mobile`) and `open`.
   - Components default to `aria-hidden="true"`.
-- **Fixed colors.** Backgrounds keep the gradient colors from Figma, and `CarouselNavIcon` fills its pill with the `surface` token. Gradient and filter IDs come from `useId`, so a component can render more than once on a page.
+- **Fixed colors.** Backgrounds keep the gradient colors from Figma. Gradient and filter IDs come from `useId`, so a component can render more than once on a page. Carousel arrows are real buttons, not a decorative SVG pill.
 - **Exception: CSS gradients.** `public/home/gradient-button.svg`, `gradient-title.svg`, and `gradient-hero-title.svg` stay files. CSS reads them through `url()` in the `--gradient-*` tokens for gradient text and the primary button background, which a React component cannot supply.
 - **Before adding an icon,** search `components/icons/`.
   - If an existing icon differs only in color or size, use it with different props rather than adding a copy.
@@ -255,6 +259,7 @@ The repository has no automated visual or accessibility tests. State which of th
 - **Transitions.**
   - Keep them short and limited to color, background, opacity, filter, shadow, or a transform that does not move layout (`scale`, `translate`).
   - Use the motion tokens: `duration-fast` (150ms) for color, opacity, and press feedback; `duration-base` (220ms) with `animate-overlay` or `animate-rise` for menus, panels, and the sticky bar; `duration-slow` (360ms) with `animate-sheet` or an image `scale` for larger reveals.
+  - Page content uses `animate-fade-up` (650ms, `backwards` fill) for the hero, header, and `Reveal` in `components/ui/reveal.tsx`. Saved hearts use `animate-pop`. Do not use `fill-mode: both` on an ancestor: it keeps a stacking context and can trap `fixed` children such as the mobile menu sheet.
   - Easing is `ease-standard` for entries and `ease-exit` for departures. Do not invent a one-off duration.
   - Do not add an animation library, and do not use motion that delays input. Do not fade the page in from transparent.
 - **Reduced motion.**

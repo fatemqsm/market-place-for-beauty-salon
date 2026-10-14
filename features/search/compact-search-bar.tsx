@@ -131,7 +131,7 @@ export function CompactSearchBar({ onInvalid }: CompactSearchBarProps) {
               aria-label={`جستجو: ${segment.label}`}
               onClick={() => expand(segment.panel)}
               className={cn(
-                "focus-ring-0 flex h-10 min-w-0 flex-1 cursor-pointer items-center justify-center px-4 text-lg font-semibold whitespace-nowrap transition-colors duration-fast ease-standard hover:bg-hover hover:text-ink",
+                "focus-ring-0 flex h-10 min-w-0 flex-1 cursor-pointer items-center justify-center px-4 text-lg font-semibold whitespace-nowrap transition-[color,background-color] duration-fast ease-standard hover:bg-hover hover:text-ink",
                 segmentIsSet(segment.panel) ? "text-ink" : "text-text-muted",
                 index < segments.length - 1
                   ? "border-l border-border"

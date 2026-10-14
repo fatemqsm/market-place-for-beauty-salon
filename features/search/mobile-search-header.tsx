@@ -28,7 +28,7 @@ export function MobileSearchHeader({ mapView, onToggleMap }: MobileSearchHeaderP
   }
 
   return (
-    <div className="flex items-center gap-4 rounded-full bg-background px-2 py-1 lg:hidden">
+    <div className="flex items-center gap-4 rounded-full border border-border bg-background px-2 py-1 shadow-box lg:hidden">
       <button
         type="button"
         aria-label="بازگشت"

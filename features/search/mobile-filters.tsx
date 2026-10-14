@@ -39,7 +39,7 @@ function chipClassName(set: boolean, open: boolean) {
   return cn(
     "focus-ring-2 cursor-pointer bg-background text-text-secondary",
     chipBaseClassName,
-    open ? "shadow-glow" : "border border-text-muted",
+    open ? "shadow-glow" : "border border-border hover:border-accent-soft",
   );
 }
 

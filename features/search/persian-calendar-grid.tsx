@@ -31,7 +31,7 @@ function dayStateClassName(past: boolean, selected: boolean) {
   if (past) {
     return "text-disabled opacity-50";
   }
-  return selected ? "cursor-pointer bg-selected text-on-accent" : "cursor-pointer text-ink hover:bg-hover";
+  return selected ? "cursor-pointer bg-selected text-on-accent" : "cursor-pointer text-ink hover:bg-surface-strong";
 }
 
 export function PersianCalendar({ value, onChange }: PersianCalendarProps) {

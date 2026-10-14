@@ -1,6 +1,5 @@
 export { ArrowIcon } from "./arrow-icon";
 export { CalendarIcon } from "./calendar-icon";
-export { CarouselNavIcon } from "./carousel-nav-icon";
 export { ChevronDownIcon } from "./chevron-down-icon";
 export { ChevronRightIcon } from "./chevron-right-icon";
 export { CloseIcon } from "./close-icon";

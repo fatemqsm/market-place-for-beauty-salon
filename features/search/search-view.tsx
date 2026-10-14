@@ -17,8 +17,19 @@ const wideQuery = "(width >= 80rem)";
 
 function MapPlaceholder({ id, className }: { id?: string; className?: string }) {
   return (
-    <section id={id} aria-label="نقشه" className={cn("grid place-items-center bg-primary", className)}>
-      <p className="px-6 text-center text-base font-semibold text-ink">نقشه هنوز در دسترس نیست.</p>
+    <section
+      id={id}
+      aria-label="نقشه"
+      className={cn(
+        "relative grid place-items-center overflow-hidden rounded-xl bg-primary",
+        className,
+      )}
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-linear-to-br from-surface via-primary to-accent-soft/30"
+      />
+      <p className="relative px-6 text-center text-base font-semibold text-ink">نقشه هنوز در دسترس نیست.</p>
     </section>
   );
 }
@@ -112,7 +123,9 @@ export function SearchView() {
           </div>
           <SearchResults />
         </div>
-        {!mapHidden && <MapPlaceholder id={mapId} className="h-206.25 min-w-0 flex-1 rounded-lg max-lg:hidden" />}
+        {!mapHidden && (
+          <MapPlaceholder id={mapId} className="h-206.25 min-w-0 flex-1 shadow-card max-lg:hidden" />
+        )}
       </main>
 
       {mobileMap && <MapPlaceholder className="min-h-80 flex-1 lg:hidden" />}

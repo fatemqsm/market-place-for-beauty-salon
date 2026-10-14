@@ -39,10 +39,24 @@ export function HomePage() {
             <HeroSection />
             <HeroSearch />
           </div>
-          <div className="mt-20 flex flex-col gap-12 px-6.75 lg:mt-40.75 lg:gap-15 lg:ps-22 lg:pe-18">
-            <SalonCarousel title="پیشنهادهای ویژه وریفام" items={createSalonItems("featured", 8, 2)} gradientTitle />
-            <SalonCarousel title="تازه‌های وریفام" items={createSalonItems("new", 8)} className="max-lg:order-1" />
-            <SalonCarousel title="محبوب‌ترین‌ها از نگاه کاربران" items={createSalonItems("popular", 8)} />
+          <div className="mt-20 flex flex-col gap-14 px-6.75 lg:mt-36 lg:gap-20 lg:ps-22 lg:pe-18">
+            <SalonCarousel
+              eyebrow="انتخاب سردبیر"
+              title="پیشنهادهای ویژه وریفام"
+              items={createSalonItems("featured", 8, 2)}
+              gradientTitle
+            />
+            <SalonCarousel
+              eyebrow="به‌تازگی پیوسته‌اند"
+              title="تازه‌های وریفام"
+              items={createSalonItems("new", 8)}
+              className="max-lg:order-1"
+            />
+            <SalonCarousel
+              eyebrow="بیشترین امتیاز"
+              title="محبوب‌ترین‌ها از نگاه کاربران"
+              items={createSalonItems("popular", 8)}
+            />
           </div>
           <BusinessCta />
         </main>

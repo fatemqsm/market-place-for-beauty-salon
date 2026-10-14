@@ -46,7 +46,7 @@ export const searchFieldLabelClassName = "min-w-0 truncate";
 
 export function searchPanelClassName(className?: string) {
   return cn(
-    "absolute inset-s-0 top-full z-40 mt-2 rounded-lg border border-border bg-background p-8 shadow-popover motion-safe:animate-overlay",
+    "absolute inset-s-0 top-full z-40 mt-2 rounded-xl border border-border bg-background p-8 shadow-popover motion-safe:animate-overlay",
     className,
   );
 }
@@ -69,8 +69,10 @@ export function searchOptionClassName({ highlighted, selected, className }: Sear
 /** Pill choice: the date shortcuts (buttons with `aria-pressed`) and the time slots (labels around a radio). */
 export function searchChipClassName(selected: boolean, className?: string) {
   return cn(
-    "inline-flex h-9 cursor-pointer items-center justify-center rounded-full border px-4 text-sm/normal font-semibold transition-colors duration-fast ease-standard",
-    selected ? "border-selected bg-selected text-on-accent" : "border-border text-text-secondary hover:bg-hover",
+    "inline-flex h-9 cursor-pointer items-center justify-center rounded-full border px-4 text-sm/normal font-semibold transition-[color,background-color,border-color,scale] duration-fast ease-standard motion-safe:active:scale-95",
+    selected
+      ? "border-selected bg-selected text-on-accent"
+      : "border-border text-text-secondary hover:border-accent-soft hover:bg-hover",
     className,
   );
 }

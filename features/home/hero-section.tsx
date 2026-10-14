@@ -2,18 +2,21 @@ export function HeroSection() {
   return (
     <section
       aria-labelledby="hero-title"
-      className="mx-auto mt-8.5 flex w-full max-w-229 flex-col items-center gap-4.5 text-center lg:mt-40.75 lg:gap-2"
+      className="mx-auto mt-10 flex w-full max-w-229 flex-col items-center gap-5 text-center lg:mt-36 lg:gap-6"
     >
+      <p className="flex items-center gap-3 text-sm font-semibold tracking-wide text-accent motion-safe:animate-fade-up lg:text-base">
+        <span aria-hidden="true" className="h-px w-8 bg-accent-soft" />
+        رزرو آنلاین سالن‌های زیبایی
+        <span aria-hidden="true" className="h-px w-8 bg-accent-soft" />
+      </p>
       <h1
         id="hero-title"
-        className="text-gradient-title lg:text-gradient-hero flex h-45.75 w-full flex-col justify-center text-3xl leading-normal font-medium lg:block lg:h-auto lg:text-5xl lg:leading-22.75 lg:font-bold"
+        className="text-gradient-title lg:text-gradient-hero text-balance text-3xl leading-snug font-bold motion-safe:animate-fade-up motion-safe:[animation-delay:90ms] lg:text-6xl lg:leading-tight"
       >
-        <span>
-          تجربه‌ای متفاوت از <br className="lg:hidden" />
-          خدمات زیبایی در نزدیکی شما
-        </span>
+        تجربه‌ای متفاوت از <br className="lg:hidden" />
+        خدمات زیبایی در نزدیکی شما
       </h1>
-      <p className="flex h-22.5 max-w-74.5 items-center text-base leading-normal font-semibold text-ink lg:max-w-none lg:text-xl lg:leading-[49.3px]">
+      <p className="max-w-74.5 text-base leading-relaxed font-medium text-text-secondary motion-safe:animate-fade-up motion-safe:[animation-delay:180ms] lg:max-w-xl lg:text-xl">
         بهترین سالن‌های زیبایی نزدیک خود را پیدا کنید و آنلاین وقت رزرو کنید.
       </p>
     </section>

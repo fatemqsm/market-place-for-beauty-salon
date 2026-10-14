@@ -1,6 +1,7 @@
 "use client";
 
-import { CarouselNavIcon, NavigateNextIcon } from "@/components/icons";
+import { NavigateNextIcon } from "@/components/icons";
+import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 import { useId, useRef, useState } from "react";
 import { SalonCard } from "@/features/salons/salon-card";
@@ -9,15 +10,17 @@ import { useSavedSalons } from "@/features/salons/use-saved-salons";
 
 type SalonCarouselProps = {
   title: string;
+  /** Short label printed above the title. */
+  eyebrow: string;
   items: SalonItem[];
   gradientTitle?: boolean;
   className?: string;
 };
 
-const pillButtonClassName =
-  "focus-ring-2 h-full flex-1 rounded-full not-aria-disabled:cursor-pointer";
+const arrowButtonClassName =
+  "focus-ring-2 flex shrink-0 items-center justify-center rounded-full border border-border bg-background text-text-secondary shadow-box transition-[background-color,border-color,color,opacity,scale] duration-fast ease-standard not-aria-disabled:cursor-pointer not-aria-disabled:hover:border-accent-soft not-aria-disabled:hover:bg-surface-strong not-aria-disabled:hover:text-ink motion-safe:not-aria-disabled:active:scale-95 aria-disabled:opacity-40";
 
-export function SalonCarousel({ title, items, gradientTitle = false, className }: SalonCarouselProps) {
+export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, className }: SalonCarouselProps) {
   const titleId = useId();
   const scrollerId = useId();
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -49,52 +52,63 @@ export function SalonCarousel({ title, items, gradientTitle = false, className }
 
   return (
     <section aria-labelledby={titleId} className={cn("me-auto w-full max-w-319.75", className)}>
-      <div className="flex h-13 items-center justify-between gap-4">
-        <h2
-          id={titleId}
-          className={cn(
-            "flex h-full flex-1 items-center text-base leading-none font-semibold text-ink lg:text-2xl lg:font-medium",
-            gradientTitle && "lg:text-gradient-title",
-          )}
-        >
-          {title}
-        </h2>
-        <div className="relative flex h-7.5 w-22.5 shrink-0 lg:hidden">
-          <CarouselNavIcon className="pointer-events-none absolute inset-0 size-full text-accent" />
+      <Reveal className="flex items-end justify-between gap-4">
+        <div className="flex min-w-0 flex-col gap-2">
+          <p className="flex items-center gap-2 text-xs font-semibold tracking-wide text-accent lg:text-sm">
+            <span aria-hidden="true" className="h-px w-6 bg-accent-soft" />
+            {eyebrow}
+          </p>
+          <h2
+            id={titleId}
+            className={cn(
+              "text-lg leading-tight font-bold text-ink lg:text-3xl",
+              gradientTitle && "lg:text-gradient-title",
+            )}
+          >
+            {title}
+          </h2>
+        </div>
+        <div className="flex shrink-0 gap-2 lg:hidden">
           <button
             type="button"
             aria-controls={scrollerId}
             aria-label={`سالن قبلی در ${title}`}
             aria-disabled={atStart}
             onClick={atStart ? undefined : () => scrollByCards(-1)}
-            className={pillButtonClassName}
-          />
+            className={cn(arrowButtonClassName, "size-9")}
+          >
+            <NavigateNextIcon width={18} height={18} />
+          </button>
           <button
             type="button"
             aria-controls={scrollerId}
             aria-label={`سالن بعدی در ${title}`}
             aria-disabled={atEnd}
             onClick={atEnd ? undefined : () => scrollByCards(1)}
-            className={pillButtonClassName}
-          />
+            className={cn(arrowButtonClassName, "size-9")}
+          >
+            <NavigateNextIcon width={18} height={18} className="-scale-x-100" />
+          </button>
         </div>
-      </div>
-      <div className="mt-3 flex items-center gap-4 lg:mt-4">
+      </Reveal>
+      <div className="mt-5 flex items-center gap-4 lg:mt-6">
         {/* On phones the gap exceeds the 27px page padding plus the card shadow, so the next card stays off-screen. */}
         <div
           id={scrollerId}
           ref={scrollerRef}
           onScroll={updateEdges}
-          className="scrollbar-none -m-6 flex min-w-0 flex-1 snap-x snap-mandatory scroll-px-6 gap-14 overflow-x-auto p-6 sm:gap-4 lg:snap-proximity motion-safe:scroll-smooth"
+          className="scrollbar-none -m-6 flex min-w-0 flex-1 snap-x snap-mandatory scroll-px-6 gap-14 overflow-x-auto p-6 sm:gap-5 lg:snap-proximity motion-safe:scroll-smooth"
         >
-          {items.map((item) => (
-            <SalonCard
-              key={item.id}
-              imageCount={item.imageCount}
-              saved={savedIds.has(item.id)}
-              onToggleSave={() => toggleSaved(item.id)}
-              className="shrink-0 snap-start sm:w-72"
-            />
+          {items.map((item, index) => (
+            <Reveal key={item.id} delay={Math.min(index, 3) * 70} className="flex shrink-0 snap-start sm:w-72">
+              <SalonCard
+                plate={item.plate}
+                imageCount={item.imageCount}
+                saved={savedIds.has(item.id)}
+                onToggleSave={() => toggleSaved(item.id)}
+                className="w-full"
+              />
+            </Reveal>
           ))}
         </div>
         <button
@@ -103,9 +117,9 @@ export function SalonCarousel({ title, items, gradientTitle = false, className }
           aria-label={`نمایش سالن‌های بیشتر در ${title}`}
           aria-disabled={atEnd}
           onClick={atEnd ? undefined : () => scrollByCards(1)}
-          className="focus-ring-2 hidden size-15.75 shrink-0 items-center justify-center rounded-full transition-opacity duration-fast ease-standard not-aria-disabled:cursor-pointer aria-disabled:opacity-40 lg:flex"
+          className={cn(arrowButtonClassName, "hidden size-14 lg:flex")}
         >
-          <NavigateNextIcon className="-scale-x-100 text-text-secondary" />
+          <NavigateNextIcon className="-scale-x-100" />
         </button>
       </div>
     </section>
