@@ -259,6 +259,7 @@ The repository has no automated visual or accessibility tests. State which of th
 - **Transitions.**
   - Keep them short and limited to color, background, opacity, filter, shadow, or a transform that does not move layout (`scale`, `translate`).
   - Use the motion tokens: `duration-fast` (150ms) for color, opacity, and press feedback; `duration-base` (220ms) with `animate-overlay` or `animate-rise` for menus, panels, and the sticky bar; `duration-slow` (360ms) with `animate-sheet` or an image `scale` for larger reveals.
+  - Primary buttons styled by `buttonClassName` fill with `accent` on hover: a `clip-path` circle on `::before` grows from the center until it covers the button (`--duration-slow`). The light variants keep their background and border hover only. `isolate` keeps the layer between the button's background and its content, and `overflow-hidden` clips it to the radius without clipping the focus outline or shadow. Unavailable buttons get no fill, and reduced motion shows the fill without the growing circle.
   - Page content uses `animate-fade-up` (650ms, `backwards` fill) for the hero, header, and `Reveal` in `components/ui/reveal.tsx`. Saved hearts use `animate-pop`. Do not use `fill-mode: both` on an ancestor: it keeps a stacking context and can trap `fixed` children such as the mobile menu sheet.
   - Easing is `ease-standard` for entries and `ease-exit` for departures. Do not invent a one-off duration.
   - Do not add an animation library, and do not use motion that delays input. Do not fade the page in from transparent.
