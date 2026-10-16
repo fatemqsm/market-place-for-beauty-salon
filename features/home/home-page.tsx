@@ -1,4 +1,8 @@
-import { HeroBackground, MidBackground, MobileHeroBackground } from "@/components/icons";
+import {
+  HeroBackground,
+  MidBackground,
+  MobileHeroBackground,
+} from "@/components/icons";
 import { MobileBottomNav } from "@/features/layout/mobile-bottom-nav";
 import { createSalonItems } from "@/features/salons/salons";
 import { SearchProvider } from "@/features/search/search-context";
@@ -15,11 +19,23 @@ export function HomePage() {
     <SearchProvider>
       <StickySearchHeader />
       <div className="relative isolate overflow-clip">
-        <div aria-hidden="true" className="pointer-events-none absolute -top-2.75 -right-12.25 -left-15.25 -z-10 h-215.5 lg:hidden">
-          <MobileHeroBackground preserveAspectRatio="none" className="size-full" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-2.75 -right-12.25 -left-15.25 -z-10 h-215.5 lg:hidden"
+        >
+          <MobileHeroBackground
+            preserveAspectRatio="none"
+            className="size-full"
+          />
         </div>
-        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-310.75 max-lg:hidden">
-          <HeroBackground preserveAspectRatio="xMidYMin slice" className="size-full" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-310.75 max-lg:hidden"
+        >
+          <HeroBackground
+            preserveAspectRatio="xMidYMin slice"
+            className="size-full"
+          />
         </div>
         <div
           aria-hidden="true"
@@ -35,11 +51,11 @@ export function HomePage() {
         </div>
 
         <main className="pb-4.75 lg:pb-16 xl:pb-0">
-          <div className="px-6.75 lg:px-18">
+          <div className="px-6.75 lg:px-24">
             <HeroSection />
             <HeroSearch />
           </div>
-          <div className="mt-20 flex flex-col gap-14 px-6.75 lg:mt-36 lg:gap-20 lg:ps-22 lg:pe-18">
+          <div className="mt-20 flex flex-col gap-14 px-6.75 lg:mt-36 lg:gap-20 lg:px-18">
             <SalonCarousel
               eyebrow="انتخاب سردبیر"
               title="پیشنهادهای ویژه وریفام"

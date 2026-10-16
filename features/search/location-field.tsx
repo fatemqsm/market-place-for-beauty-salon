@@ -42,7 +42,10 @@ export function useLocateMe(onLocated: () => void) {
         setLocating(false);
         update({
           location: myLocationLabel,
-          coordinates: { latitude: position.coords.latitude, longitude: position.coords.longitude },
+          coordinates: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
         });
         onLocated();
       },
@@ -57,7 +60,13 @@ export function useLocateMe(onLocated: () => void) {
   return { locating, locateError, locateMe };
 }
 
-export function LocationField({ open, onOpenChange, size = "default", autoFocus, className }: SearchFieldProps) {
+export function LocationField({
+  open,
+  onOpenChange,
+  size = "default",
+  autoFocus,
+  className,
+}: SearchFieldProps) {
   const { criteria, update } = useSearch();
   const id = useId();
   const listId = `${id}-list`;
@@ -92,7 +101,12 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
   }
 
   return (
-    <SearchPopover open={open} onOpenChange={onOpenChange} triggerRef={inputRef} className={className}>
+    <SearchPopover
+      open={open}
+      onOpenChange={onOpenChange}
+      triggerRef={inputRef}
+      className={className}
+    >
       <label
         className={searchFieldClassName({
           size,
@@ -101,7 +115,7 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
           className: "cursor-text",
         })}
       >
-        <LocationIcon className="shrink-0 text-text-secondary" />
+        <LocationIcon className="shrink-0 text-text-secondary " />
         <span className="sr-only">موقعیت مکانی</span>
         <input
           ref={inputRef}
@@ -117,13 +131,18 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
           aria-activedescendant={open && highlighted ? optionId : undefined}
           aria-describedby={locateError ? messageId : undefined}
           value={criteria.location}
-          onChange={(event) => update({ location: event.target.value, coordinates: null })}
+          onChange={(event) =>
+            update({ location: event.target.value, coordinates: null })
+          }
           onClick={() => !open && openList()}
           onKeyDown={handleKeyDown}
           className={searchFieldInputClassName}
         />
       </label>
-      <div hidden={!open} className={searchPanelClassName("w-full min-w-60 p-2")}>
+      <div
+        hidden={!open}
+        className={searchPanelClassName("w-full min-w-60 p-2")}
+      >
         <ul id={listId} role="listbox" aria-label="پیشنهاد موقعیت">
           <li
             id={optionId}
@@ -142,7 +161,11 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
             {locating ? "در حال دریافت موقعیت…" : myLocationLabel}
           </li>
         </ul>
-        <p id={messageId} role="alert" className={cn(searchErrorClassName, "px-3 empty:hidden")}>
+        <p
+          id={messageId}
+          role="alert"
+          className={cn(searchErrorClassName, "px-3 empty:hidden")}
+        >
           {locateError}
         </p>
       </div>

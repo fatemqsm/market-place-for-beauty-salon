@@ -25,9 +25,14 @@ function fieldBackground(size: FieldSize, filled: boolean, active: boolean) {
 }
 
 /** Trigger of a search popover: a button, or a label that wraps a text input. */
-export function searchFieldClassName({ size = "default", filled, active, className }: SearchFieldState) {
+export function searchFieldClassName({
+  size = "default",
+  filled,
+  active,
+  className,
+}: SearchFieldState) {
   return cn(
-    "focus-ring-2 flex w-full min-w-0 cursor-pointer items-center gap-2 px-4 text-start font-semibold whitespace-nowrap transition-[background-color,box-shadow,color] duration-fast ease-standard",
+    "flex w-full min-w-0 cursor-pointer items-center gap-2 px-4 text-start font-semibold whitespace-nowrap transition-[background-color,box-shadow,color] duration-fast ease-standard",
     fieldSizeClassNames[size],
     fieldBackground(size, filled, active),
     filled ? "text-ink" : "text-text-muted",
@@ -57,7 +62,11 @@ type SearchOptionState = {
   className?: string;
 };
 
-export function searchOptionClassName({ highlighted, selected, className }: SearchOptionState) {
+export function searchOptionClassName({
+  highlighted,
+  selected,
+  className,
+}: SearchOptionState) {
   return cn(
     "flex min-h-10 w-full cursor-pointer items-center gap-2 rounded-lg px-3 text-start text-base font-semibold transition-colors duration-fast ease-standard hover:bg-hover",
     highlighted && "bg-hover",
