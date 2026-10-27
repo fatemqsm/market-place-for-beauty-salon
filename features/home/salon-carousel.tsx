@@ -51,7 +51,7 @@ export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, cl
   }
 
   return (
-    <section aria-labelledby={titleId} className={cn("me-auto w-full max-w-319.75", className)}>
+    <section aria-labelledby={titleId} className={cn("w-full", className)}>
       <Reveal className="flex items-end justify-between gap-4">
         <div className="flex min-w-0 flex-col gap-2">
           <p className="flex items-center gap-2 text-xs font-semibold tracking-wide text-accent lg:text-sm">
@@ -91,27 +91,41 @@ export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, cl
           </button>
         </div>
       </Reveal>
-      <div className="relative mt-5 flex items-center gap-4 lg:mt-6">
-        {/* Sits in the page's wider start gutter, mirroring the end arrow without narrowing the row. */}
+      <div className="relative mt-5 lg:mt-6">
+        {/* Both arrows sit in the 72px page gutter so the track matches the header width. */}
         <button
           type="button"
           aria-controls={scrollerId}
           aria-label={`سالن قبلی در ${title}`}
           aria-disabled={atStart}
           onClick={atStart ? undefined : () => scrollByCards(-1)}
-          className={cn(arrowButtonClassName, "absolute -start-18 top-1/2 z-10 hidden size-14 -translate-y-1/2 lg:flex")}
+          className={cn(arrowButtonClassName, "absolute -start-14 top-1/2 z-10 hidden size-14 -translate-y-1/2 lg:flex")}
         >
           <NavigateNextIcon />
+        </button>
+        <button
+          type="button"
+          aria-controls={scrollerId}
+          aria-label={`نمایش سالن‌های بیشتر در ${title}`}
+          aria-disabled={atEnd}
+          onClick={atEnd ? undefined : () => scrollByCards(1)}
+          className={cn(arrowButtonClassName, "absolute -end-14 top-1/2 z-10 hidden size-14 -translate-y-1/2 lg:flex")}
+        >
+          <NavigateNextIcon className="-scale-x-100" />
         </button>
         {/* On phones the gap exceeds the 27px page padding plus the card shadow, so the next card stays off-screen. */}
         <div
           id={scrollerId}
           ref={scrollerRef}
           onScroll={updateEdges}
-          className="scrollbar-none -m-6 flex min-w-0 flex-1 snap-x snap-mandatory scroll-px-6 gap-14 overflow-x-auto p-6 sm:gap-5 lg:snap-proximity motion-safe:scroll-smooth"
+          className="scrollbar-none -m-6 flex min-w-0 snap-x snap-mandatory scroll-px-6 gap-14 overflow-x-auto p-6 sm:gap-5 lg:-my-6 lg:mx-0 lg:scroll-px-0 lg:px-0 lg:py-6 lg:snap-proximity motion-safe:scroll-smooth"
         >
           {items.map((item, index) => (
-            <Reveal key={item.id} delay={Math.min(index, 3) * 70} className="flex shrink-0 snap-start sm:w-72">
+            <Reveal
+              key={item.id}
+              delay={Math.min(index, 3) * 70}
+              className="flex w-64 shrink-0 snap-start sm:w-72 xl:w-80"
+            >
               <SalonCard
                 id={item.id}
                 plate={item.plate}
@@ -123,16 +137,6 @@ export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, cl
             </Reveal>
           ))}
         </div>
-        <button
-          type="button"
-          aria-controls={scrollerId}
-          aria-label={`نمایش سالن‌های بیشتر در ${title}`}
-          aria-disabled={atEnd}
-          onClick={atEnd ? undefined : () => scrollByCards(1)}
-          className={cn(arrowButtonClassName, "relative z-10 hidden size-14 lg:flex")}
-        >
-          <NavigateNextIcon className="-scale-x-100" />
-        </button>
       </div>
     </section>
   );

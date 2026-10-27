@@ -1,3 +1,5 @@
+import { HeroTypewriter } from "./hero-typewriter";
+
 export function HeroSection() {
   return (
     <section
@@ -16,9 +18,7 @@ export function HeroSection() {
         تجربه‌ای متفاوت از <br className="lg:hidden" />
         خدمات زیبایی در نزدیکی شما
       </h1>
-      <p className="max-w-74.5 text-base leading-relaxed font-medium text-text-secondary motion-safe:animate-fade-up motion-safe:[animation-delay:180ms] lg:max-w-xl lg:text-xl">
-        بهترین سالن‌های زیبایی نزدیک خود را پیدا کنید و آنلاین وقت رزرو کنید.
-      </p>
+      <HeroTypewriter />
     </section>
   );
 }
