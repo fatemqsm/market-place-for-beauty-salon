@@ -3,15 +3,11 @@
 import { PriceTagIcon } from "@/components/icons";
 import { useId, useRef } from "react";
 import { cn } from "@/lib/utils";
-import {
-  searchErrorClassName,
-  searchFieldClassName,
-  searchFieldLabelClassName,
-  searchInputClassName,
-  searchPanelClassName,
-} from "./search-classes";
+import { fieldErrorClassName, inputClassName } from "@/components/ui/input";
+import { toLatinDigits } from "@/lib/digits";
+import { searchFieldClassName, searchFieldLabelClassName, searchPanelClassName } from "./search-classes";
 import { useSearch } from "./search-context";
-import { formatPrice, priceRange, toLatinDigits, type SearchCriteria } from "./search-criteria";
+import { formatPrice, priceRange, type SearchCriteria } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
 
 // `price-range` styles the thumbs in search.css. The two sliders overlap, so the track ignores pointer events.
@@ -128,7 +124,7 @@ export function PriceFilter({ open, onOpenChange, className }: SearchFieldProps)
             onChange={(priceTo) => update({ priceTo })}
           />
           <PriceRangeSlider />
-          <p id={errorId} role="alert" className={cn(searchErrorClassName, "empty:hidden")}>
+          <p id={errorId} role="alert" className={cn(fieldErrorClassName, "empty:hidden")}>
             {errors.price}
           </p>
         </div>
@@ -159,7 +155,7 @@ function PriceInput({ label, value, invalid, errorId, onChange }: PriceInputProp
         aria-invalid={invalid}
         aria-describedby={invalid ? errorId : undefined}
         onChange={(event) => onChange(toLatinDigits(event.target.value))}
-        className={searchInputClassName(invalid, "h-10.75 px-4 text-start text-base")}
+        className={inputClassName(invalid, "h-10.75 px-4 text-start text-base")}
       />
     </label>
   );

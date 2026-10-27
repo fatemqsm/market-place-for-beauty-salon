@@ -42,9 +42,13 @@
   --color-selected: var(--color-accent);
   --color-disabled: var(--color-text-muted);
 
-  --gradient-button: url("/home/gradient-button.svg");
-  --gradient-title: url("/home/gradient-title.svg");
-  --gradient-hero: url("/home/gradient-hero-title.svg");
+  /*
+   * Figma draws these as diamond gradients, which CSS lacks. Each ellipse uses the diamond's
+   * center and 0.8 of its half-axes, the size that best matched the Figma export.
+   */
+  --gradient-button: radial-gradient(95% 125% at 63.6% 156.4%, #8a5568, #7a4a5c 25%, #6a4052 37.5%, #5a3648 50%, #4a2e3c 62.5%, #3c2632 75%, #2c2026 87.5%, #261c22 93.75%, #20181c);
+  --gradient-title: radial-gradient(40% 40% at 50% 50%, #8a5568, #7a4a5c 25%, #6a4052 37.5%, #5a3648 50%, #4a2e3c 62.5%, #3c2632 75%, #2c2026 87.5%, #261c22 93.75%, #20181c);
+  --gradient-hero: radial-gradient(80% 80% at 62% 107%, #5a3648 11.5%, #6a4052 20%, #7a4a5c 28.6%, #8a5568 45.7%, #7a4a5c 59.3%, #6a4052 66%, #5a3648 72.8%, #4a2e3c 79.6%, #3c2632 86.4%, #2c2026 93.2%, #261c22 96.6%, #20181c);
 
   --shadow-box: 0 1px 2px rgb(44 36 38 / 0.04), 0 6px 16px rgb(44 36 38 / 0.08);
   --shadow-card: 0 8px 24px rgb(44 36 38 / 0.06);
@@ -93,8 +97,6 @@
 /* Gradient text. A utility, not a plain class, so it can switch per breakpoint (`lg:text-gradient-hero`). */
 @utility text-gradient-* {
   background-image: --value(--gradient-*);
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

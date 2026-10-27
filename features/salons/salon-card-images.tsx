@@ -3,6 +3,7 @@
 import { useState, type ComponentProps, type ReactNode } from "react";
 import { ChevronRightIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import { PhotoWash } from "./salon-photo";
 import type { SalonPlate } from "./salons";
 
 type SalonCardImagesProps = {
@@ -13,33 +14,11 @@ type SalonCardImagesProps = {
 
 const frameClassName = "relative h-39.25 overflow-hidden rounded-t-xl bg-primary";
 
-const plateClassNames: Record<SalonPlate, string> = {
-  rose: "from-accent-soft/70 via-surface to-accent/25",
-  sand: "from-surface via-primary to-surface-strong",
-  plum: "from-accent/35 via-accent-soft/40 to-surface",
-  ivory: "from-background via-surface to-primary",
-};
-
 function navButtonClassName(unavailable: boolean, className: string) {
   return cn(
-    "focus-ring-2 absolute top-17.5 z-10 flex size-7.5 items-center justify-center rounded-full shadow-box transition-[color,background-color,opacity] duration-fast ease-standard lg:size-6.25",
+    "focus-ring-2 absolute top-17.5 z-20 flex size-7.5 items-center justify-center rounded-full shadow-box transition-[color,background-color,opacity] duration-fast ease-standard lg:size-6.25",
     unavailable ? "bg-background/70 text-text-muted" : "cursor-pointer bg-background/90 text-accent hover:bg-background",
     className,
-  );
-}
-
-function PhotoWash({ plate }: { plate: SalonPlate }) {
-  return (
-    <div
-      aria-hidden="true"
-      className={cn(
-        "pointer-events-none absolute inset-0 bg-linear-to-br transition-[scale] duration-slow ease-standard motion-safe:group-hover:scale-105",
-        plateClassNames[plate],
-      )}
-    >
-      {/* A soft arc gives each empty plate a focal point, the way a photo would. */}
-      <div className="absolute -end-10 -bottom-16 size-40 rounded-full bg-background/35" />
-    </div>
   );
 }
 

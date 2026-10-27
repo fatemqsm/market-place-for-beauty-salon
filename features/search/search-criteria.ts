@@ -59,17 +59,6 @@ export const initialCriteria: SearchCriteria = {
 
 export type SearchErrors = Partial<Record<"form" | "price" | "time", string>>;
 
-const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
-const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
-
-/** Accepts Persian, Arabic, or Latin digits and keeps Latin digits only. */
-export function toLatinDigits(value: string) {
-  return value
-    .replace(/[۰-۹]/g, (digit) => String(persianDigits.indexOf(digit)))
-    .replace(/[٠-٩]/g, (digit) => String(arabicDigits.indexOf(digit)))
-    .replace(/\D/g, "");
-}
-
 export function validateCriteria(criteria: SearchCriteria): SearchErrors {
   const errors: SearchErrors = {};
 

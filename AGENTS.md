@@ -20,7 +20,7 @@ Keep the root App Router. Create a directory only when real code needs it.
 
 - `app/`: routes, layouts, `loading` and `error` boundaries, and global CSS. Do not put shared components or domain logic in route files.
 - `components/ui/`: feature-independent primitives such as `Button`, `Input`, and `Loading`, once a real screen needs them.
-- `components/icons/`: every SVG as a React component that takes SVG props, one component per file. The only SVG files kept in `public/` are the gradients that CSS loads through `url()`. See "Icons and SVG assets" in `README.md`.
+- `components/icons/`: every SVG as a React component that takes SVG props, one component per file. Do not keep SVG files in `public/`; CSS gradients are written in CSS. See "Icons and SVG assets" in `README.md`.
 - `features/<feature>/`: components, Zod schemas, types, and API calls that belong to one feature.
 - `lib/`: shared infrastructure, including `lib/api/` when a real HTTP client is implemented.
 - `hooks/`: a hook used by more than one feature.
@@ -70,7 +70,7 @@ The path alias `@/*` maps to the repository root.
 - Validate with Zod, and connect the schema with `@hookform/resolvers` when that integration fits the installed versions.
 - Keep the schema next to the feature that owns the form. Share it only when another form uses the same rules.
 - Associate each label and error with its control. Keep keyboard use and visible focus intact.
-- These packages are approved and are not installed. Do not install them in a documentation task. Install them only in the implementation task that introduces the form, after approval.
+- These packages are installed. Existing forms: `features/salon-page/review-form.tsx` and `features/booking/step-confirm.tsx`.
 
 ## HTTP and the backend
 
@@ -113,7 +113,7 @@ Redux Toolkit is an approved, required part of the stack. It is not installed. D
 ## Dependencies, checks, and comments
 
 - Keep npm and `package-lock.json`.
-- Dependency installation is a separate approved task. Redux Toolkit, Axios, React Hook Form, Zod, and `@hookform/resolvers` still need that installation step. Do not add them while only updating docs.
+- Dependency installation is a separate approved task. Redux Toolkit and Axios still need that installation step. Do not add them while only updating docs.
 - Do not add another state, styling, date, icon, or component library without a concrete need and approval.
 - When verification is in scope, use `npm run lint` and `npm run build`. There is no `typecheck` script.
 - Comment a non-obvious constraint, business rule, or trade-off. Do not comment what the code already states. Leave an existing comment in place when it is still accurate.

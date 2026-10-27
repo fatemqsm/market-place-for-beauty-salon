@@ -33,6 +33,7 @@ export function SearchResults() {
           <li key={item.id}>
             <Reveal delay={Math.min(index, 5) * 60}>
               <SalonCard
+                id={item.id}
                 plate={item.plate}
                 imageCount={item.imageCount}
                 saved={savedIds.has(item.id)}

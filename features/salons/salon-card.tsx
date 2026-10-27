@@ -1,9 +1,11 @@
+import Link from "next/link";
 import { HeartIcon, PinIcon, StarIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { SalonCardImages } from "./salon-card-images";
 import { salonListing, type SalonPlate } from "./salons";
 
 type SalonCardProps = {
+  id: string;
   plate: SalonPlate;
   imageCount: number;
   saved: boolean;
@@ -11,7 +13,7 @@ type SalonCardProps = {
   className?: string;
 };
 
-export function SalonCard({ plate, imageCount, saved, onToggleSave, className }: SalonCardProps) {
+export function SalonCard({ id, plate, imageCount, saved, onToggleSave, className }: SalonCardProps) {
   return (
     <article
       className={cn(
@@ -22,7 +24,15 @@ export function SalonCard({ plate, imageCount, saved, onToggleSave, className }:
       <SalonCardImages count={imageCount} salonName={salonListing.name} plate={plate} />
       <div className="flex flex-col gap-1.5 px-3 pt-3 pb-4">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="text-base leading-snug font-bold text-ink">{salonListing.name}</h3>
+          <h3 className="text-base leading-snug font-bold text-ink">
+            {/* The link's overlay covers the whole card; the save button and photo arrows sit above it. */}
+            <Link
+              href={`/salons/${id}`}
+              className="focus-ring-2 rounded-sm after:absolute after:inset-0 after:rounded-xl after:content-['']"
+            >
+              {salonListing.name}
+            </Link>
+          </h3>
           <p className="flex shrink-0 items-center gap-1 rounded-full bg-surface px-2 py-0.5 text-sm leading-none font-bold text-ink">
             <span className="sr-only">امتیاز</span>
             <StarIcon width={14} height={14} className="text-stars" />

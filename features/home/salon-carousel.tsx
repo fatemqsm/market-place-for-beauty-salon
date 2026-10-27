@@ -113,6 +113,7 @@ export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, cl
           {items.map((item, index) => (
             <Reveal key={item.id} delay={Math.min(index, 3) * 70} className="flex shrink-0 snap-start sm:w-72">
               <SalonCard
+                id={item.id}
                 plate={item.plate}
                 imageCount={item.imageCount}
                 saved={savedIds.has(item.id)}

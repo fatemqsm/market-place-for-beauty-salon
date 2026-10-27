@@ -13,6 +13,7 @@ These versions are installed and recorded in `package.json` and `package-lock.js
 - TypeScript 5.9.3 (`typescript` is declared as `^5`)
 - Tailwind CSS 4.3.3 (`tailwindcss` is declared as `^4`)
 - `clsx` 2.1.1 and `tailwind-merge` 3.7.0, combined in the `cn()` helper in `lib/utils.ts`
+- React Hook Form 7.91.0, Zod 4.6.7, and `@hookform/resolvers` 6.0.1, for the review form and the booking contact form
 
 The App Router lives at the repository root in `app/`. There is no `src/` directory. `next.config.ts` enables `cacheComponents` and `partialPrefetching`.
 
@@ -22,7 +23,6 @@ These packages are approved for later implementation. They are not dependencies 
 
 - Redux Toolkit, for genuinely shared client-side state
 - Axios, for HTTP calls once a real API contract exists
-- React Hook Form, Zod, and `@hookform/resolvers`, for forms
 
 ## Requirements
 
@@ -92,7 +92,7 @@ The roles below come from the Figma color styles. The hues are the warm ivory, p
 | `success` | `#2f6b4f` | Positive confirmation, once a flow has one |
 | `warning` | `#8a5a12` | Caution, once a flow has one |
 | `info` | `#3d5c73` | Neutral notices, once a flow has one |
-| `brand` | `#2c2026` | Solid fallback behind the primary-button gradient |
+| `brand` | `#2c2026` | Base color under the primary-button gradient |
 | `on-accent` | `#fff` | Text and icons on `accent`, `selected`, and `brand` |
 
 Semantic aliases point at the palette. Use one when the role matters more than the hue:
@@ -109,15 +109,15 @@ Semantic aliases point at the palette. Use one when the role matters more than t
 
 ### Gradients, shadows, radii, and layers
 
-- **Gradients.** `--gradient-button`, `--gradient-title`, and `--gradient-hero` point to SVG files in `public/home/`. Use `text-gradient-button`, `text-gradient-title`, or `text-gradient-hero` for gradient text. These are utilities, so they work with breakpoints, for example `lg:text-gradient-hero`. The primary button uses `--gradient-button` as its background.
+- **Gradients.** `--gradient-button`, `--gradient-title`, and `--gradient-hero` are CSS radial gradients in `app/globals.css`. Figma draws them as diamond gradients, which CSS does not have, so each ellipse keeps the diamond's center and colors and is slightly softer at the tips. Use `text-gradient-button`, `text-gradient-title`, or `text-gradient-hero` for gradient text. These are utilities, so they work with breakpoints, for example `lg:text-gradient-hero`. The primary button uses `--gradient-button` as its background.
 - **Box shadows:**
   - `shadow-box`: fields, panels, and inputs.
   - `shadow-card`: salon cards at rest.
   - `shadow-card-hover`: salon cards under a pointer.
   - `shadow-popover`: menus and search panels.
-  - `shadow-sheet`: the mobile filter sheet.
+  - `shadow-sheet`: the mobile filter sheet and the `Dialog` bottom sheet.
   - `shadow-glass`: glass bars and the glass button.
-  - `shadow-glow`: the accent ring on a focused filter input and an open filter chip.
+  - `shadow-glow`: the accent ring on a focused filter input, an open filter chip, and a selected booking option.
   - `shadow-button`: the primary button, so it lifts slightly off the page.
 - **Filter shadows** follow the painted shape:
   - `drop-shadow-box`: the sticky search pill.
@@ -131,8 +131,9 @@ Semantic aliases point at the palette. Use one when the role matters more than t
   - `rounded-full`: circular buttons.
 - **Layers** have no tokens yet:
   - `-z-10`: decorative backgrounds.
-  - `z-40`: search popovers and the mobile menu sheet.
-  - `z-50`: the sticky search header, the bottom navigation, and the desktop menu panel.
+  - `z-40`: search popovers, the mobile menu sheet, the salon page's sticky section nav, and the booking header and footer.
+  - `z-50`: the sticky search header, the bottom navigation, the desktop menu panel, and the salon page's phone top bar and booking bar.
+  - `Dialog` in `components/ui/dialog.tsx` is a modal `<dialog>` in the browser's top layer and needs no z-index.
   - `z-60`: the mobile filter sheet on the search page, which covers the bottom navigation.
 
 ### Spacing, sizing, and typography
@@ -158,7 +159,6 @@ Semantic aliases point at the palette. Use one when the role matters more than t
   - State variants are props: `HeartIcon` takes `filled`, and `MenuToggleIcon` takes `variant` (`header`, `compact`, or `mobile`) and `open`.
   - Components default to `aria-hidden="true"`.
 - **Fixed colors.** Backgrounds keep the gradient colors from Figma. Gradient and filter IDs come from `useId`, so a component can render more than once on a page. Carousel arrows are real buttons, not a decorative SVG pill.
-- **Exception: CSS gradients.** `public/home/gradient-button.svg`, `gradient-title.svg`, and `gradient-hero-title.svg` stay files. CSS reads them through `url()` in the `--gradient-*` tokens for gradient text and the primary button background, which a React component cannot supply.
 - **Before adding an icon,** search `components/icons/`.
   - If an existing icon differs only in color or size, use it with different props rather than adding a copy.
   - If it differs only in state, add a prop to the existing component.
@@ -181,7 +181,7 @@ Semantic aliases point at the palette. Use one when the role matters more than t
   - `aria-disabled`: `not-aria-disabled:cursor-pointer aria-disabled:opacity-40`.
   - State that React already knows (selected day, checked option, saved heart): choose the class in TypeScript, as `dayStateClassName` in `persian-calendar-grid.tsx` does.
   - A selector variant that must sit beside its base utility (`placeholder:`, `focus-visible:`): pass it to `cn()` as a separate argument, as `searchFieldInputClassName` does.
-  - A repeated control with several states: write a class-name helper that takes the state, such as `searchChipClassName` or `searchInputClassName` in `features/search/search-classes.ts`.
+  - A repeated control with several states: write a class-name helper that takes the state, such as `chipClassName` in `components/ui/chip.ts` or `inputClassName` in `components/ui/input.tsx`.
 - **Focus.** Use `focus-ring-<offset>` (`focus-ring-0`, `focus-ring-2`, `focus-ring-4`) from `app/globals.css`. It draws a 2px `--color-focus` outline on `:focus-visible`, and also on a label whose visually hidden input has focus. It skips `aria-invalid="true"` controls so they keep their error outline.
 - **Outline pitfall.** Do not combine `outline-none` with `outline-2` utilities. `outline-none` sets `--tw-outline-style: none`, which also hides the later outline.
 - **Component stylesheets.** Only `features/search/search.css` remains, for the reason given in [CSS exceptions](#css-exceptions). It is imported once in `app/globals.css` with `layer(components)`, so utilities in JSX can still override it. Read tokens there with `var(--…)`. Do not add `!important`.

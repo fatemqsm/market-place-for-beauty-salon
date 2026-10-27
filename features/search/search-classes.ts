@@ -65,26 +65,3 @@ export function searchOptionClassName({ highlighted, selected, className }: Sear
     className,
   );
 }
-
-/** Pill choice: the date shortcuts (buttons with `aria-pressed`) and the time slots (labels around a radio). */
-export function searchChipClassName(selected: boolean, className?: string) {
-  return cn(
-    "inline-flex h-9 cursor-pointer items-center justify-center rounded-full border px-4 text-sm/normal font-semibold transition-[color,background-color,border-color,scale] duration-fast ease-standard motion-safe:active:scale-95",
-    selected
-      ? "border-selected bg-selected text-on-accent"
-      : "border-border text-text-secondary hover:border-accent-soft hover:bg-hover",
-    className,
-  );
-}
-
-/** Text inputs and selects inside the search panels. Size and type stay at the call site. */
-export function searchInputClassName(invalid: boolean, className?: string) {
-  return cn(
-    "focus-ring-0 rounded-lg bg-surface text-ink shadow-box transition-[background-color,box-shadow] duration-fast ease-standard",
-    "focus-visible:bg-background",
-    invalid && "outline-2 outline-error",
-    className,
-  );
-}
-
-export const searchErrorClassName = "text-sm/normal font-semibold text-error";

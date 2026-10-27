@@ -1,13 +1,13 @@
 import { HeroBackground, MidBackground, MobileHeroBackground } from "@/components/icons";
 import { MobileBottomNav } from "@/features/layout/mobile-bottom-nav";
+import { SiteFooter } from "@/features/layout/site-footer";
+import { SiteHeader } from "@/features/layout/site-header";
 import { createSalonItems } from "@/features/salons/salons";
 import { SearchProvider } from "@/features/search/search-context";
 import { BusinessCta } from "./business-cta";
 import { HeroSearch } from "./hero-search";
 import { HeroSection } from "./hero-section";
 import { SalonCarousel } from "./salon-carousel";
-import { SiteFooter } from "./site-footer";
-import { SiteHeader } from "./site-header";
 import { StickySearchHeader } from "./sticky-search-header";
 
 export function HomePage() {

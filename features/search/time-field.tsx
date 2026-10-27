@@ -11,15 +11,10 @@ import {
   startOfDay,
   addDays,
   toDateKey,
-} from "./persian-calendar";
-import {
-  searchChipClassName,
-  searchErrorClassName,
-  searchFieldClassName,
-  searchFieldLabelClassName,
-  searchInputClassName,
-  searchPanelClassName,
-} from "./search-classes";
+} from "@/lib/persian-calendar";
+import { chipClassName } from "@/components/ui/chip";
+import { fieldErrorClassName, inputClassName } from "@/components/ui/input";
+import { searchFieldClassName, searchFieldLabelClassName, searchPanelClassName } from "./search-classes";
 import { useSearch } from "./search-context";
 import { customHours, timeSlots, type SearchCriteria } from "./search-criteria";
 import { SearchPopover, type SearchFieldProps } from "./search-popover";
@@ -128,7 +123,7 @@ export function TimePanelContent({
             type="button"
             aria-pressed={criteria.date === day.key}
             onClick={() => update({ date: day.key })}
-            className={searchChipClassName(
+            className={chipClassName(
               criteria.date === day.key,
               "focus-ring-2",
             )}
@@ -151,7 +146,7 @@ export function TimePanelContent({
           {timeSlots.map((slot) => (
             <label
               key={slot.id}
-              className={searchChipClassName(
+              className={chipClassName(
                 criteria.timeSlot === slot.id,
                 "focus-ring-2 gap-1 px-3",
               )}
@@ -194,7 +189,7 @@ export function TimePanelContent({
           <p
             id={errorId}
             role="alert"
-            className={cn(searchErrorClassName, "empty:hidden")}
+            className={cn(fieldErrorClassName, "empty:hidden")}
           >
             {errors.time}
           </p>
@@ -241,7 +236,7 @@ function HourSelect({
         aria-describedby={invalid ? errorId : undefined}
         onChange={(event) => onChange(event.target.value)}
         dir="ltr"
-        className={searchInputClassName(invalid, "h-10 px-3 text-base")}
+        className={inputClassName(invalid, "h-10 px-3 text-base")}
       >
         {customHours.map((hour) => (
           <option key={hour} value={hour}>

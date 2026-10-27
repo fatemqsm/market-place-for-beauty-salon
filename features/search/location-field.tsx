@@ -2,9 +2,9 @@
 
 import { LocationIcon } from "@/components/icons";
 import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { fieldErrorClassName } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import {
-  searchErrorClassName,
   searchFieldClassName,
   searchFieldInputClassName,
   searchOptionClassName,
@@ -142,7 +142,7 @@ export function LocationField({ open, onOpenChange, size = "default", autoFocus,
             {locating ? "در حال دریافت موقعیت…" : myLocationLabel}
           </li>
         </ul>
-        <p id={messageId} role="alert" className={cn(searchErrorClassName, "px-3 empty:hidden")}>
+        <p id={messageId} role="alert" className={cn(fieldErrorClassName, "px-3 empty:hidden")}>
           {locateError}
         </p>
       </div>

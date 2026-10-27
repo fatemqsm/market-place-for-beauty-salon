@@ -14,7 +14,7 @@ import {
   toDateKey,
   weekColumn,
   weekdayLabels,
-} from "./persian-calendar";
+} from "@/lib/persian-calendar";
 
 type PersianCalendarProps = {
   value: string | null;

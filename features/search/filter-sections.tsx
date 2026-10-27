@@ -2,12 +2,13 @@
 
 import { useId, type ReactNode } from "react";
 import { CalendarIcon, LocationIcon, PencilIcon, PriceTagIcon, SearchIcon, StarOutlineIcon } from "@/components/icons";
+import { fieldErrorClassName } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { FilterTags } from "./filter-tags";
 import { myLocationLabel, useLocateMe } from "./location-field";
 import { PriceRangeSlider, sliderValues } from "./price-filter";
 import { ratingTagOptions } from "./rating-filter";
-import { searchErrorClassName, searchOptionClassName } from "./search-classes";
+import { searchOptionClassName } from "./search-classes";
 import { useSearch } from "./search-context";
 import { formatPrice, serviceOptions, sortOptions } from "./search-criteria";
 import { TimePanelContent } from "./time-field";
@@ -78,7 +79,7 @@ export function PriceSection() {
         <span>{formatPrice(String(from))}</span>
         <span>{formatPrice(String(to))}</span>
       </p>
-      <p role="alert" className={cn(searchErrorClassName, "mt-2 empty:hidden")}>
+      <p role="alert" className={cn(fieldErrorClassName, "mt-2 empty:hidden")}>
         {errors.price}
       </p>
     </FilterFieldset>
@@ -191,7 +192,7 @@ export function LocationSection({ onDone }: { onDone: () => void }) {
       >
         {locating ? "در حال دریافت موقعیت…" : myLocationLabel}
       </button>
-      <p role="alert" className={cn(searchErrorClassName, "empty:hidden")}>
+      <p role="alert" className={cn(fieldErrorClassName, "empty:hidden")}>
         {locateError}
       </p>
     </div>
