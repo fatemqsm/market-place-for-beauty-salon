@@ -97,14 +97,9 @@ export function SiteMenu({ variant = "header" }: SiteMenuProps) {
       >
         {responsive && (
           <div className="mb-8 flex flex-col items-start gap-8 lg:hidden">
-            <button
-              type="button"
-              aria-disabled="true"
-              title="ورود به‌زودی فعال می‌شود"
-              className={buttonClassName("glass", "h-11.5")}
-            >
-              ورود
-            </button>
+            <Link href="/account" onClick={() => setOpenOnPath(null)} className={buttonClassName("glass", "h-11.5")}>
+              حساب من
+            </Link>
             <div className="w-full border-b border-border pb-8">
               <Link href="/#for-business" onClick={() => setOpenOnPath(null)} className={buttonClassName("primary", "h-11.5")}>
                 افزودن کسب‌وکار

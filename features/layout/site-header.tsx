@@ -14,14 +14,9 @@ export function SiteHeader() {
         <Wordmark />
       </Link>
       <div className="flex items-center gap-4">
-        <button
-          type="button"
-          aria-disabled="true"
-          title="ورود به‌زودی فعال می‌شود"
-          className={buttonClassName("glass", "hidden h-11.5 lg:inline-flex")}
-        >
-          ورود
-        </button>
+        <Link href="/account" className={buttonClassName("glass", "hidden h-11.5 lg:inline-flex")}>
+          حساب من
+        </Link>
         <Link href="/#for-business" className={buttonClassName("primary", "hidden h-11.5 lg:inline-flex")}>
           افزودن کسب‌وکار
         </Link>

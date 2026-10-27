@@ -2,6 +2,7 @@ export { ArrowIcon } from "./arrow-icon";
 export { BadgeCheckIcon } from "./badge-check-icon";
 export { CalendarIcon } from "./calendar-icon";
 export { CameraIcon } from "./camera-icon";
+export { ChatIcon } from "./chat-icon";
 export { CheckIcon } from "./check-icon";
 export { ChevronDownIcon } from "./chevron-down-icon";
 export { ChevronRightIcon } from "./chevron-right-icon";

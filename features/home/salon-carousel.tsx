@@ -1,9 +1,11 @@
 "use client";
 
 import { NavigateNextIcon } from "@/components/icons";
+import { carouselArrowClassName } from "@/components/ui/carousel-arrow";
 import { Reveal } from "@/components/ui/reveal";
+import { useCardScroller } from "@/hooks/use-card-scroller";
 import { cn } from "@/lib/utils";
-import { useId, useRef, useState } from "react";
+import { useId } from "react";
 import { SalonCard } from "@/features/salons/salon-card";
 import type { SalonItem } from "@/features/salons/salons";
 import { useSavedSalons } from "@/features/salons/use-saved-salons";
@@ -17,38 +19,11 @@ type SalonCarouselProps = {
   className?: string;
 };
 
-const arrowButtonClassName =
-  "focus-ring-2 flex shrink-0 items-center justify-center rounded-full border border-border bg-background text-text-secondary shadow-box transition-[background-color,border-color,color,opacity,scale] duration-fast ease-standard not-aria-disabled:cursor-pointer not-aria-disabled:hover:border-accent-soft not-aria-disabled:hover:bg-surface-strong not-aria-disabled:hover:text-ink motion-safe:not-aria-disabled:active:scale-95 aria-disabled:opacity-40";
-
 export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, className }: SalonCarouselProps) {
   const titleId = useId();
   const scrollerId = useId();
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
+  const { scrollerRef, atStart, atEnd, updateEdges, scrollByCards } = useCardScroller<HTMLDivElement>();
   const { savedIds, toggleSaved } = useSavedSalons(items);
-
-  function updateEdges() {
-    const scroller = scrollerRef.current;
-    if (!scroller) {
-      return;
-    }
-    // In RTL, scrollLeft starts at 0 and grows negative toward the end.
-    const offset = Math.abs(scroller.scrollLeft);
-    setAtStart(offset <= 1);
-    setAtEnd(offset + scroller.clientWidth >= scroller.scrollWidth - 1);
-  }
-
-  function scrollByCards(direction: 1 | -1) {
-    const scroller = scrollerRef.current;
-    const card = scroller?.firstElementChild;
-    if (!scroller || !card) {
-      return;
-    }
-    const step = card.getBoundingClientRect().width + parseFloat(getComputedStyle(scroller).columnGap);
-    // No `behavior`: the scroller's motion-safe:scroll-smooth decides, so reduced motion jumps instantly.
-    scroller.scrollBy({ left: -direction * step });
-  }
 
   return (
     <section aria-labelledby={titleId} className={cn("w-full", className)}>
@@ -75,7 +50,7 @@ export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, cl
             aria-label={`سالن قبلی در ${title}`}
             aria-disabled={atStart}
             onClick={atStart ? undefined : () => scrollByCards(-1)}
-            className={cn(arrowButtonClassName, "size-9")}
+            className={carouselArrowClassName("size-9")}
           >
             <NavigateNextIcon width={18} height={18} />
           </button>
@@ -85,7 +60,7 @@ export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, cl
             aria-label={`سالن بعدی در ${title}`}
             aria-disabled={atEnd}
             onClick={atEnd ? undefined : () => scrollByCards(1)}
-            className={cn(arrowButtonClassName, "size-9")}
+            className={carouselArrowClassName("size-9")}
           >
             <NavigateNextIcon width={18} height={18} className="-scale-x-100" />
           </button>
@@ -99,7 +74,7 @@ export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, cl
           aria-label={`سالن قبلی در ${title}`}
           aria-disabled={atStart}
           onClick={atStart ? undefined : () => scrollByCards(-1)}
-          className={cn(arrowButtonClassName, "absolute -start-14 top-1/2 z-10 hidden size-14 -translate-y-1/2 lg:flex")}
+          className={carouselArrowClassName("absolute -start-14 top-1/2 z-10 hidden size-14 -translate-y-1/2 lg:flex")}
         >
           <NavigateNextIcon />
         </button>
@@ -109,7 +84,7 @@ export function SalonCarousel({ title, eyebrow, items, gradientTitle = false, cl
           aria-label={`نمایش سالن‌های بیشتر در ${title}`}
           aria-disabled={atEnd}
           onClick={atEnd ? undefined : () => scrollByCards(1)}
-          className={cn(arrowButtonClassName, "absolute -end-14 top-1/2 z-10 hidden size-14 -translate-y-1/2 lg:flex")}
+          className={carouselArrowClassName("absolute -end-14 top-1/2 z-10 hidden size-14 -translate-y-1/2 lg:flex")}
         >
           <NavigateNextIcon className="-scale-x-100" />
         </button>

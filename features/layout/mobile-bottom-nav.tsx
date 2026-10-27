@@ -11,7 +11,7 @@ const labelClassName = "flex items-end text-xs leading-none whitespace-nowrap";
 const iconClassName = "relative flex size-6 items-center justify-center";
 
 type MobileBottomNavProps = {
-  active: "home" | "search";
+  active: "home" | "search" | "account";
 };
 
 export function MobileBottomNav({ active }: MobileBottomNavProps) {
@@ -46,17 +46,16 @@ export function MobileBottomNav({ active }: MobileBottomNavProps) {
         </span>
         <span className={labelClassName}>افزودن کسب‌وکار</span>
       </Link>
-      <button
-        type="button"
-        aria-disabled="true"
-        title="ورود به‌زودی فعال می‌شود"
-        className={cn(itemClassName, "w-14 cursor-not-allowed text-text-muted")}
+      <Link
+        href="/account"
+        aria-current={active === "account" ? "page" : undefined}
+        className={cn(itemClassName, "w-16", active === "account" ? activeClassName : "hover:text-ink")}
       >
         <span className={iconClassName}>
           <LoginIcon width={16} height={18} />
         </span>
-        <span className={labelClassName}>ورود</span>
-      </button>
+        <span className={labelClassName}>حساب من</span>
+      </Link>
     </nav>
   );
 }
